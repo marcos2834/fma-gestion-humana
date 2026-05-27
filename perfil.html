@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test gamificado de 10 minutos para descubrir tu perfil laboral. 12 escenarios, 12 perfiles posibles, informe personalizado generado con IA. Gratuito y sin registro.">
+  <meta name="keywords" content="test perfil laboral, perfil conductual, test de personalidad laboral, mi perfil profesional, test argentina, FMA gestión humana">
+  <meta name="author" content="FMA Gestión Humana">
+  <title>Mi Perfil Laboral · Test gratuito de 10 min | FMA Gestión Humana</title>
+  <link rel="canonical" href="https://fmagestionhumana.com.ar/mi-perfil-laboral">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fmagestionhumana.com.ar/mi-perfil-laboral">
+  <meta property="og:title" content="Mi Perfil Laboral · Test gratuito | FMA">
+  <meta property="og:description" content="Descubrí tu perfil laboral en 10 minutos. 12 escenarios reales del trabajo, resultado personalizado.">
+  <meta property="og:image" content="https://fmagestionhumana.com.ar/og-perfil.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="FMA Gestión Humana">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mi Perfil Laboral · Test gratuito | FMA">
+  <meta name="twitter:description" content="Descubrí tu perfil laboral en 10 minutos. Test gamificado con informe personalizado.">
+  <meta name="twitter:image" content="https://fmagestionhumana.com.ar/og-perfil.png">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #080D1A; --bg-card: #0F1829; --bg-card-2: #162033; --bg-card-3: #1D2A42;
+      --navy: #374878; --navy-dark: #2A3760; --navy-light: #4A5E96;
+      --green: #6A9E48; --green-dark: #558035; --green-light: #7DB84F;
+      --text-primary: #EFF3FF; --text-secondary: #8B9ABF; --text-muted: #4A5882;
+      --border: rgba(55,72,120,0.25); --border-bright: rgba(55,72,120,0.5);
+      --border-green: rgba(106,158,72,0.35);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.4); --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+      --radius: 12px; --radius-lg: 20px; --radius-xl: 28px; --radius-full: 9999px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-deep); color: var(--text-primary);
+      line-height: 1.6; min-height: 100vh; overflow-x: hidden;
+    }
+    .hidden { display: none !important; }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,13,26,0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .navbar-logo-text {
+      font-size: 18px; font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--green-light), #A8D97A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .navbar-tagline { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+    .navbar-badge {
+      background: rgba(106,158,72,0.1); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 5px 14px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 600;
+    }
+
+    /* COMMON */
+    .section-page { min-height: calc(100vh - 64px); padding: 40px 24px; position: relative; }
+    .bg-orbs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .bg-dots {
+      position: absolute; inset: -40px;
+      background-image: radial-gradient(circle, rgba(55,72,120,0.15) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    .orb-1 {
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 600px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(55,72,120,0.22) 0%, transparent 65%);
+      animation: orb-breathe-center 10s ease-in-out infinite;
+    }
+    .orb-2 {
+      position: absolute; bottom: -120px; right: -80px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(106,158,72,0.1) 0%, transparent 65%);
+      animation: orb-breathe 14s ease-in-out infinite reverse;
+    }
+    @keyframes orb-breathe {
+      0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.12); opacity: 1; }
+    }
+    @keyframes orb-breathe-center {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+      50% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scale-in {
+      from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); }
+    }
+    .anim { animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.25s; } .d4 { animation-delay: 0.38s; }
+    .d5 { animation-delay: 0.52s; } .d6 { animation-delay: 0.65s; }
+
+    /* LANDING */
+    .landing {
+      min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center;
+      padding: 60px 24px; position: relative;
+    }
+    .landing-inner { max-width: 720px; width: 100%; text-align: center; position: relative; z-index: 1; }
+    .landing-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(90deg, rgba(106,158,72,0.08) 0%, rgba(106,158,72,0.18) 50%, rgba(106,158,72,0.08) 100%);
+      background-size: 200% 100%; border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 7px 18px; border-radius: var(--radius-full);
+      font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.02em;
+      animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both 0.05s, badge-shimmer 4s linear infinite 1s;
+    }
+    .landing-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green-light);
+      box-shadow: 0 0 6px var(--green); animation: dot-pulse 2s ease-in-out infinite;
+    }
+    @keyframes badge-shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+    @keyframes dot-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    .landing-title {
+      font-size: clamp(34px, 5.5vw, 56px); font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.03em; color: var(--text-primary); margin-bottom: 20px;
+    }
+    .landing-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--green-light), #A8D97A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      position: relative;
+    }
+    .landing-title em::after {
+      content: ''; position: absolute; bottom: 2px; left: 0; right: 0;
+      height: 2px; background: linear-gradient(90deg, var(--green), transparent); border-radius: 2px;
+    }
+    .landing-sub { font-size: 17px; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.65; }
+    .landing-stats {
+      display: flex; justify-content: center;
+      background: rgba(15,24,41,0.6); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      margin-bottom: 36px; backdrop-filter: blur(8px);
+      max-width: 540px; margin-left: auto; margin-right: auto;
+    }
+    .landing-stat { flex: 1; padding: 14px 16px; text-align: center; border-right: 1px solid var(--border); }
+    .landing-stat:last-child { border-right: none; }
+    .landing-stat-value { font-size: 22px; font-weight: 800; color: var(--text-primary); line-height: 1.2; }
+    .landing-stat-value .accent { color: var(--green-light); }
+    .landing-stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 4px; letter-spacing: 0.02em; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none; border-radius: var(--radius-full); padding: 16px 40px;
+      font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.25s;
+      display: inline-flex; align-items: center; gap: 10px;
+      box-shadow: 0 4px 20px rgba(106,158,72,0.35); font-family: inherit;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+      transform: translateY(-2px); box-shadow: 0 8px 32px rgba(106,158,72,0.5);
+    }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      background: rgba(55,72,120,0.2); color: var(--text-primary);
+      border: 1px solid var(--border-bright); border-radius: var(--radius-full);
+      padding: 14px 28px; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; font-family: inherit;
+    }
+    .btn-secondary:hover { background: rgba(55,72,120,0.4); border-color: var(--navy-light); }
+
+    .landing-howto {
+      margin-top: 64px; padding: 32px 28px;
+      background: rgba(15,24,41,0.6); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); backdrop-filter: blur(8px);
+      max-width: 720px; margin-left: auto; margin-right: auto;
+    }
+    .landing-howto-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green-light); margin-bottom: 20px;
+    }
+    .howto-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .howto-step {
+      text-align: left; padding: 18px;
+      background: rgba(8,13,26,0.5); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .howto-step-num {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, rgba(106,158,72,0.2), rgba(106,158,72,0.05));
+      border: 1px solid var(--border-green); color: var(--green-light); font-weight: 800; font-size: 14px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
+    }
+    .howto-step-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .howto-step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    @media (max-width: 640px) {
+      .howto-steps { grid-template-columns: 1fr; }
+      .landing-stats { flex-wrap: wrap; }
+      .landing-stat { min-width: 50%; border-bottom: 1px solid var(--border); }
+    }
+
+    /* TEST SCREEN */
+    .test-screen { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; position: relative; z-index: 1; }
+    .test-header { margin-bottom: 24px; }
+    .test-progress-bar {
+      width: 100%; height: 6px; background: rgba(15,24,41,0.8);
+      border-radius: var(--radius-full); overflow: hidden; border: 1px solid var(--border);
+    }
+    .test-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: var(--radius-full);
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 12px rgba(106,158,72,0.5);
+    }
+    .test-progress-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 10px; font-size: 13px;
+    }
+    .test-progress-current { color: var(--green-light); font-weight: 700; }
+    .test-progress-total { color: var(--text-muted); }
+    .scenario-card {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+      border: 1px solid var(--border-bright); border-radius: var(--radius-xl);
+      padding: 36px 32px; box-shadow: var(--shadow-lg);
+      animation: scenario-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes scenario-in {
+      from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); }
+    }
+    .scenario-card.outgoing { animation: scenario-out 0.35s cubic-bezier(0.4, 0, 1, 1) forwards; }
+    @keyframes scenario-out { to { opacity: 0; transform: translateX(-30px); } }
+    .scenario-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(55,72,120,0.25); color: var(--navy-light);
+      padding: 5px 12px; border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .scenario-tag.special {
+      background: rgba(106,158,72,0.12); color: var(--green-light); border: 1px solid var(--border-green);
+    }
+    .scenario-title {
+      font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+      color: var(--text-primary); margin-bottom: 14px;
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .scenario-text { font-size: 16px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 28px; }
+    .scenario-question { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 18px; }
+    .options-list { display: flex; flex-direction: column; gap: 12px; }
+    .option-card {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 20px; background: rgba(8,13,26,0.6);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      cursor: pointer; transition: all 0.25s;
+      text-align: left; width: 100%; font-family: inherit; color: var(--text-primary);
+    }
+    .option-card:hover {
+      background: rgba(106,158,72,0.05);
+      border-color: var(--border-green); transform: translateX(4px);
+    }
+    .option-card.selected {
+      background: rgba(106,158,72,0.1);
+      border-color: var(--green); box-shadow: 0 0 0 3px rgba(106,158,72,0.15);
+    }
+    .option-letter {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(55,72,120,0.3); border: 1px solid var(--border-bright);
+      color: var(--text-secondary);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; transition: all 0.25s;
+    }
+    .option-card:hover .option-letter, .option-card.selected .option-letter {
+      background: var(--green); color: #fff; border-color: var(--green);
+    }
+    .option-text { flex: 1; font-size: 15px; line-height: 1.55; padding-top: 4px; }
+    .test-nav {
+      display: flex; justify-content: space-between; align-items: center; margin-top: 24px;
+    }
+    .btn-back {
+      background: transparent; color: var(--text-muted); border: none;
+      padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer;
+      font-family: inherit; transition: color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-back:hover { color: var(--text-secondary); }
+    .btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-confirm {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none; border-radius: var(--radius-full);
+      padding: 14px 30px; font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit; transition: all 0.25s;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 16px rgba(106,158,72,0.3);
+    }
+    .btn-confirm:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(106,158,72,0.45); }
+
+    /* DRAG-AND-DROP SCENARIO */
+    .drag-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .drag-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; background: rgba(8,13,26,0.6);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      transition: all 0.25s;
+    }
+    .drag-item:hover { border-color: var(--border-green); background: rgba(106,158,72,0.04); }
+    .drag-item-num {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px;
+      box-shadow: 0 2px 8px rgba(106,158,72,0.3);
+    }
+    .drag-item-emoji { font-size: 22px; flex-shrink: 0; }
+    .drag-item-text { flex: 1; font-size: 14px; line-height: 1.5; color: var(--text-primary); }
+    .drag-arrows { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+    .drag-arrow-btn {
+      background: rgba(55,72,120,0.2); border: 1px solid var(--border);
+      color: var(--text-secondary); width: 30px; height: 22px;
+      border-radius: 6px; cursor: pointer; font-size: 11px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+      font-family: inherit;
+    }
+    .drag-arrow-btn:hover:not(:disabled) {
+      background: rgba(106,158,72,0.2); color: var(--green-light); border-color: var(--border-green);
+    }
+    .drag-arrow-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+    .drag-hint {
+      font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 10px; margin-bottom: 14px;
+    }
+
+    /* ALLOCATION SCENARIO */
+    .alloc-list { display: flex; flex-direction: column; gap: 14px; }
+    .alloc-row {
+      background: rgba(8,13,26,0.6); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 16px 18px;
+    }
+    .alloc-row-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .alloc-emoji { font-size: 22px; flex-shrink: 0; }
+    .alloc-text { flex: 1; }
+    .alloc-label { font-weight: 700; font-size: 14px; color: var(--text-primary); }
+    .alloc-desc { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+    .alloc-value {
+      font-weight: 800; font-size: 20px; color: var(--green-light);
+      min-width: 70px; text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .alloc-slider-wrap { position: relative; padding: 6px 0; }
+    .alloc-slider {
+      width: 100%; height: 6px; background: rgba(15,24,41,0.9);
+      border-radius: var(--radius-full); appearance: none; -webkit-appearance: none;
+      outline: none; border: 1px solid var(--border); cursor: pointer;
+    }
+    .alloc-slider::-webkit-slider-thumb {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--green); cursor: pointer; border: 2px solid #fff;
+      box-shadow: 0 0 10px rgba(106,158,72,0.6);
+    }
+    .alloc-slider::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--green); cursor: pointer; border: 2px solid #fff;
+      box-shadow: 0 0 10px rgba(106,158,72,0.6);
+    }
+    .alloc-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 18px;
+      background: rgba(106,158,72,0.08);
+      border: 1px solid var(--border-green); border-radius: var(--radius);
+      font-size: 14px; font-weight: 600; margin-top: 16px;
+    }
+    .alloc-total-label { color: var(--text-secondary); }
+    .alloc-total-value { color: var(--green-light); font-weight: 800; font-size: 18px; font-variant-numeric: tabular-nums; }
+
+    /* CALCULATING */
+    .calc-screen {
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 24px; position: relative;
+    }
+    .calc-inner { text-align: center; max-width: 480px; position: relative; z-index: 1; }
+    .calc-orbs { width: 200px; height: 200px; margin: 0 auto 32px; position: relative; }
+    .calc-orb { position: absolute; border-radius: 50%; opacity: 0.7; }
+    .calc-orb-1 {
+      width: 60px; height: 60px;
+      background: radial-gradient(circle, var(--green), transparent 70%);
+      top: 10px; left: 70px; animation: orbit-1 3s ease-in-out infinite;
+    }
+    .calc-orb-2 {
+      width: 50px; height: 50px;
+      background: radial-gradient(circle, var(--navy-light), transparent 70%);
+      top: 80px; right: 0; animation: orbit-2 3.5s ease-in-out infinite;
+    }
+    .calc-orb-3 {
+      width: 70px; height: 70px;
+      background: radial-gradient(circle, var(--green-light), transparent 70%);
+      bottom: 0; left: 30px; animation: orbit-3 4s ease-in-out infinite;
+    }
+    .calc-orb-4 {
+      width: 40px; height: 40px;
+      background: radial-gradient(circle, #A8D97A, transparent 70%);
+      top: 50px; left: 30px; animation: orbit-4 3.2s ease-in-out infinite;
+    }
+    @keyframes orbit-1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(20px,40px) scale(1.2); } }
+    @keyframes orbit-2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-30px,-20px) scale(1.15); } }
+    @keyframes orbit-3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.1); } }
+    @keyframes orbit-4 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px,50px) scale(1.3); } }
+    .calc-title { font-size: 28px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.02em; }
+    .calc-message { font-size: 15px; color: var(--text-secondary); min-height: 24px; transition: opacity 0.4s; }
+
+    /* RESULT */
+    .result-screen { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; position: relative; z-index: 1; }
+    .result-intro {
+      text-align: center; margin-bottom: 32px;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .result-intro-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green-light); margin-bottom: 8px;
+    }
+    .result-intro-title {
+      font-size: clamp(28px, 4vw, 38px); font-weight: 800;
+      color: var(--text-primary); letter-spacing: -0.02em;
+    }
+
+    /* CARD FLIP */
+    .profile-flip-wrap { perspective: 1600px; }
+    .profile-flip-card {
+      position: relative; width: 100%;
+      transform-style: preserve-3d;
+      transform: rotateY(180deg);
+      transition: transform 1.4s cubic-bezier(0.34, 1.4, 0.5, 1);
+    }
+    .profile-flip-card.flipped { transform: rotateY(0); }
+    .profile-flip-face {
+      width: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    .profile-flip-back {
+      position: absolute; top: 0; left: 0;
+      transform: rotateY(180deg);
+    }
+    .profile-card-back {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--bg-card-2) 100%);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-xl);
+      padding: 80px 32px;
+      text-align: center; min-height: 380px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .profile-card-back::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(55,72,120,0.3) 0%, transparent 60%);
+    }
+    .profile-card-back-logo {
+      font-size: 64px; margin-bottom: 20px; position: relative; z-index: 1;
+      animation: card-back-pulse 2s ease-in-out infinite;
+    }
+    @keyframes card-back-pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+      50% { transform: scale(1.08) rotate(5deg); opacity: 1; }
+    }
+    .profile-card-back-text {
+      font-size: 20px; font-weight: 700; color: var(--text-secondary);
+      letter-spacing: 0.04em; position: relative; z-index: 1;
+    }
+    .profile-card-back-sub {
+      font-size: 13px; color: var(--text-muted); margin-top: 8px; position: relative; z-index: 1;
+    }
+
+    .profile-card {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+      border: 1px solid var(--border-bright); border-radius: var(--radius-xl);
+      padding: 40px 32px; box-shadow: var(--shadow-lg); text-align: center;
+      position: relative; overflow: hidden; min-height: 380px;
+    }
+    .profile-card::before {
+      content: ''; position: absolute; top: -50%; left: -10%; right: -10%; height: 200%;
+      background: radial-gradient(ellipse at center top, rgba(106,158,72,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .profile-emoji {
+      font-size: 64px; margin-bottom: 16px;
+      animation: emoji-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s both;
+      display: inline-block; position: relative; z-index: 1;
+    }
+    @keyframes emoji-pop {
+      from { opacity: 0; transform: scale(0.3) rotate(-15deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    .profile-name {
+      font-size: clamp(32px, 5vw, 48px); font-weight: 900;
+      color: var(--text-primary); margin-bottom: 8px;
+      letter-spacing: -0.03em; line-height: 1.1;
+      background: linear-gradient(135deg, var(--text-primary), var(--green-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      position: relative; z-index: 1;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
+    }
+    .profile-lema {
+      font-size: 17px; color: var(--text-secondary); font-style: italic; margin-bottom: 24px;
+      position: relative; z-index: 1;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both;
+    }
+    .profile-desc {
+      font-size: 16px; color: var(--text-secondary); line-height: 1.7;
+      max-width: 600px; margin: 0 auto; position: relative; z-index: 1;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s both;
+    }
+
+    /* RADAR + TAGS SECTION */
+    .radar-tags-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 24px;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2s both;
+    }
+    @media (max-width: 720px) { .radar-tags-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      background: rgba(15,24,41,0.6); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px; backdrop-filter: blur(8px);
+    }
+    .info-card-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green-light); margin-bottom: 18px;
+    }
+    .radar-svg {
+      width: 100%; max-width: 260px; margin: 0 auto; display: block;
+    }
+    .radar-grid-poly { stroke: var(--border); fill: none; stroke-width: 1; }
+    .radar-axis { stroke: var(--border); stroke-width: 1; }
+    .radar-shape {
+      fill: rgba(106,158,72,0.25); stroke: var(--green);
+      stroke-width: 2; stroke-linejoin: round;
+      filter: drop-shadow(0 0 8px rgba(106,158,72,0.4));
+      opacity: 0; transform: scale(0.3); transform-origin: center;
+      animation: radar-grow 1s cubic-bezier(0.34, 1.5, 0.5, 1) 2.3s forwards;
+    }
+    @keyframes radar-grow { to { opacity: 1; transform: scale(1); } }
+    .radar-point {
+      fill: var(--green-light); stroke: #fff; stroke-width: 1.5;
+      opacity: 0; animation: radar-point-pop 0.4s ease-out 2.8s forwards;
+    }
+    @keyframes radar-point-pop { to { opacity: 1; } }
+    .radar-label {
+      fill: var(--text-secondary); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .tags-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .profile-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(106,158,72,0.1); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 7px 14px;
+      border-radius: var(--radius-full); font-size: 13px; font-weight: 600;
+      opacity: 0; transform: scale(0.5);
+      animation: tag-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .profile-tag.dim {
+      background: rgba(55,72,120,0.15); border-color: var(--border-bright); color: var(--text-secondary);
+    }
+    @keyframes tag-pop { to { opacity: 1; transform: scale(1); } }
+
+    /* DIMENSIONS WITH COUNTERS */
+    .dimensions-card {
+      margin-top: 24px; background: rgba(15,24,41,0.6);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 28px; backdrop-filter: blur(8px);
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.6s both;
+    }
+    .dimensions-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green-light); margin-bottom: 18px;
+    }
+    .dimension-row { margin-bottom: 18px; position: relative; }
+    .dimension-row:last-child { margin-bottom: 0; }
+    .dimension-labels {
+      display: flex; justify-content: space-between;
+      font-size: 13px; font-weight: 600; margin-bottom: 8px;
+    }
+    .dim-label-left { color: var(--text-primary); }
+    .dim-label-right { color: var(--text-muted); }
+    .dim-label-active { color: var(--green-light); }
+    .dim-percent-display {
+      display: inline-block; margin-left: 8px;
+      font-size: 12px; color: var(--green-light); font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .dimension-bar {
+      position: relative; height: 8px; background: rgba(8,13,26,0.8);
+      border-radius: var(--radius-full); overflow: hidden; border: 1px solid var(--border);
+    }
+    .dimension-bar-fill {
+      position: absolute; top: 0; bottom: 0; left: 0; width: 0%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: var(--radius-full);
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 8px rgba(106,158,72,0.4);
+    }
+    .dimension-marker {
+      position: absolute; top: 50%; left: 50%;
+      width: 1px; height: 14px;
+      background: var(--text-muted); transform: translate(-50%, -50%);
+    }
+
+    /* REACTION TIME INSIGHT */
+    .insight-extra {
+      margin-top: 16px;
+      background: rgba(55,72,120,0.1);
+      border: 1px solid var(--border-bright); border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      display: flex; align-items: center; gap: 14px;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.8s both;
+    }
+    .insight-extra-icon {
+      flex-shrink: 0; width: 44px; height: 44px;
+      background: rgba(106,158,72,0.15);
+      border: 1px solid var(--border-green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .insight-extra-text { flex: 1; }
+    .insight-extra-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .insight-extra-value { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-top: 2px; }
+    .insight-extra-desc { font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+
+    /* INSIGHTS GRID (fortalezas / desarrollo) */
+    .insights-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 3s both;
+    }
+    @media (max-width: 640px) { .insights-grid { grid-template-columns: 1fr; } }
+    .insight-card {
+      background: rgba(15,24,41,0.6); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px; backdrop-filter: blur(8px);
+    }
+    .insight-card.fortalezas { border-color: var(--border-green); }
+    .insight-card-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .fortalezas .insight-card-label { color: var(--green-light); }
+    .desarrollo .insight-card-label { color: var(--navy-light); }
+    .insight-list { list-style: none; }
+    .insight-item {
+      font-size: 14px; color: var(--text-secondary); padding: 8px 0; padding-left: 24px;
+      position: relative; line-height: 1.5; border-bottom: 1px solid var(--border);
+    }
+    .insight-item:last-child { border-bottom: none; }
+    .insight-item::before {
+      content: ''; position: absolute; left: 0; top: 14px;
+      width: 14px; height: 2px; background: var(--text-muted); border-radius: 2px;
+    }
+    .fortalezas .insight-item::before { background: var(--green); }
+
+    .result-actions {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 3.2s both;
+    }
+    .premium-cta {
+      margin-top: 32px;
+      background: linear-gradient(135deg, rgba(106,158,72,0.08), rgba(55,72,120,0.08));
+      border: 1px solid var(--border-green); border-radius: var(--radius-xl);
+      padding: 36px 32px; position: relative; overflow: hidden;
+      animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 3.4s both;
+    }
+    .premium-cta::before {
+      content: ''; position: absolute; top: 0; right: 0; width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(106,158,72,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .premium-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(106,158,72,0.15); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 5px 12px; border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .premium-title {
+      font-size: clamp(22px, 3vw, 28px); font-weight: 800;
+      color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .premium-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 20px; }
+    .premium-features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-bottom: 24px; }
+    @media (max-width: 640px) { .premium-features { grid-template-columns: 1fr; } }
+    .premium-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+    .premium-feature-check {
+      flex-shrink: 0; width: 18px; height: 18px;
+      background: rgba(106,158,72,0.2); border: 1px solid var(--green);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: var(--green-light); font-weight: 800; font-size: 11px; margin-top: 1px;
+    }
+    .premium-price-row {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      padding-top: 18px; border-top: 1px solid var(--border);
+    }
+    .premium-price { font-size: 26px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; }
+    .premium-price-note { font-size: 13px; color: var(--text-muted); }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(8,13,26,0.85);
+      backdrop-filter: blur(8px); z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; animation: fade-in 0.3s ease;
+    }
+    .modal-card {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+      border: 1px solid var(--border-bright); border-radius: var(--radius-xl);
+      padding: 36px 32px; max-width: 480px; width: 100%;
+      box-shadow: var(--shadow-lg);
+      animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: transparent; border: none; color: var(--text-muted);
+      cursor: pointer; font-size: 24px; line-height: 1;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; transition: all 0.2s;
+    }
+    .modal-close:hover { color: var(--text-primary); background: rgba(55,72,120,0.3); }
+    .modal-title { font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .modal-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; letter-spacing: 0.02em; }
+    .modal-input {
+      width: 100%; padding: 12px 16px;
+      background: rgba(8,13,26,0.6); border: 1px solid var(--border-bright);
+      border-radius: var(--radius); color: var(--text-primary); font-size: 15px;
+      font-family: inherit; transition: all 0.2s;
+    }
+    .modal-input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(106,158,72,0.15); }
+    .modal-info {
+      background: rgba(55,72,120,0.15); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px 16px;
+      font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;
+    }
+
+    /* CONFETTI */
+    .confetti-container {
+      position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute; top: -20px;
+      width: 10px; height: 14px;
+      animation: confetti-fall linear forwards;
+    }
+    @keyframes confetti-fall {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+      100% { transform: translate3d(var(--confetti-x), 110vh, 0) rotate(var(--confetti-r)); opacity: 0; }
+    }
+
+    /* PAYMENT RESULT SCREENS */
+    .payment-result-screen {
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 24px; position: relative;
+    }
+    .payment-result-card {
+      max-width: 520px; width: 100%; text-align: center;
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-xl);
+      padding: 56px 40px;
+      box-shadow: var(--shadow-lg);
+      position: relative; z-index: 1;
+      animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .payment-result-card.success { border-color: var(--border-green); }
+    .payment-result-card.error { border-color: rgba(220,53,69,0.4); }
+    .payment-result-emoji {
+      font-size: 80px; margin-bottom: 20px;
+      animation: emoji-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+      display: inline-block;
+    }
+    .payment-result-title {
+      font-size: 32px; font-weight: 800;
+      color: var(--text-primary); letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .payment-result-text {
+      font-size: 16px; color: var(--text-secondary);
+      line-height: 1.65; margin-bottom: 16px;
+    }
+    .payment-result-note {
+      font-size: 13px; color: var(--text-muted);
+      background: rgba(8,13,26,0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px; margin: 20px 0;
+      text-align: left; line-height: 1.6;
+    }
+    .payment-result-actions {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    /* SHARE CARD (hidden helper) */
+    .share-card {
+      position: fixed; left: -9999px; top: -9999px;
+      width: 1080px; height: 1080px;
+      background: linear-gradient(135deg, #080D1A 0%, #162033 100%);
+      padding: 80px; font-family: 'Inter', sans-serif; color: #EFF3FF;
+    }
+    @media (max-width: 640px) {
+      .scenario-card { padding: 28px 22px; }
+      .profile-card, .profile-card-back { padding: 32px 24px; }
+      .premium-cta { padding: 28px 22px; }
+      .dimensions-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <span class="navbar-logo-text">FMA</span>
+      <span class="navbar-tagline">Gestión Humana</span>
+    </a>
+    <div class="navbar-badge">Mi Perfil Laboral</div>
+  </nav>
+
+  <!-- LANDING -->
+  <section id="screen-landing" class="section-page landing">
+    <div class="bg-orbs"><div class="bg-dots"></div><div class="orb-1"></div><div class="orb-2"></div></div>
+    <div class="landing-inner">
+      <div class="landing-badge">
+        <span class="landing-badge-dot"></span>
+        Test gratuito · sin registro
+      </div>
+      <h1 class="landing-title anim d2">Descubrí tu <em>perfil laboral</em> en 10 minutos</h1>
+      <p class="landing-sub anim d3">
+        Respondé 12 escenarios y mini-desafíos del mundo del trabajo y obtené un perfil conductual personalizado con las áreas donde más vas a brillar.
+      </p>
+      <div class="landing-stats anim d4">
+        <div class="landing-stat"><div class="landing-stat-value"><span class="accent">12</span></div><div class="landing-stat-label">Desafíos</div></div>
+        <div class="landing-stat"><div class="landing-stat-value"><span class="accent">10</span> min</div><div class="landing-stat-label">Tiempo</div></div>
+        <div class="landing-stat"><div class="landing-stat-value"><span class="accent">12</span></div><div class="landing-stat-label">Perfiles posibles</div></div>
+      </div>
+      <div class="anim d5">
+        <button class="btn-primary" onclick="startTest()">
+          Empezar el test
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+      </div>
+      <div class="landing-howto anim d6">
+        <div class="landing-howto-title">¿Cómo funciona?</div>
+        <div class="howto-steps">
+          <div class="howto-step"><div class="howto-step-num">1</div><div class="howto-step-title">Respondé desafíos</div><div class="howto-step-desc">Escenarios y mini-juegos del trabajo: priorizar, repartir tiempo, decidir. No hay respuestas correctas.</div></div>
+          <div class="howto-step"><div class="howto-step-num">2</div><div class="howto-step-title">Analizamos tu estilo</div><div class="howto-step-desc">Medimos 4 dimensiones conductuales y tu velocidad de decisión.</div></div>
+          <div class="howto-step"><div class="howto-step-num">3</div><div class="howto-step-title">Recibís tu perfil</div><div class="howto-step-desc">1 de 12 perfiles posibles con radar, fortalezas y áreas a desarrollar.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEST -->
+  <section id="screen-test" class="section-page hidden">
+    <div class="bg-orbs"><div class="bg-dots"></div></div>
+    <div class="test-screen">
+      <div class="test-header">
+        <div class="test-progress-bar"><div class="test-progress-fill" id="progressFill" style="width: 0%"></div></div>
+        <div class="test-progress-meta">
+          <span><span class="test-progress-current" id="progressCurrent">1</span><span class="test-progress-total"> / 12</span></span>
+          <span class="test-progress-total" id="progressPercent">0%</span>
+        </div>
+      </div>
+      <div id="scenarioContainer"></div>
+      <div class="test-nav">
+        <button class="btn-back" id="btnBack" onclick="previousScenario()" disabled>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+          Volver
+        </button>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATING -->
+  <section id="screen-calculating" class="section-page hidden calc-screen">
+    <div class="bg-orbs"><div class="bg-dots"></div><div class="orb-1"></div><div class="orb-2"></div></div>
+    <div class="calc-inner">
+      <div class="calc-orbs">
+        <div class="calc-orb calc-orb-1"></div><div class="calc-orb calc-orb-2"></div>
+        <div class="calc-orb calc-orb-3"></div><div class="calc-orb calc-orb-4"></div>
+      </div>
+      <h2 class="calc-title">Construyendo tu perfil…</h2>
+      <p class="calc-message" id="calcMessage">Analizando tu orientación laboral</p>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="section-page hidden">
+    <div class="bg-orbs"><div class="bg-dots"></div><div class="orb-1"></div><div class="orb-2"></div></div>
+    <div class="result-screen">
+      <div class="result-intro">
+        <div class="result-intro-label">Tu perfil laboral</div>
+        <h1 class="result-intro-title">Sos…</h1>
+      </div>
+
+      <div class="profile-flip-wrap">
+        <div class="profile-flip-card" id="profileFlipCard">
+          <div class="profile-flip-face">
+            <div class="profile-card">
+              <div class="profile-emoji" id="profileEmoji">🧠</div>
+              <h2 class="profile-name" id="profileName">El Estratega</h2>
+              <p class="profile-lema" id="profileLema">"El que piensa diez pasos adelante"</p>
+              <p class="profile-desc" id="profileDesc">—</p>
+            </div>
+          </div>
+          <div class="profile-flip-face profile-flip-back">
+            <div class="profile-card-back">
+              <div class="profile-card-back-logo">🎴</div>
+              <div class="profile-card-back-text">Tu perfil está listo</div>
+              <div class="profile-card-back-sub">Dando vuelta la carta…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="radar-tags-grid">
+        <div class="info-card">
+          <div class="info-card-title">Tu radar conductual</div>
+          <svg class="radar-svg" id="radarSvg" viewBox="-180 -150 360 300"></svg>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Rasgos detectados</div>
+          <div class="tags-list" id="tagsList"></div>
+        </div>
+      </div>
+
+      <div class="dimensions-card">
+        <div class="dimensions-title">Tus 4 dimensiones en detalle</div>
+        <div id="dimensionsList"></div>
+      </div>
+
+      <div class="insight-extra" id="insightReaction">
+        <div class="insight-extra-icon">⏱️</div>
+        <div class="insight-extra-text">
+          <div class="insight-extra-label">Estilo de decisión</div>
+          <div class="insight-extra-value" id="reactionValue">—</div>
+          <div class="insight-extra-desc" id="reactionDesc">—</div>
+        </div>
+      </div>
+
+      <div class="insights-grid">
+        <div class="insight-card fortalezas">
+          <div class="insight-card-label">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            Fortalezas
+          </div>
+          <ul class="insight-list" id="fortalezasList"></ul>
+        </div>
+        <div class="insight-card desarrollo">
+          <div class="insight-card-label">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            A desarrollar
+          </div>
+          <ul class="insight-list" id="desarrolloList"></ul>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-secondary" onclick="shareProfile()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg>
+          Compartir mi perfil
+        </button>
+        <button class="btn-secondary" onclick="restartTest()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+          Rehacer test
+        </button>
+      </div>
+
+      <div class="premium-cta">
+        <div class="premium-label">✨ Premium</div>
+        <h3 class="premium-title">Desbloqueá el informe completo</h3>
+        <p class="premium-desc">
+          Te enviamos por mail un informe extendido de tu perfil con secciones que no se muestran acá: estilo de comunicación, toma de decisiones, ambiente ideal, liderazgo, estilo comercial y <strong>cómo presentarte en entrevista según tu perfil</strong>.
+        </p>
+        <div class="premium-features">
+          <div class="premium-feature"><div class="premium-feature-check">✓</div><div>Análisis ampliado del perfil (8–10 páginas)</div></div>
+          <div class="premium-feature"><div class="premium-feature-check">✓</div><div>Estilo de comunicación y toma de decisiones</div></div>
+          <div class="premium-feature"><div class="premium-feature-check">✓</div><div>Ambientes laborales donde rendís mejor</div></div>
+          <div class="premium-feature"><div class="premium-feature-check">✓</div><div>Tipo de jefe/cultura que te potencia</div></div>
+          <div class="premium-feature"><div class="premium-feature-check">✓</div><div>Estilo de liderazgo y rol en equipos</div></div>
+          <div class="premium-feature"><div class="premium-feature-check">✓</div><div>Cómo presentarte en entrevista según tu perfil</div></div>
+        </div>
+        <div class="premium-price-row">
+          <div>
+            <div class="premium-price">$4.990</div>
+            <div class="premium-price-note">Pago único en pesos · entrega inmediata por mail</div>
+          </div>
+          <button class="btn-primary" onclick="openPremiumModal()">
+            Quiero mi informe completo
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div id="premiumModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closePremiumModal()">×</button>
+      <h3 class="modal-title">Tu informe completo</h3>
+      <p class="modal-sub">Te lo enviamos al mail en menos de 5 minutos.</p>
+      <div class="modal-field">
+        <label class="modal-label">Tu mejor email</label>
+        <input type="email" class="modal-input" id="premiumEmail" placeholder="tu@email.com" />
+      </div>
+      <div class="modal-field">
+        <label class="modal-label">Nombre y apellido</label>
+        <input type="text" class="modal-input" id="premiumName" placeholder="Cómo te llamás" />
+      </div>
+      <div class="modal-info">
+        🔒 Tus datos están seguros. No los compartimos con terceros. El pago se procesa por Mercado Pago.
+      </div>
+      <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="processPayment()">
+        Continuar al pago — $4.990
+      </button>
+    </div>
+  </div>
+
+  <!-- PAYMENT RESULT: SUCCESS -->
+  <section id="screen-payment-success" class="section-page hidden payment-result-screen">
+    <div class="bg-orbs"><div class="bg-dots"></div><div class="orb-1"></div><div class="orb-2"></div></div>
+    <div class="payment-result-card success">
+      <div class="payment-result-emoji">✅</div>
+      <h2 class="payment-result-title">¡Pago confirmado!</h2>
+      <p class="payment-result-text">
+        Tu informe completo se está generando con IA y va a llegar a tu mail en los próximos <strong>2 a 5 minutos</strong>.
+      </p>
+      <div class="payment-result-note">
+        📬 Revisá tu casilla principal y también la carpeta de <strong>Spam / Promociones</strong>, por las dudas.<br><br>
+        Si pasaron 10 minutos y no llegó, escribinos a <strong>hola@fmagestionhumana.com.ar</strong> con tu nombre y te lo reenviamos.
+      </div>
+      <div class="payment-result-actions">
+        <a class="btn-secondary" href="/">Volver al inicio FMA</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT RESULT: PENDING -->
+  <section id="screen-payment-pending" class="section-page hidden payment-result-screen">
+    <div class="bg-orbs"><div class="bg-dots"></div><div class="orb-1"></div><div class="orb-2"></div></div>
+    <div class="payment-result-card">
+      <div class="payment-result-emoji">⏳</div>
+      <h2 class="payment-result-title">Pago pendiente</h2>
+      <p class="payment-result-text">
+        Tu pago está siendo procesado por Mercado Pago. Una vez confirmado, te enviamos el informe automáticamente al mail que registraste.
+      </p>
+      <div class="payment-result-note">
+        Esto puede tardar unos minutos (efectivo en Rapipago/Pago Fácil puede demorar más). Te avisamos por mail apenas se confirme.
+      </div>
+      <div class="payment-result-actions">
+        <a class="btn-secondary" href="/">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT RESULT: FAILED -->
+  <section id="screen-payment-failed" class="section-page hidden payment-result-screen">
+    <div class="bg-orbs"><div class="bg-dots"></div><div class="orb-1"></div><div class="orb-2"></div></div>
+    <div class="payment-result-card error">
+      <div class="payment-result-emoji">❌</div>
+      <h2 class="payment-result-title">El pago no se completó</h2>
+      <p class="payment-result-text">
+        Hubo un problema procesando tu pago. Tu tarjeta no fue cobrada.
+      </p>
+      <div class="payment-result-note">
+        Probá nuevamente con otro medio de pago o escribinos a <strong>hola@fmagestionhumana.com.ar</strong> si el problema persiste.
+      </div>
+      <div class="payment-result-actions">
+        <a class="btn-primary" href="/mi-perfil-laboral">Intentar de nuevo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFETTI CONTAINER -->
+  <div class="confetti-container hidden" id="confettiContainer"></div>
+
+<script>
+/* ─────────────────────────────────────────────────────────
+   SCENARIOS — 9 multiple choice + 3 interactive mechanics
+───────────────────────────────────────────────────────── */
+const SCENARIO_POOL = [
+  { type: "mc", tag: "Conflicto en equipo", title: "Reunión que se descontrola",
+    text: "Estás liderando una reunión y dos compañeros empiezan a discutir fuerte sobre prioridades del proyecto. Todos te miran a vos.",
+    question: "¿Qué hacés?",
+    options: [
+      { text: "Paro la reunión y los escucho uno por uno en privado antes de decidir.", v: { foco: 2, ritmo: 1, estructura: 1, comunicacion: 2 } },
+      { text: "Corto la discusión y resuelvo yo en base a los datos que tengo.", v: { foco: -3, ritmo: -2, estructura: -1, comunicacion: -3 } },
+      { text: "Propongo una pausa breve y vuelvo con un marco claro de decisión.", v: { foco: 0, ritmo: 1, estructura: -2, comunicacion: 0 } },
+      { text: "Dejo que cierren la discusión entre ellos y después retomo.", v: { foco: 1, ritmo: 2, estructura: 2, comunicacion: 2 } }
+    ]
+  },
+  { type: "mc", tag: "Presión", title: "Cambio de último momento",
+    text: "Tu jefe te avisa un viernes a las 17 que el deliverable del lunes cambió completamente. Tu equipo ya se fue.",
+    question: "¿Cómo reaccionás?",
+    options: [
+      { text: "Reorganizo rápido, llamo a quien necesite y arranco esa misma noche.", v: { foco: -1, ritmo: -3, estructura: 1, comunicacion: -1 } },
+      { text: "Pido reunión inmediata para entender bien el cambio antes de mover una pieza.", v: { foco: 0, ritmo: 2, estructura: -1, comunicacion: 1 } },
+      { text: "Hago un plan rápido el viernes, lo bajo al equipo el sábado y arrancamos el lunes.", v: { foco: -2, ritmo: 0, estructura: -1, comunicacion: -1 } },
+      { text: "Le pido al jefe priorizar qué partes son críticas y qué se puede posponer.", v: { foco: 0, ritmo: 1, estructura: -2, comunicacion: 0 } }
+    ]
+  },
+  { type: "drag", tag: "🎯 Mini-desafío · Priorización", special: true,
+    title: "Tu inbox del lunes",
+    text: "Es lunes a las 9 de la mañana, abrís el inbox y tenés 5 cosas esperándote. Solo podés ocuparte de una a la vez.",
+    question: "Ordenalas de más urgente (arriba) a menos urgente (abajo):",
+    items: [
+      { id: "ceo", text: "Mail del CEO pidiendo info para una reunión que tiene en 2 horas", emoji: "📨", v: { foco: -1, ritmo: -2, estructura: -2, comunicacion: -1 } },
+      { id: "1on1", text: "Un colaborador pidió un 1-1 porque viene desmotivado", emoji: "💬", v: { foco: 3, ritmo: 1, estructura: 1, comunicacion: 2 } },
+      { id: "report", text: "Reporte mensual que vence el viernes y todavía no arrancaste", emoji: "📊", v: { foco: -2, ritmo: 0, estructura: -2, comunicacion: 0 } },
+      { id: "client", text: "Cliente enojado por un retraso de la semana pasada", emoji: "🔥", v: { foco: 1, ritmo: -1, estructura: 0, comunicacion: -1 } },
+      { id: "idea", text: "Una idea nueva tuya que querés desarrollar antes que se enfríe", emoji: "💡", v: { foco: 0, ritmo: 0, estructura: 3, comunicacion: 0 } }
+    ]
+  },
+  { type: "mc", tag: "Decisiones", title: "Plazo imposible del cliente",
+    text: "Un cliente pide algo para el viernes. Sabés que con calidad razonable es para el lunes siguiente.",
+    question: "¿Cuál es tu movida?",
+    options: [
+      { text: "Acepto el viernes y meto las horas que haga falta para llegar.", v: { foco: -2, ritmo: -3, estructura: -1, comunicacion: -2 } },
+      { text: "Le digo claramente que el lunes es lo realista y le explico por qué.", v: { foco: -1, ritmo: 0, estructura: 0, comunicacion: -3 } },
+      { text: "Propongo entregar el viernes una versión parcial funcional y completa el lunes.", v: { foco: 0, ritmo: -1, estructura: 1, comunicacion: 0 } },
+      { text: "Negocio entendiendo primero cuál es la urgencia real detrás del pedido.", v: { foco: 2, ritmo: 2, estructura: 1, comunicacion: 1 } }
+    ]
+  },
+  { type: "mc", tag: "Roces", title: "Compañero que te confronta",
+    text: "Hay un compañero que constantemente cuestiona tus decisiones en reuniones. Te empieza a desgastar.",
+    question: "¿Cómo lo abordás?",
+    options: [
+      { text: "Lo enfrento directo: 'esto se decide así, fin del tema.'", v: { foco: -1, ritmo: -2, estructura: -1, comunicacion: -3 } },
+      { text: "Le pido una reunión 1-1 para entender qué le preocupa realmente.", v: { foco: 3, ritmo: 1, estructura: 1, comunicacion: 3 } },
+      { text: "Ignoro y sigo. Demuestro con resultados que mis decisiones funcionan.", v: { foco: -2, ritmo: 1, estructura: 0, comunicacion: -1 } },
+      { text: "Le doy más voz en las decisiones, lo invito a co-construir conmigo.", v: { foco: 2, ritmo: 0, estructura: 2, comunicacion: 2 } }
+    ]
+  },
+  { type: "mc", tag: "Liderazgo", title: "Te ofrecen liderar algo nuevo",
+    text: "Te proponen liderar un proyecto que arranca de cero. No hay equipo formado todavía.",
+    question: "¿Cómo arrancás?",
+    options: [
+      { text: "Defino primero objetivos, milestones y procesos. Después armo el equipo.", v: { foco: -3, ritmo: 2, estructura: -3, comunicacion: -1 } },
+      { text: "Pienso a quién quiero en el equipo y armo la propuesta con ellos en mente.", v: { foco: 3, ritmo: 1, estructura: 1, comunicacion: 1 } },
+      { text: "Arranco yo a explorar el problema y voy sumando gente según haga falta.", v: { foco: -1, ritmo: -1, estructura: 2, comunicacion: 0 } },
+      { text: "Convoco una sesión abierta con varios candidatos para co-diseñar el rumbo.", v: { foco: 2, ritmo: 0, estructura: 3, comunicacion: 1 } }
+    ]
+  },
+  { type: "allocation", tag: "⚖️ Mini-desafío · Prioridades", special: true,
+    title: "Tu mejor proyecto",
+    text: "Te asignan un proyecto importante. Tu tiempo y energía son limitados — no podés brillar en todo. ¿Dónde ponés más esfuerzo?",
+    question: "Repartí 100 puntos entre estas 4 prioridades:",
+    total: 100, unit: "pts",
+    categories: [
+      { id: "calidad", label: "Calidad", desc: "Hacerlo impecable, sin errores", emoji: "💎", v: { foco: -1, ritmo: 2, estructura: -3, comunicacion: 1 } },
+      { id: "velocidad", label: "Velocidad", desc: "Entregar rápido, llegar primero", emoji: "⚡", v: { foco: -2, ritmo: -3, estructura: 0, comunicacion: -2 } },
+      { id: "equipo", label: "Equipo", desc: "Que todos disfruten y crezcan", emoji: "🤝", v: { foco: 3, ritmo: 1, estructura: 2, comunicacion: 2 } },
+      { id: "innovacion", label: "Innovación", desc: "Probar algo nuevo, no copiar", emoji: "💡", v: { foco: 1, ritmo: -1, estructura: 3, comunicacion: 0 } }
+    ]
+  },
+  { type: "mc", tag: "Error propio", title: "Te equivocaste y se notó",
+    text: "Tomaste una decisión que resultó mala. Ya todos en el equipo lo saben.",
+    question: "¿Cómo lo manejás?",
+    options: [
+      { text: "Lo asumo público en la próxima reunión y explico qué aprendí.", v: { foco: 1, ritmo: -1, estructura: 0, comunicacion: 0 } },
+      { text: "Lo hablo en privado con mi jefe y planteo cómo lo voy a corregir.", v: { foco: 0, ritmo: 1, estructura: -1, comunicacion: 1 } },
+      { text: "Pongo foco en la solución, no en el error. Hablo de qué hacemos ahora.", v: { foco: -2, ritmo: -1, estructura: 1, comunicacion: -1 } },
+      { text: "Analizo qué falló sistémicamente y armo un proceso para que no se repita.", v: { foco: -3, ritmo: 2, estructura: -3, comunicacion: 0 } }
+    ]
+  },
+  { type: "mc", tag: "Ambigüedad", title: "Proyecto sin instrucciones",
+    text: "Te asignan un proyecto importante con muy pocos detalles. No tenés brief, no tenés alcance claro.",
+    question: "¿Cuál es tu primer paso?",
+    options: [
+      { text: "Defino mi propia interpretación, arranco y voy ajustando con feedback.", v: { foco: -1, ritmo: -2, estructura: 3, comunicacion: -1 } },
+      { text: "Hago todas las preguntas posibles primero para no avanzar a ciegas.", v: { foco: 0, ritmo: 2, estructura: -2, comunicacion: 0 } },
+      { text: "Investigo proyectos similares anteriores y replico ese marco.", v: { foco: -2, ritmo: 1, estructura: -3, comunicacion: -1 } },
+      { text: "Convoco a gente del equipo para construir el alcance entre todos.", v: { foco: 3, ritmo: 0, estructura: 2, comunicacion: 2 } }
+    ]
+  },
+  { type: "timeAllocation", tag: "🕐 Mini-desafío · Energía", special: true,
+    title: "1 hora extra por semana",
+    text: "Te regalan 60 minutos extra todas las semanas. Tuyos, sin obligaciones. ¿En qué los invertís?",
+    question: "Repartí los 60 minutos entre estas actividades:",
+    total: 60, unit: "min",
+    categories: [
+      { id: "skill", label: "Aprender una skill nueva", desc: "Curso, libro, tutorial", emoji: "📚", v: { foco: -1, ritmo: 2, estructura: 2, comunicacion: 0 } },
+      { id: "adelantar", label: "Adelantar tareas", desc: "Ir al día con la semana", emoji: "✅", v: { foco: -2, ritmo: 0, estructura: -3, comunicacion: -1 } },
+      { id: "personas", label: "1-1 con colaboradores", desc: "Cafés, charlas, mentorías", emoji: "☕", v: { foco: 3, ritmo: 1, estructura: 0, comunicacion: 2 } },
+      { id: "estrategia", label: "Pensar estrategia", desc: "Salir de lo urgente, ver lo importante", emoji: "🎯", v: { foco: -1, ritmo: 3, estructura: 1, comunicacion: 0 } },
+      { id: "descansar", label: "Desconectar / descansar", desc: "Para volver con energía", emoji: "🌿", v: { foco: 1, ritmo: 1, estructura: 2, comunicacion: 1 } }
+    ]
+  },
+  { type: "mc", tag: "Cliente", title: "Reunión con un cliente difícil",
+    text: "Tenés una reunión con un cliente exigente que viene predispuesto a quejarse.",
+    question: "¿Cómo entrás?",
+    options: [
+      { text: "Voy con datos y planteo soluciones concretas desde el inicio.", v: { foco: -2, ritmo: 1, estructura: -2, comunicacion: -1 } },
+      { text: "Lo dejo desahogarse primero, después redirijo de a poco hacia la solución.", v: { foco: 3, ritmo: 2, estructura: 2, comunicacion: 3 } },
+      { text: "Lo enfrento sereno pero firme cuando exagera. Marco los hechos.", v: { foco: -1, ritmo: 0, estructura: 0, comunicacion: -3 } },
+      { text: "Llevo a un colega de soporte para mostrar respaldo y diversificar la charla.", v: { foco: 1, ritmo: 1, estructura: 1, comunicacion: 1 } }
+    ]
+  },
+  { type: "mc", tag: "Crecimiento", title: "Oportunidad de saltar",
+    text: "Te ofrecen un puesto más alto en un área que no conocés en profundidad.",
+    question: "¿Qué hacés?",
+    options: [
+      { text: "Lo acepto. Aprendo en el camino, no me asusta el cambio.", v: { foco: -1, ritmo: -3, estructura: 3, comunicacion: -1 } },
+      { text: "Pido tiempo para investigar el rol y hablar con gente del área antes de decidir.", v: { foco: 0, ritmo: 3, estructura: -2, comunicacion: 0 } },
+      { text: "Lo rechazo. Prefiero crecer en lo que ya domino antes de cambiar.", v: { foco: -1, ritmo: 1, estructura: -3, comunicacion: -1 } },
+      { text: "Acepto pero negocio un plan de transición con mentorías y plazos.", v: { foco: 1, ritmo: 1, estructura: -1, comunicacion: 0 } }
+    ]
+  },
+  { type: "mc", tag: "Feedback", title: "Conversación difícil con un junior",
+    text: "Tenés que decirle a alguien de tu equipo que su trabajo no está al nivel esperado. Te buscó porque quiere que lo asciendas.",
+    question: "¿Cómo abordás la conversación?",
+    options: [
+      { text: "Voy directo: le digo que no es el momento y le explico por qué.", v: { foco: -1, ritmo: -2, estructura: -1, comunicacion: -3 } },
+      { text: "Empiezo reconociendo lo que sí hace bien y después marco lo que falta.", v: { foco: 2, ritmo: 1, estructura: 1, comunicacion: 3 } },
+      { text: "Le pido que evalúe él primero su trabajo, lo guío para que llegue solo.", v: { foco: 3, ritmo: 2, estructura: 2, comunicacion: 2 } },
+      { text: "Le doy criterios concretos de qué le falta, sin entrar en lo emocional.", v: { foco: -2, ritmo: 0, estructura: -2, comunicacion: -1 } }
+    ]
+  },
+  { type: "mc", tag: "Jerarquía", title: "Pedido de un VP que no es tu jefe",
+    text: "Un VP del que no dependés directamente te pide algo urgente que choca con las prioridades que te marcó tu jefe.",
+    question: "¿Qué hacés?",
+    options: [
+      { text: "Lo hago. Es un VP, hay que responderle. Ajusto el resto después.", v: { foco: -1, ritmo: -2, estructura: -3, comunicacion: -1 } },
+      { text: "Le pregunto cuál es la urgencia real antes de comprometer el tiempo.", v: { foco: 0, ritmo: 2, estructura: -1, comunicacion: 1 } },
+      { text: "Hablo con mi jefe primero para alinear cuál prioridad va.", v: { foco: 1, ritmo: 1, estructura: -2, comunicacion: 1 } },
+      { text: "Le digo al VP que estoy en otras prioridades pero le ofrezco una ventana.", v: { foco: 0, ritmo: 0, estructura: 0, comunicacion: -1 } }
+    ]
+  },
+  { type: "mc", tag: "Reconocimiento ausente", title: "Trabajo invisible",
+    text: "Cerraste algo importante esta semana. Pasa la reunión semanal y nadie lo menciona. Tu jefe ni lo notó.",
+    question: "¿Cómo reaccionás?",
+    options: [
+      { text: "No digo nada. El reconocimiento llega solo con el tiempo.", v: { foco: -1, ritmo: 3, estructura: 1, comunicacion: 1 } },
+      { text: "Lo menciono yo, casual, en algún punto de la reunión.", v: { foco: 0, ritmo: 0, estructura: 1, comunicacion: -1 } },
+      { text: "Hablo con mi jefe en privado después para que lo registre.", v: { foco: 0, ritmo: 1, estructura: -2, comunicacion: 0 } },
+      { text: "Mando un mail al equipo con resumen del logro, dando crédito a quienes ayudaron.", v: { foco: 2, ritmo: 0, estructura: 0, comunicacion: 1 } }
+    ]
+  },
+  { type: "mc", tag: "Tiempo", title: "Reunión que no avanza",
+    text: "Llevás 1 hora y media en una reunión que no avanza y se sigue desviando. Tenés otras cosas que hacer.",
+    question: "¿Cómo manejás la situación?",
+    options: [
+      { text: "Tomo la palabra y propongo cerrar puntos pendientes en otro espacio.", v: { foco: -1, ritmo: -2, estructura: -2, comunicacion: -1 } },
+      { text: "Espero a que se cierre naturalmente. No me gusta cortar a los demás.", v: { foco: 2, ritmo: 3, estructura: 2, comunicacion: 2 } },
+      { text: "Pongo un timer mental: si en 10 minutos no avanzamos, salgo educadamente.", v: { foco: -1, ritmo: 0, estructura: -1, comunicacion: 0 } },
+      { text: "Mando un mensaje al organizador pidiendo enfocar la agenda.", v: { foco: 1, ritmo: 1, estructura: -1, comunicacion: 1 } }
+    ]
+  },
+  { type: "mc", tag: "Tensión interna", title: "Dos colaboradores enfrentados",
+    text: "Dos personas de tu equipo no se llevan bien. Ambas te buscan por separado para que les des la razón.",
+    question: "¿Qué hacés?",
+    options: [
+      { text: "Hablo con cada uno por separado, no tomo partido, los escucho a fondo.", v: { foco: 3, ritmo: 2, estructura: 1, comunicacion: 3 } },
+      { text: "Los junto a los tres y tiramos todo sobre la mesa.", v: { foco: 1, ritmo: -1, estructura: 0, comunicacion: 0 } },
+      { text: "Le pido al que tiene más razón objetiva que ceda por el bien del equipo.", v: { foco: -1, ritmo: 0, estructura: -1, comunicacion: -2 } },
+      { text: "Les pido que lo resuelvan entre ellos. Son adultos.", v: { foco: 0, ritmo: 1, estructura: 2, comunicacion: 0 } }
+    ]
+  },
+  { type: "mc", tag: "Negociación", title: "Cliente que cambia el scope",
+    text: "Un cliente quiere agregar funcionalidades que no estaban acordadas y empuja para que lo hagas sin costo adicional.",
+    question: "¿Cómo respondés?",
+    options: [
+      { text: "Lo escucho, entiendo el porqué del pedido, después negocio.", v: { foco: 2, ritmo: 2, estructura: 1, comunicacion: 2 } },
+      { text: "Le digo que está fuera del alcance acordado. Si quiere, lo cotizo aparte.", v: { foco: -2, ritmo: -1, estructura: -2, comunicacion: -2 } },
+      { text: "Acepto una parte como gesto, marco el resto como nueva fase.", v: { foco: 0, ritmo: 0, estructura: 0, comunicacion: 0 } },
+      { text: "Lo escalo a comercial. No es mi rol dar ese tipo de respuesta.", v: { foco: -1, ritmo: 1, estructura: -3, comunicacion: 0 } }
+    ]
+  }
+];
+
+let SCENARIOS = []; // populated by buildScenarios() in startTest()
+
+function buildScenarios() {
+  const allMC = SCENARIO_POOL.filter(s => s.type === 'mc');
+  const allInteractive = SCENARIO_POOL.filter(s => s.type !== 'mc');
+  const shuffleArr = (arr) => arr.slice().sort(() => Math.random() - 0.5);
+  const pickedMC = shuffleArr(allMC).slice(0, 9);
+  const shuffledInter = shuffleArr(allInteractive);
+
+  // Try up to 40 random arrangements where no two interactive are adjacent and first is MC
+  for (let attempt = 0; attempt < 40; attempt++) {
+    const combined = shuffleArr(pickedMC.concat(shuffledInter));
+    if (combined[0].type !== 'mc') continue;
+    let okay = true;
+    for (let i = 0; i < combined.length - 1; i++) {
+      if (combined[i].type !== 'mc' && combined[i + 1].type !== 'mc') { okay = false; break; }
+    }
+    if (okay) return combined;
+  }
+  // Fallback: place interactive at positions 3, 7, 10 (0-indexed 2, 6, 9)
+  const result = pickedMC.slice();
+  result.splice(2, 0, shuffledInter[0]);
+  result.splice(6, 0, shuffledInter[1]);
+  result.splice(9, 0, shuffledInter[2]);
+  return result;
+}
+
+/* ─────────────────────────────────────────────────────────
+   PROFILES — 12 archetipos con vector ideal [foco, ritmo, estructura, comunicacion]
+   Escala 0-100 por dimensión.
+───────────────────────────────────────────────────────── */
+const PROFILES = {
+  estratega: { emoji: "🧠", name: "El Estratega", lema: "El que piensa diez pasos adelante",
+    vector: { foco: 25, ritmo: 75, estructura: 30, comunicacion: 40 },
+    desc: "Tu fortaleza es leer la situación completa antes de actuar y diseñar el camino más eficiente al objetivo. Preferís pensar bien una vez que improvisar diez veces, y eso te hace especialmente valioso en decisiones que tienen consecuencias largas. Sos el que ve la jugada cuando todos están mirando la pelota.",
+    fortalezas: ["Pensamiento sistémico y de largo plazo", "Capacidad de anticipar problemas antes de que aparezcan", "Análisis profundo de información compleja"],
+    desarrollo: ["Pasar a la acción cuando los datos ya alcanzan", "Comunicar tus análisis de forma más simple", "Confiar más en la intuición cuando el tiempo aprieta"],
+    tags: ["Analítico", "Planificador", "Visión largo plazo", "Reflexivo", "Cauteloso"]
+  },
+  ejecutor: { emoji: "⚡", name: "El Ejecutor", lema: "Resultados primero, conversaciones después",
+    vector: { foco: 20, ritmo: 20, estructura: 30, comunicacion: 25 },
+    desc: "Sos pragmático y orientado a entregar. Mientras otros analizan, vos ya empezaste. Tenés un radar fino para distinguir lo importante de lo urgente, y rara vez perdés el foco. Cuando algo hay que hacer, te lo encargan a vos porque saben que va a estar.",
+    fortalezas: ["Velocidad de ejecución y orientación a resultados", "Foco intenso en las tareas críticas", "Capacidad de cerrar temas sin dejar cabos sueltos"],
+    desarrollo: ["Frenar y escuchar antes de avanzar", "Cuidar el impacto humano de tus decisiones rápidas", "Delegar más en lugar de hacer todo vos"],
+    tags: ["Pragmático", "Directo", "Ejecutivo", "Decidido", "Orientado a tareas"]
+  },
+  liderNatural: { emoji: "👑", name: "El Líder Natural", lema: "Donde hay vacío de mando, sale a tomarlo",
+    vector: { foco: 40, ritmo: 30, estructura: 40, comunicacion: 25 },
+    desc: "Tomás decisiones bajo presión sin pestañear y la gente te sigue casi sin darse cuenta. Combinás claridad de objetivos con energía para empujar al equipo. No buscás el liderazgo, pero cuando hace falta lo ocupás con naturalidad.",
+    fortalezas: ["Toma de decisiones bajo presión", "Visión clara de hacia dónde ir", "Capacidad de movilizar a otros sin imponer"],
+    desarrollo: ["Bajar la intensidad cuando el equipo no la sigue", "Pedir input antes de decidir, no después", "Reconocer el aporte de los demás más a menudo"],
+    tags: ["Líder", "Decidido", "Energético", "Asertivo", "Movilizador"]
+  },
+  innovador: { emoji: "💡", name: "El Innovador", lema: "Las reglas son sugerencias",
+    vector: { foco: 50, ritmo: 25, estructura: 85, comunicacion: 40 },
+    desc: "Tu mente busca ángulos que otros no ven. Cuestionás procesos, proponés alternativas y te aburre lo establecido. Funcionás mejor donde hay margen de creación y se te da espacio para experimentar. Sos quien hace que las cosas evolucionen.",
+    fortalezas: ["Creatividad para proponer soluciones nuevas", "Tolerancia a la ambigüedad y al cambio", "Energía para romper inercias del sistema"],
+    desarrollo: ["Aterrizar las ideas hasta su ejecución completa", "Respetar procesos cuando son necesarios", "Persistir en una idea sin saltar a la siguiente"],
+    tags: ["Creativo", "Disruptivo", "Curioso", "Flexible", "Visionario"]
+  },
+  conector: { emoji: "🤝", name: "El Conector", lema: "Conoce a quien sea, en cualquier lugar",
+    vector: { foco: 80, ritmo: 35, estructura: 70, comunicacion: 75 },
+    desc: "Tenés una facilidad natural para construir vínculos. Sabés quién es quién, quién sabe qué, y cómo poner a las personas correctas en contacto. Tu valor está menos en lo que hacés solo y más en cómo activás a otros. Sos el nodo de la red.",
+    fortalezas: ["Construcción rápida de confianza", "Networking natural y genuino", "Lectura fina de dinámicas grupales"],
+    desarrollo: ["Decir que no cuando el tiempo lo pide", "Tomar posiciones aunque incomoden", "Profundizar en menos relaciones en lugar de ampliar siempre"],
+    tags: ["Sociable", "Empático", "Networker", "Flexible", "Comunicativo"]
+  },
+  diplomatico: { emoji: "🕊️", name: "El Diplomático", lema: "Encuentra puente donde otros ven muro",
+    vector: { foco: 75, ritmo: 70, estructura: 60, comunicacion: 90 },
+    desc: "Tu superpoder es bajar la temperatura. Escuchás de verdad, leés entre líneas y encontrás el lenguaje que todos pueden aceptar. Sos el que mantiene unido al equipo cuando las cosas se ponen tensas. La gente confía en vos porque no manipulás.",
+    fortalezas: ["Resolución de conflictos", "Empatía y escucha activa", "Capacidad de negociar sin imponer"],
+    desarrollo: ["Confrontar cuando hace falta, no evitar", "Marcar tu posición con más claridad", "No cargar con problemas que no son tuyos"],
+    tags: ["Diplomático", "Mediador", "Empático", "Paciente", "Conciliador"]
+  },
+  inspirador: { emoji: "✨", name: "El Inspirador", lema: "Contagia ganas hasta al más escéptico",
+    vector: { foco: 80, ritmo: 25, estructura: 70, comunicacion: 60 },
+    desc: "Tenés esa energía que cambia el clima de una sala. La gente se entusiasma cuando vos te entusiasmás, y eso te convierte en motor natural de equipos. Comunicás con pasión y hacés que las visiones difíciles parezcan posibles.",
+    fortalezas: ["Capacidad de motivar y entusiasmar", "Comunicación expresiva y carismática", "Generar impulso colectivo desde la nada"],
+    desarrollo: ["Sostener el esfuerzo después de la chispa inicial", "Bajar a tierra los entusiasmos con planes concretos", "Manejar la frustración cuando el otro no responde"],
+    tags: ["Carismático", "Motivador", "Expresivo", "Optimista", "Energético"]
+  },
+  guardian: { emoji: "🛡️", name: "El Guardián", lema: "Lo que hace, lo hace bien",
+    vector: { foco: 30, ritmo: 70, estructura: 15, comunicacion: 55 },
+    desc: "Sos la persona en quien todos confían cuando algo no puede salir mal. Atención al detalle, respeto por los procesos, calidad sostenida. No buscás brillar, buscás que las cosas estén bien hechas. En equipos sin vos, las cosas empiezan a fallar sin que nadie sepa por qué.",
+    fortalezas: ["Atención obsesiva al detalle", "Confiabilidad y consistencia", "Respeto y mejora de los procesos"],
+    desarrollo: ["Aceptar el 'suficientemente bueno' cuando alcanza", "Comunicar más tu valor (no se ve solo)", "Adaptarte a cambios sin sentir que se rompe todo"],
+    tags: ["Detallista", "Confiable", "Metódico", "Disciplinado", "Riguroso"]
+  },
+  mentor: { emoji: "🧭", name: "El Mentor", lema: "Su éxito se mide por el de su equipo",
+    vector: { foco: 70, ritmo: 70, estructura: 45, comunicacion: 80 },
+    desc: "Te realizás cuando otros crecen. Tenés paciencia para enseñar, capacidad para escuchar lo que no se dice, y generosidad para compartir lo que sabés. Equipos a tu cargo se vuelven más fuertes, no más dependientes. Sos el formador que toda organización necesita.",
+    fortalezas: ["Desarrollo de talento ajeno", "Generar confianza profunda y duradera", "Hacer crecer a otros sin opacarlos"],
+    desarrollo: ["Avanzar en tu propia carrera, no solo en la de otros", "Pedir lo que necesitás para vos", "Soltar a quienes ya no necesitan tu guía"],
+    tags: ["Formador", "Paciente", "Generoso", "Reflexivo", "Empático"]
+  },
+  investigador: { emoji: "🔍", name: "El Investigador", lema: "No se queda con la primera respuesta",
+    vector: { foco: 25, ritmo: 85, estructura: 30, comunicacion: 45 },
+    desc: "Tu motor es entender. Necesitás llegar al fondo, ver los datos, comprobar las hipótesis. No te conformás con explicaciones superficiales y eso te lleva a descubrir cosas que el resto no vio. Sos la persona que las decisiones complejas necesitan a su lado.",
+    fortalezas: ["Pensamiento crítico y profundo", "Rigor metodológico", "Capacidad de manejar información compleja"],
+    desarrollo: ["Decidir con información incompleta cuando hace falta", "Comunicar conclusiones sin todo el razonamiento detrás", "Evitar la parálisis por análisis"],
+    tags: ["Analítico", "Crítico", "Curioso", "Riguroso", "Profundo"]
+  },
+  catalizador: { emoji: "🔥", name: "El Catalizador", lema: "Hace que las cosas pasen, rápido",
+    vector: { foco: 55, ritmo: 15, estructura: 75, comunicacion: 30 },
+    desc: "Donde estabas vos, algo se mueve. Tenés energía, urgencia y poco miedo a equivocarte. Acelerás procesos que llevaban meses estancados y rompés inercias que nadie se animaba a tocar. Sos quien hace que los proyectos arranquen.",
+    fortalezas: ["Generar movimiento donde había parálisis", "Audacia para empezar sin todas las respuestas", "Energía contagiosa en momentos críticos"],
+    desarrollo: ["Sostener el ritmo en proyectos largos", "Dejar que otros también empujen", "Aceptar cuando 'no es el momento'"],
+    tags: ["Audaz", "Rápido", "Disruptor", "Enérgico", "Impulsor"]
+  },
+  constructor: { emoji: "🏗️", name: "El Constructor", lema: "Ladrillo por ladrillo, sin atajos",
+    vector: { foco: 35, ritmo: 65, estructura: 25, comunicacion: 55 },
+    desc: "Lo tuyo es construir de forma sostenida. No buscás el shortcut ni el golpe maestro, buscás el progreso firme. Tenés disciplina, paciencia y un sentido fuerte de la calidad. Equipos a tu lado avanzan menos rápido, pero llegan más lejos.",
+    fortalezas: ["Persistencia y disciplina", "Construcción de bases sólidas", "Mejora continua sin perder calidad"],
+    desarrollo: ["Acelerar cuando el contexto lo pide", "Probar atajos cuando son razonables", "No frustrarte con los que sí improvisan"],
+    tags: ["Persistente", "Disciplinado", "Sólido", "Constante", "Confiable"]
+  }
+};
+
+const DIMENSIONS = [
+  { key: "foco", left: "Orientado a tareas", right: "Orientado a personas", short: "Foco" },
+  { key: "ritmo", left: "Acción rápida", right: "Reflexión", short: "Ritmo" },
+  { key: "estructura", left: "Estructura y orden", right: "Flexibilidad", short: "Estructura" },
+  { key: "comunicacion", left: "Comunicación directa", right: "Comunicación diplomática", short: "Comunicación" }
+];
+
+/* ─────────────────────────────────────────────────────────
+   STATE
+───────────────────────────────────────────────────────── */
+let state = {
+  currentScenario: 0,
+  answers: [],          // por escenario: { type, payload }
+  scenarioStartTime: 0,
+  reactionTimes: [],
+  scores: { foco: 50, ritmo: 50, estructura: 50, comunicacion: 50 }
+};
+
+/* ─────────────────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────────────────── */
+function showScreen(id) {
+  document.querySelectorAll('section.section-page').forEach(s => s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function startTest() {
+  SCENARIOS = buildScenarios();
+  state = { currentScenario: 0, answers: [], scenarioStartTime: 0, reactionTimes: [], scores: { foco: 50, ritmo: 50, estructura: 50, comunicacion: 50 } };
+  // Reset card flip state for re-takes
+  const flipCard = document.getElementById('profileFlipCard');
+  if (flipCard) flipCard.classList.remove('flipped');
+  showScreen('screen-test');
+  renderScenario();
+}
+function restartTest() {
+  if (confirm('¿Querés rehacer el test? Vas a perder el resultado actual.')) startTest();
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCENARIO RENDERING (dispatcher)
+───────────────────────────────────────────────────────── */
+function renderScenario() {
+  const idx = state.currentScenario;
+  const sc = SCENARIOS[idx];
+
+  // Update progress
+  const percent = Math.round((idx / SCENARIOS.length) * 100);
+  document.getElementById('progressFill').style.width = percent + '%';
+  document.getElementById('progressCurrent').textContent = idx + 1;
+  document.getElementById('progressPercent').textContent = percent + '%';
+  document.getElementById('btnBack').disabled = (idx === 0);
+
+  state.scenarioStartTime = performance.now();
+
+  if (sc.type === "mc") renderMC(sc, idx);
+  else if (sc.type === "drag") renderDrag(sc, idx);
+  else if (sc.type === "allocation" || sc.type === "timeAllocation") renderAllocation(sc, idx);
+}
+
+function renderMC(sc, idx) {
+  const selected = (state.answers[idx] && state.answers[idx].type === "mc") ? state.answers[idx].payload : null;
+  document.getElementById('scenarioContainer').innerHTML = `
+    <div class="scenario-card" id="currentCard">
+      <span class="scenario-tag ${sc.special ? 'special' : ''}">${sc.tag} · ${idx + 1}/12</span>
+      <h2 class="scenario-title">${sc.title}</h2>
+      <p class="scenario-text">${sc.text}</p>
+      <p class="scenario-question">${sc.question}</p>
+      <div class="options-list">
+        ${sc.options.map((opt, i) => `
+          <button class="option-card ${selected === i ? 'selected' : ''}" onclick="selectMC(${i})">
+            <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+            <span class="option-text">${opt.text}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function selectMC(optIdx) {
+  const reactionTime = performance.now() - state.scenarioStartTime;
+  state.reactionTimes[state.currentScenario] = reactionTime;
+  state.answers[state.currentScenario] = { type: "mc", payload: optIdx };
+  document.querySelectorAll('.option-card').forEach((el, i) => el.classList.toggle('selected', i === optIdx));
+  setTimeout(() => advanceScenario(), 350);
+}
+
+/* ── DRAG-AND-DROP ── */
+function renderDrag(sc, idx) {
+  const stored = (state.answers[idx] && state.answers[idx].type === "drag") ? state.answers[idx].payload : null;
+  // payload is array of item IDs in order
+  const order = stored ? stored.slice() : sc.items.map(it => it.id);
+  // store in temp state for interaction
+  window._dragOrder = order;
+
+  document.getElementById('scenarioContainer').innerHTML = `
+    <div class="scenario-card" id="currentCard">
+      <span class="scenario-tag special">${sc.tag} · ${idx + 1}/12</span>
+      <h2 class="scenario-title">${sc.title}</h2>
+      <p class="scenario-text">${sc.text}</p>
+      <p class="scenario-question">${sc.question}</p>
+      <div class="drag-list" id="dragList"></div>
+      <p class="drag-hint">Usá las flechas para reordenar · arriba = más urgente</p>
+      <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+        <button class="btn-confirm" onclick="confirmDrag()">
+          Confirmar orden
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+      </div>
+    </div>`;
+  renderDragList(sc);
+}
+function renderDragList(sc) {
+  const order = window._dragOrder;
+  const list = document.getElementById('dragList');
+  list.innerHTML = order.map((id, i) => {
+    const item = sc.items.find(it => it.id === id);
+    return `
+      <div class="drag-item">
+        <div class="drag-item-num">${i + 1}</div>
+        <div class="drag-item-emoji">${item.emoji}</div>
+        <div class="drag-item-text">${item.text}</div>
+        <div class="drag-arrows">
+          <button class="drag-arrow-btn" ${i === 0 ? 'disabled' : ''} onclick="moveDrag(${i}, -1)">▲</button>
+          <button class="drag-arrow-btn" ${i === order.length - 1 ? 'disabled' : ''} onclick="moveDrag(${i}, 1)">▼</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+function moveDrag(fromIdx, dir) {
+  const order = window._dragOrder;
+  const newIdx = fromIdx + dir;
+  if (newIdx < 0 || newIdx >= order.length) return;
+  const tmp = order[fromIdx];
+  order[fromIdx] = order[newIdx];
+  order[newIdx] = tmp;
+  renderDragList(SCENARIOS[state.currentScenario]);
+}
+function confirmDrag() {
+  const reactionTime = performance.now() - state.scenarioStartTime;
+  state.reactionTimes[state.currentScenario] = reactionTime;
+  state.answers[state.currentScenario] = { type: "drag", payload: window._dragOrder.slice() };
+  advanceScenario();
+}
+
+/* ── ALLOCATION (100 puntos o 60 min) ── */
+function renderAllocation(sc, idx) {
+  const stored = (state.answers[idx] && state.answers[idx].type === sc.type) ? state.answers[idx].payload : null;
+  // payload is object { catId: value }
+  const initial = {};
+  const equal = Math.floor(sc.total / sc.categories.length);
+  let remainder = sc.total - equal * sc.categories.length;
+  sc.categories.forEach((c, i) => {
+    initial[c.id] = stored ? stored[c.id] : (equal + (i < remainder ? 1 : 0));
+  });
+  window._allocState = initial;
+
+  document.getElementById('scenarioContainer').innerHTML = `
+    <div class="scenario-card" id="currentCard">
+      <span class="scenario-tag special">${sc.tag} · ${idx + 1}/12</span>
+      <h2 class="scenario-title">${sc.title}</h2>
+      <p class="scenario-text">${sc.text}</p>
+      <p class="scenario-question">${sc.question}</p>
+      <div class="alloc-list" id="allocList"></div>
+      <div class="alloc-total">
+        <span class="alloc-total-label">Total asignado</span>
+        <span><span class="alloc-total-value" id="allocTotal">${sc.total}</span> / ${sc.total} ${sc.unit}</span>
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+        <button class="btn-confirm" onclick="confirmAllocation()">
+          Confirmar reparto
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+      </div>
+    </div>`;
+  renderAllocList(sc);
+}
+function renderAllocList(sc) {
+  const st = window._allocState;
+  const list = document.getElementById('allocList');
+  list.innerHTML = sc.categories.map(c => `
+    <div class="alloc-row">
+      <div class="alloc-row-header">
+        <div class="alloc-emoji">${c.emoji}</div>
+        <div class="alloc-text">
+          <div class="alloc-label">${c.label}</div>
+          <div class="alloc-desc">${c.desc}</div>
+        </div>
+        <div class="alloc-value"><span id="allocVal-${c.id}">${st[c.id]}</span> ${sc.unit}</div>
+      </div>
+      <div class="alloc-slider-wrap">
+        <input type="range" class="alloc-slider" min="0" max="${sc.total}" value="${st[c.id]}"
+               oninput="updateAlloc('${c.id}', this.value)" />
+      </div>
+    </div>
+  `).join('');
+}
+function updateAlloc(catId, newVal) {
+  const sc = SCENARIOS[state.currentScenario];
+  const st = window._allocState;
+  newVal = parseInt(newVal);
+  const oldVal = st[catId];
+  const delta = newVal - oldVal;
+  if (delta === 0) return;
+
+  // Auto-balance: take/give delta from other categories proportionally
+  const others = sc.categories.filter(c => c.id !== catId);
+  const otherTotal = others.reduce((sum, c) => sum + st[c.id], 0);
+
+  if (delta > 0) {
+    // Reduce others proportionally
+    if (otherTotal <= 0) {
+      // Can't increase further
+      document.querySelector(`input[oninput*="'${catId}'"]`).value = oldVal;
+      return;
+    }
+    let remaining = delta;
+    // Sort by current value desc to take from largest first
+    const sorted = others.slice().sort((a, b) => st[b.id] - st[a.id]);
+    for (const c of sorted) {
+      if (remaining <= 0) break;
+      const take = Math.min(st[c.id], remaining);
+      st[c.id] -= take;
+      remaining -= take;
+    }
+    st[catId] = newVal - (remaining); // if couldn't fully absorb, reduce newVal
+  } else {
+    // Distribute |delta| to others equally
+    const add = -delta;
+    let remaining = add;
+    const sorted = others.slice().sort((a, b) => st[a.id] - st[b.id]);
+    sorted.forEach((c, i) => {
+      const share = Math.floor(remaining / (sorted.length - i));
+      st[c.id] += share;
+      remaining -= share;
+    });
+    st[catId] = newVal;
+  }
+  // Update UI
+  sc.categories.forEach(c => {
+    const el = document.getElementById('allocVal-' + c.id);
+    if (el) el.textContent = st[c.id];
+    const inp = document.querySelector(`input[oninput*="'${c.id}'"]`);
+    if (inp && c.id !== catId) inp.value = st[c.id];
+  });
+  const total = sc.categories.reduce((s, c) => s + st[c.id], 0);
+  document.getElementById('allocTotal').textContent = total;
+}
+function confirmAllocation() {
+  const reactionTime = performance.now() - state.scenarioStartTime;
+  state.reactionTimes[state.currentScenario] = reactionTime;
+  const sc = SCENARIOS[state.currentScenario];
+  state.answers[state.currentScenario] = { type: sc.type, payload: { ...window._allocState } };
+  advanceScenario();
+}
+
+/* ── ADVANCE / PREVIOUS ── */
+function advanceScenario() {
+  const card = document.getElementById('currentCard');
+  if (state.currentScenario < SCENARIOS.length - 1) {
+    if (card) card.classList.add('outgoing');
+    setTimeout(() => { state.currentScenario++; renderScenario(); }, 350);
+  } else {
+    if (card) card.classList.add('outgoing');
+    setTimeout(() => finishTest(), 400);
+  }
+}
+function previousScenario() {
+  if (state.currentScenario > 0) {
+    const card = document.getElementById('currentCard');
+    if (card) card.style.animation = 'scenario-out 0.3s cubic-bezier(0.4, 0, 1, 1) reverse';
+    setTimeout(() => { state.currentScenario--; renderScenario(); }, 300);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCORING — manejar los 3 tipos de respuesta
+───────────────────────────────────────────────────────── */
+function calculateScores() {
+  // Raw accumulator
+  const raw = { foco: 0, ritmo: 0, estructura: 0, comunicacion: 0 };
+  let maxRaw = 0; // dynamic ceiling to normalize
+
+  state.answers.forEach((ans, scIdx) => {
+    if (!ans) return;
+    const sc = SCENARIOS[scIdx];
+    if (ans.type === "mc") {
+      const opt = sc.options[ans.payload];
+      Object.keys(raw).forEach(k => raw[k] += opt.v[k]);
+      maxRaw += 3;
+    } else if (ans.type === "drag") {
+      // position weights: top=+2, +1, 0, -1, bottom=-2
+      const weights = [2, 1, 0, -1, -2];
+      const order = ans.payload;
+      const contrib = { foco: 0, ritmo: 0, estructura: 0, comunicacion: 0 };
+      order.forEach((id, pos) => {
+        const item = sc.items.find(it => it.id === id);
+        const w = weights[pos];
+        Object.keys(contrib).forEach(k => contrib[k] += item.v[k] * w);
+      });
+      // Scale down: divide by 4 to bring into ~[-5, +5] typical range
+      Object.keys(raw).forEach(k => raw[k] += contrib[k] / 4);
+      maxRaw += 3;
+    } else if (ans.type === "allocation" || ans.type === "timeAllocation") {
+      const total = sc.total;
+      const contrib = { foco: 0, ritmo: 0, estructura: 0, comunicacion: 0 };
+      sc.categories.forEach(c => {
+        const portion = (ans.payload[c.id] || 0) / total;
+        Object.keys(contrib).forEach(k => contrib[k] += c.v[k] * portion);
+      });
+      // contrib is in roughly [-3, +3] range (since portions sum to 1, max contribution = max single vector)
+      // Scale up slightly for impact (× 2.5)
+      Object.keys(raw).forEach(k => raw[k] += contrib[k] * 2.5);
+      maxRaw += 3;
+    }
+  });
+
+  // Normalize each dimension from raw [-maxRaw, +maxRaw] to percentage [0, 100]
+  const normalized = {};
+  Object.keys(raw).forEach(k => {
+    const pct = ((raw[k] + maxRaw) / (2 * maxRaw)) * 100;
+    normalized[k] = Math.max(0, Math.min(100, Math.round(pct)));
+  });
+  state.scores = normalized;
+  return normalized;
+}
+
+function matchProfile(scores) {
+  let bestKey = null, bestDist = Infinity;
+  Object.keys(PROFILES).forEach(key => {
+    const v = PROFILES[key].vector;
+    const dist = Math.sqrt(
+      Math.pow(scores.foco - v.foco, 2) + Math.pow(scores.ritmo - v.ritmo, 2) +
+      Math.pow(scores.estructura - v.estructura, 2) + Math.pow(scores.comunicacion - v.comunicacion, 2)
+    );
+    if (dist < bestDist) { bestDist = dist; bestKey = key; }
+  });
+  return bestKey;
+}
+
+/* ─────────────────────────────────────────────────────────
+   REACTION TIME
+───────────────────────────────────────────────────────── */
+function analyzeReactionTime() {
+  const valid = state.reactionTimes.filter(t => t && t > 0);
+  if (valid.length === 0) return { value: "Equilibrado", desc: "No tenemos suficientes datos para clasificar." };
+  const avg = valid.reduce((a, b) => a + b, 0) / valid.length / 1000; // seconds
+  if (avg < 7) return {
+    value: "Decisor rápido",
+    desc: "Tomaste decisiones en promedio en menos de 7 segundos. Confiás en tu intuición y no te trabás analizando."
+  };
+  if (avg > 18) return {
+    value: "Decisor reflexivo",
+    desc: "Te tomaste tu tiempo en cada decisión (más de 18 segundos en promedio). Preferís analizar antes de moverte."
+  };
+  return {
+    value: "Decisor equilibrado",
+    desc: `Promediaste ${avg.toFixed(1)} segundos por decisión. Combinás reflexión con velocidad según la situación.`
+  };
+}
+
+/* ─────────────────────────────────────────────────────────
+   CALCULATING SCREEN
+───────────────────────────────────────────────────────── */
+const CALC_MESSAGES = [
+  "Analizando tu orientación laboral…",
+  "Detectando tu estilo de comunicación…",
+  "Midiendo tu ritmo de decisión…",
+  "Evaluando cómo te llevás con la estructura…",
+  "Cruzando tus respuestas con 12 perfiles posibles…",
+  "Construyendo tu informe…"
+];
+async function finishTest() {
+  showScreen('screen-calculating');
+  const msgEl = document.getElementById('calcMessage');
+  for (let i = 0; i < CALC_MESSAGES.length; i++) {
+    msgEl.style.opacity = '0';
+    await sleep(200);
+    msgEl.textContent = CALC_MESSAGES[i];
+    msgEl.style.opacity = '1';
+    await sleep(650);
+  }
+  const scores = calculateScores();
+  const profileKey = matchProfile(scores);
+  renderResult(profileKey, scores);
+  await sleep(300);
+  showScreen('screen-result');
+  // Trigger flip after entering the screen
+  setTimeout(() => triggerCardFlip(), 400);
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ─────────────────────────────────────────────────────────
+   RESULT RENDERING
+───────────────────────────────────────────────────────── */
+function renderResult(profileKey, scores) {
+  const p = PROFILES[profileKey];
+
+  // Profile card content
+  document.getElementById('profileEmoji').textContent = p.emoji;
+  document.getElementById('profileName').textContent = p.name;
+  document.getElementById('profileLema').textContent = `"${p.lema}"`;
+  document.getElementById('profileDesc').textContent = p.desc;
+
+  // Tags
+  const tagsContainer = document.getElementById('tagsList');
+  tagsContainer.innerHTML = p.tags.map((tag, i) => `
+    <span class="profile-tag" style="animation-delay: ${2.4 + i * 0.1}s">${tag}</span>
+  `).join('');
+
+  // Radar
+  renderRadar(scores);
+
+  // Dimensions with animated counters
+  const dimList = document.getElementById('dimensionsList');
+  dimList.innerHTML = DIMENSIONS.map((d) => {
+    const score = scores[d.key];
+    const leftActive = score < 45, rightActive = score > 55;
+    return `
+      <div class="dimension-row">
+        <div class="dimension-labels">
+          <span class="dim-label-left ${leftActive ? 'dim-label-active' : ''}">${d.left}</span>
+          <span class="dim-label-right ${rightActive ? 'dim-label-active' : ''}">
+            ${d.right}
+            <span class="dim-percent-display" data-target="${score}">0%</span>
+          </span>
+        </div>
+        <div class="dimension-bar">
+          <div class="dimension-marker"></div>
+          <div class="dimension-bar-fill" data-target-width="${score}"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Fortalezas y desarrollo
+  document.getElementById('fortalezasList').innerHTML = p.fortalezas.map(f => `<li class="insight-item">${f}</li>`).join('');
+  document.getElementById('desarrolloList').innerHTML = p.desarrollo.map(d => `<li class="insight-item">${d}</li>`).join('');
+
+  // Reaction time insight
+  const r = analyzeReactionTime();
+  document.getElementById('reactionValue').textContent = r.value;
+  document.getElementById('reactionDesc').textContent = r.desc;
+
+  // Trigger counters and bar fills after a delay
+  setTimeout(() => animateCounters(), 2700);
+}
+
+function triggerCardFlip() {
+  document.getElementById('profileFlipCard').classList.add('flipped');
+  // Confetti after flip completes
+  setTimeout(() => launchConfetti(), 800);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ANIMATED COUNTERS
+───────────────────────────────────────────────────────── */
+function animateCounters() {
+  document.querySelectorAll('.dim-percent-display').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    animateNumber(el, 0, target, 1400);
+  });
+  document.querySelectorAll('.dimension-bar-fill').forEach(el => {
+    const target = parseInt(el.dataset.targetWidth);
+    el.style.width = target + '%';
+  });
+}
+function animateNumber(el, start, end, duration) {
+  const startTime = performance.now();
+  function tick(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+    const value = Math.round(start + (end - start) * eased);
+    el.textContent = value + '%';
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ─────────────────────────────────────────────────────────
+   RADAR CHART (SVG)
+───────────────────────────────────────────────────────── */
+function renderRadar(scores) {
+  const svg = document.getElementById('radarSvg');
+  const R = 100; // outer radius
+  const axes = DIMENSIONS.map((d, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI / 4); // start at top, 4 axes
+    return { angle, label: d.short, key: d.key };
+  });
+  // Score per axis: 0-100. We display the percentage as distance from center.
+  // For pleasing radar, use 0=center, 100=outer.
+  function point(angle, radius) {
+    return [Math.cos(angle) * radius, Math.sin(angle) * radius];
+  }
+
+  // Grid polygons (4 levels)
+  let svgContent = '';
+  for (let level = 1; level <= 4; level++) {
+    const r = (R * level) / 4;
+    const pts = axes.map(a => point(a.angle, r).join(',')).join(' ');
+    svgContent += `<polygon class="radar-grid-poly" points="${pts}" />`;
+  }
+  // Axes
+  axes.forEach(a => {
+    const [x, y] = point(a.angle, R);
+    svgContent += `<line class="radar-axis" x1="0" y1="0" x2="${x}" y2="${y}" />`;
+  });
+  // Shape
+  const shapePts = axes.map(a => {
+    const r = (R * scores[a.key]) / 100;
+    return point(a.angle, r).join(',');
+  }).join(' ');
+  svgContent += `<polygon class="radar-shape" points="${shapePts}" />`;
+  // Points
+  axes.forEach(a => {
+    const r = (R * scores[a.key]) / 100;
+    const [x, y] = point(a.angle, r);
+    svgContent += `<circle class="radar-point" cx="${x}" cy="${y}" r="4" />`;
+  });
+  // Labels — text-anchor varies per cardinal position so long labels fit
+  axes.forEach((a, i) => {
+    const [lx, ly] = point(a.angle, R + 16);
+    let anchor = 'middle', dy = 4;
+    if (i === 0) { anchor = 'middle'; dy = -2; }       // top: Foco
+    else if (i === 1) { anchor = 'start'; dy = 4; }    // right: Ritmo
+    else if (i === 2) { anchor = 'middle'; dy = 14; }  // bottom: Estructura
+    else if (i === 3) { anchor = 'end'; dy = 4; }      // left: Comunicación
+    svgContent += `<text class="radar-label" x="${lx}" y="${ly + dy}" text-anchor="${anchor}">${a.label}</text>`;
+  });
+  svg.innerHTML = svgContent;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONFETTI
+───────────────────────────────────────────────────────── */
+function launchConfetti() {
+  const container = document.getElementById('confettiContainer');
+  container.classList.remove('hidden');
+  container.innerHTML = '';
+  const colors = ['#7DB84F', '#6A9E48', '#EFF3FF', '#A8D97A', '#4A5E96', '#374878'];
+  const N = 80;
+  for (let i = 0; i < N; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (Math.random() * 100) + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (8 + Math.random() * 10) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '2px' : '50%';
+    const xMove = (Math.random() - 0.5) * 600;
+    const rot = (Math.random() * 1440 - 720);
+    piece.style.setProperty('--confetti-x', xMove + 'px');
+    piece.style.setProperty('--confetti-r', rot + 'deg');
+    piece.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+    piece.style.animationDelay = (Math.random() * 0.4) + 's';
+    container.appendChild(piece);
+  }
+  setTimeout(() => { container.classList.add('hidden'); container.innerHTML = ''; }, 5000);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SHARE
+───────────────────────────────────────────────────────── */
+function shareProfile() {
+  const p = PROFILES[matchProfile(state.scores)];
+  if (navigator.share) {
+    navigator.share({
+      title: `Mi perfil laboral es ${p.name}`,
+      text: `${p.lema} — Descubrí tu perfil laboral en FMA`,
+      url: window.location.href
+    }).catch(() => generateShareImage(p));
+  } else {
+    generateShareImage(p);
+  }
+}
+function generateShareImage(profile) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+  grad.addColorStop(0, '#080D1A'); grad.addColorStop(1, '#162033');
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, 1080, 1080);
+  const glow = ctx.createRadialGradient(540, 200, 100, 540, 200, 600);
+  glow.addColorStop(0, 'rgba(106,158,72,0.18)'); glow.addColorStop(1, 'rgba(106,158,72,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.font = '180px Inter, Apple Color Emoji, sans-serif';
+  ctx.textAlign = 'left'; ctx.fillText(profile.emoji, 80, 280);
+  ctx.fillStyle = '#7DB84F'; ctx.font = '700 28px Inter, sans-serif';
+  ctx.fillText('MI PERFIL LABORAL ES:', 80, 380);
+  ctx.fillStyle = '#EFF3FF'; ctx.font = '900 112px Inter, sans-serif';
+  ctx.fillText(profile.name, 80, 510);
+  ctx.fillStyle = '#8B9ABF'; ctx.font = 'italic 42px Inter, sans-serif';
+  wrapText(ctx, `"${profile.lema}"`, 80, 600, 920, 56);
+  ctx.fillStyle = '#4A5882'; ctx.font = '600 26px Inter, sans-serif';
+  ctx.fillText('FMA · Mi Perfil Laboral', 80, 990);
+  ctx.textAlign = 'right'; ctx.fillText('fma-gestion.com', 1000, 990);
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `mi-perfil-${profile.name.toLowerCase().replace(/\s+/g, '-')}.png`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+}
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line + words[i] + ' ';
+    if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+      ctx.fillText(line, x, y); line = words[i] + ' '; y += lineHeight;
+    } else line = testLine;
+  }
+  ctx.fillText(line, x, y);
+}
+
+/* ─────────────────────────────────────────────────────────
+   PREMIUM MODAL + REAL BACKEND PAYMENT
+───────────────────────────────────────────────────────── */
+function openPremiumModal() { document.getElementById('premiumModal').classList.remove('hidden'); }
+function closePremiumModal() { document.getElementById('premiumModal').classList.add('hidden'); }
+
+async function processPayment() {
+  const email = document.getElementById('premiumEmail').value.trim();
+  const name = document.getElementById('premiumName').value.trim();
+  if (!email || !email.includes('@')) { alert('Por favor ingresá un email válido.'); return; }
+  if (!name) { alert('Por favor ingresá tu nombre y apellido.'); return; }
+
+  const btn = document.querySelector('#premiumModal .btn-primary');
+  const originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Preparando tu pago...';
+
+  try {
+    const profileKey = matchProfile(state.scores);
+    const profile = PROFILES[profileKey];
+    const reaction = analyzeReactionTime();
+    const validRTs = state.reactionTimes.filter(t => t && t > 0);
+    const avgSeconds = validRTs.length > 0
+      ? validRTs.reduce((a, b) => a + b, 0) / validRTs.length / 1000
+      : 0;
+
+    const res = await fetch('/api/create-perfil-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, email,
+        profile_key: profileKey,
+        profile_name: profile.name,
+        scores: state.scores,
+        reaction_value: reaction.value,
+        reaction_avg_seconds: Math.round(avgSeconds * 10) / 10
+      })
+    });
+
+    if (!res.ok) {
+      const errMsg = await res.text().catch(() => 'Error desconocido');
+      throw new Error(errMsg || 'No se pudo crear el pago');
+    }
+    const data = await res.json();
+    if (!data.init_point) throw new Error('Respuesta inválida del servidor');
+    window.location.href = data.init_point;
+  } catch (e) {
+    console.error(e);
+    alert('Hubo un error al iniciar el pago: ' + e.message + '\n\nPor favor intentá de nuevo o escribinos a hola@fmagestionhumana.com.ar');
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }
+}
+
+// Detectar redirect desde Mercado Pago al cargar la página
+function checkPaymentReturnStatus() {
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('status') || params.get('collection_status');
+  if (!status) return;
+  if (status === 'approved' || status === 'success') showScreen('screen-payment-success');
+  else if (status === 'pending' || status === 'in_process') showScreen('screen-payment-pending');
+  else if (status === 'failure' || status === 'rejected') showScreen('screen-payment-failed');
+  if (history.replaceState) history.replaceState(null, '', window.location.pathname);
+}
+window.addEventListener('DOMContentLoaded', checkPaymentReturnStatus);
+
+document.getElementById('premiumModal').addEventListener('click', (e) => {
+  if (e.target.id === 'premiumModal') closePremiumModal();
+});
+</script>
+</body>
+</html>
+<!-- DUPLICATE CONTENT BELOW (HIDDEN FROM RENDER)
+    if (i === 0) { anchor = 'middle'; dy = -2; }       // top: Foco
+    else if (i === 1) { anchor = 'start'; dy = 4; }    // right: Ritmo
+    else if (i === 2) { anchor = 'middle'; dy = 14; }  // bottom: Estructura
+    else if (i === 3) { anchor = 'end'; dy = 4; }      // left: Comunicación
+    svgContent += `<text class="radar-label" x="${lx}" y="${ly + dy}" text-anchor="${anchor}">${a.label}</text>`;
+  });
+  svg.innerHTML = svgContent;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONFETTI
+───────────────────────────────────────────────────────── */
+function launchConfetti() {
+  const container = document.getElementById('confettiContainer');
+  container.classList.remove('hidden');
+  container.innerHTML = '';
+  const colors = ['#7DB84F', '#6A9E48', '#EFF3FF', '#A8D97A', '#4A5E96', '#374878'];
+  const N = 80;
+  for (let i = 0; i < N; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (Math.random() * 100) + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (8 + Math.random() * 10) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '2px' : '50%';
+    const xMove = (Math.random() - 0.5) * 600;
+    const rot = (Math.random() * 1440 - 720);
+    piece.style.setProperty('--confetti-x', xMove + 'px');
+    piece.style.setProperty('--confetti-r', rot + 'deg');
+    piece.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+    piece.style.animationDelay = (Math.random() * 0.4) + 's';
+    container.appendChild(piece);
+  }
+  setTimeout(() => { container.classList.add('hidden'); container.innerHTML = ''; }, 5000);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SHARE
+───────────────────────────────────────────────────────── */
+function shareProfile() {
+  const p = PROFILES[matchProfile(state.scores)];
+  if (navigator.share) {
+    navigator.share({
+      title: `Mi perfil laboral es ${p.name}`,
+      text: `${p.lema} — Descubrí tu perfil laboral en FMA`,
+      url: window.location.href
+    }).catch(() => generateShareImage(p));
+  } else {
+    generateShareImage(p);
+  }
+}
+function generateShareImage(profile) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+  grad.addColorStop(0, '#080D1A'); grad.addColorStop(1, '#162033');
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, 1080, 1080);
+  const glow = ctx.createRadialGradient(540, 200, 100, 540, 200, 600);
+  glow.addColorStop(0, 'rgba(106,158,72,0.18)'); glow.addColorStop(1, 'rgba(106,158,72,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.font = '180px Inter, Apple Color Emoji, sans-serif';
+  ctx.textAlign = 'left'; ctx.fillText(profile.emoji, 80, 280);
+  ctx.fillStyle = '#7DB84F'; ctx.font = '700 28px Inter, sans-serif';
+  ctx.fillText('MI PERFIL LABORAL ES:', 80, 380);
+  ctx.fillStyle = '#EFF3FF'; ctx.font = '900 112px Inter, sans-serif';
+  ctx.fillText(profile.name, 80, 510);
+  ctx.fillStyle = '#8B9ABF'; ctx.font = 'italic 42px Inter, sans-serif';
+  wrapText(ctx, `"${profile.lema}"`, 80, 600, 920, 56);
+  ctx.fillStyle = '#4A5882'; ctx.font = '600 26px Inter, sans-serif';
+  ctx.fillText('FMA · Mi Perfil Laboral', 80, 990);
+  ctx.textAlign = 'right'; ctx.fillText('fma-gestion.com', 1000, 990);
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `mi-perfil-${profile.name.toLowerCase().replace(/\s+/g, '-')}.png`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+}
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line + words[i] + ' ';
+    if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+      ctx.fillText(line, x, y); line = words[i] + ' '; y += lineHeight;
+    } else line = testLine;
+  }
+  ctx.fillText(line, x, y);
+}
+
+/* ─────────────────────────────────────────────────────────
+   PREMIUM MODAL
+───────────────────────────────────────────────────────── */
+function openPremiumModal() { document.getElementById('premiumModal').classList.remove('hidden'); }
+function closePremiumModal() { document.getElementById('premiumModal').classList.add('hidden'); }
+async function processPayment() {
+  const email = document.getElementById('premiumEmail').value.trim();
+  const name = document.getElementById('premiumName').value.trim();
+  if (!email || !email.includes('@')) { alert('Por favor ingresá un email válido.'); return; }
+  if (!name) { alert('Por favor ingresá tu nombre y apellido.'); return; }
+
+  const btn = document.querySelector('#premiumModal .btn-primary');
+  const originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Preparando tu pago...';
+
+  try {
+    const profileKey = matchProfile(state.scores);
+    const profile = PROFILES[profileKey];
+    const reaction = analyzeReactionTime();
+    const validRTs = state.reactionTimes.filter(t => t && t > 0);
+    const avgSeconds = validRTs.length > 0
+      ? validRTs.reduce((a, b) => a + b, 0) / validRTs.length / 1000
+      : 0;
+
+    const res = await fetch('/api/create-perfil-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        profile_key: profileKey,
+        profile_name: profile.name,
+        scores: state.scores,
+        reaction_value: reaction.value,
+        reaction_avg_seconds: Math.round(avgSeconds * 10) / 10
+      })
+    });
+
+    if (!res.ok) {
+      const errMsg = await res.text().catch(() => 'Error desconocido');
+      throw new Error(errMsg || 'No se pudo crear el pago');
+    }
+
+    const data = await res.json();
+    if (!data.init_point) throw new Error('Respuesta inválida del servidor');
+
+    // Redirect al checkout de Mercado Pago
+    window.location.href = data.init_point;
+  } catch (e) {
+    console.error(e);
+    alert('Hubo un error al iniciar el pago: ' + e.message + '\n\nPor favor intentá de nuevo o escribinos a hola@fmagestionhumana.com.ar');
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }
+}
+
+// Detectar redirect desde Mercado Pago al cargar la página
+function checkPaymentReturnStatus() {
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('status') || params.get('collection_status');
+  if (!status) return;
+
+  if (status === 'approved' || status === 'success') {
+    showScreen('screen-payment-success');
+  } else if (status === 'pending' || status === 'in_process') {
+    showScreen('screen-payment-pending');
+  } else if (status === 'failure' || status === 'rejected') {
+    showScreen('screen-payment-failed');
+  }
+  // Limpiar URL para que F5 no repita
+  if (history.replaceState) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+}
+window.addEventListener('DOMContentLoaded', checkPaymentReturnStatus);
+document.getElementById('premiumModal').addEventListener('click', (e) => {
+  if (e.target.id === 'premiumModal') closePremiumModal();
+});
+-->
+

@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe Perfil Laboral · Marcos Arce | FMA Gestión Humana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep: #080D1A; --bg-card: #0F1829; --bg-card-2: #162033; --bg-card-3: #1D2A42;
+      --navy: #374878; --navy-dark: #2A3760; --navy-light: #4A5E96;
+      --green: #6A9E48; --green-dark: #558035; --green-light: #7DB84F;
+      --text-primary: #EFF3FF; --text-secondary: #8B9ABF; --text-muted: #4A5882;
+      --border: rgba(55,72,120,0.25); --border-bright: rgba(55,72,120,0.5);
+      --border-green: rgba(106,158,72,0.35);
+      --radius: 12px; --radius-lg: 20px; --radius-xl: 28px; --radius-full: 9999px;
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #04070F;
+      color: var(--text-primary);
+      line-height: 1.65; min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    /* Sticky header for navigation */
+    .doc-header {
+      position: sticky; top: 20px; z-index: 50;
+      max-width: 794px; margin: 0 auto 20px;
+      background: rgba(15,24,41,0.85); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: var(--radius-full);
+      padding: 10px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .doc-header-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 700; color: var(--text-secondary);
+    }
+    .doc-header-brand strong {
+      background: linear-gradient(135deg, var(--green-light), #A8D97A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .doc-header-actions { display: flex; gap: 8px; }
+    .doc-header-btn {
+      background: rgba(106,158,72,0.15); color: var(--green-light);
+      border: 1px solid var(--border-green); border-radius: var(--radius-full);
+      padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .doc-header-btn:hover { background: rgba(106,158,72,0.25); }
+
+    .page {
+      max-width: 794px; margin: 0 auto 28px;
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-xl);
+      padding: 60px 56px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .page::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    }
+
+    /* Header in each section */
+    .page-section-num {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-light); margin-bottom: 12px;
+    }
+    .page-section-title {
+      font-size: 32px; font-weight: 800;
+      color: var(--text-primary); letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 8px;
+    }
+    .page-section-sub {
+      font-size: 15px; color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+    .page-footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+    }
+    .page-footer-brand {
+      background: linear-gradient(135deg, var(--green-light), #A8D97A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-weight: 800;
+    }
+
+    /* COVER PAGE */
+    .cover {
+      min-height: 1000px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #080D1A 0%, #162033 60%, #0F1829 100%);
+      position: relative;
+    }
+    .cover::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(106,158,72,0.18), transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(55,72,120,0.25), transparent 50%);
+      pointer-events: none;
+    }
+    .cover-content { position: relative; z-index: 1; }
+    .cover-brand {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 18px; font-weight: 800; color: var(--text-secondary);
+      margin-bottom: 60px;
+      letter-spacing: 0.02em;
+    }
+    .cover-brand-fma {
+      background: linear-gradient(135deg, var(--green-light), #A8D97A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-weight: 900;
+    }
+    .cover-label {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green-light);
+      padding: 8px 18px;
+      background: rgba(106,158,72,0.08);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 32px;
+    }
+    .cover-title {
+      font-size: 56px; font-weight: 900;
+      line-height: 1; letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .cover-name {
+      font-size: 22px; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: 80px;
+    }
+    .cover-emoji {
+      font-size: 100px; margin-bottom: 20px;
+      filter: drop-shadow(0 4px 24px rgba(106,158,72,0.3));
+    }
+    .cover-profile-name {
+      font-size: 64px; font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1;
+      background: linear-gradient(135deg, var(--text-primary), var(--green-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 14px;
+    }
+    .cover-lema {
+      font-size: 20px; font-style: italic;
+      color: var(--text-secondary); max-width: 480px;
+      margin: 0 auto;
+    }
+    .cover-meta {
+      position: absolute; bottom: 50px; left: 0; right: 0;
+      display: flex; justify-content: space-between;
+      padding: 0 56px;
+      font-size: 12px; color: var(--text-muted);
+      z-index: 1;
+    }
+
+    /* Section content */
+    .lead {
+      font-size: 17px; color: var(--text-primary);
+      line-height: 1.75; margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .body-text {
+      font-size: 15px; color: var(--text-secondary);
+      line-height: 1.75; margin-bottom: 16px;
+    }
+    .body-text strong { color: var(--text-primary); font-weight: 700; }
+
+    /* Profile glimpse card */
+    .glimpse-card {
+      background: rgba(8,13,26,0.6);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .glimpse-header {
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 20px;
+    }
+    .glimpse-emoji {
+      font-size: 56px; line-height: 1;
+      flex-shrink: 0;
+    }
+    .glimpse-name {
+      font-size: 28px; font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--text-primary), var(--green-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.1; margin-bottom: 4px;
+    }
+    .glimpse-lema {
+      font-size: 14px; color: var(--text-secondary); font-style: italic;
+    }
+    .dims-mini {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px;
+      margin-top: 4px;
+    }
+    .dim-mini-row {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .dim-mini-header {
+      display: flex; justify-content: space-between;
+      font-size: 12px; font-weight: 600;
+    }
+    .dim-mini-label { color: var(--text-secondary); }
+    .dim-mini-value { color: var(--green-light); font-weight: 800; font-variant-numeric: tabular-nums; }
+    .dim-mini-bar {
+      height: 5px; background: rgba(8,13,26,0.8);
+      border-radius: var(--radius-full); overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .dim-mini-fill {
+      height: 100%; background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: var(--radius-full);
+    }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .profile-tag {
+      display: inline-flex; align-items: center;
+      background: rgba(106,158,72,0.1); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 6px 14px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 700;
+    }
+    .decision-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(55,72,120,0.15);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 16px;
+    }
+    .decision-pill-icon { font-size: 16px; }
+
+    /* RADAR section */
+    .radar-layout {
+      display: grid; grid-template-columns: 320px 1fr; gap: 36px;
+      align-items: center;
+    }
+    .radar-svg {
+      width: 100%; max-width: 320px;
+      display: block; margin: 0 auto;
+    }
+    .radar-grid-poly { stroke: var(--border); fill: none; stroke-width: 1; }
+    .radar-axis { stroke: var(--border); stroke-width: 1; }
+    .radar-shape {
+      fill: rgba(106,158,72,0.28); stroke: var(--green);
+      stroke-width: 2; stroke-linejoin: round;
+      filter: drop-shadow(0 0 8px rgba(106,158,72,0.4));
+    }
+    .radar-point { fill: var(--green-light); stroke: #fff; stroke-width: 1.5; }
+    .radar-label {
+      fill: var(--text-secondary); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .dim-explainer {
+      padding: 14px 16px;
+      background: rgba(8,13,26,0.5);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 12px;
+    }
+    .dim-explainer-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dim-explainer-value {
+      font-size: 11px; color: var(--green-light);
+      font-weight: 700; font-variant-numeric: tabular-nums;
+      background: rgba(106,158,72,0.12);
+      padding: 2px 8px; border-radius: 6px;
+    }
+    .dim-explainer-text {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.55;
+    }
+
+    /* Strength/Weakness blocks */
+    .insight-block {
+      margin-bottom: 28px; padding-left: 24px;
+      border-left: 3px solid var(--green);
+    }
+    .insight-block.weakness {
+      border-left-color: var(--navy-light);
+    }
+    .insight-block-title {
+      font-size: 19px; font-weight: 800;
+      color: var(--text-primary); letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .insight-block-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(106,158,72,0.15);
+      color: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .weakness .insight-block-num {
+      background: rgba(55,72,120,0.25);
+      color: var(--navy-light);
+    }
+    .insight-block-text {
+      font-size: 14px; color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .insight-tip {
+      margin-top: 10px; padding: 12px 14px;
+      background: rgba(106,158,72,0.06);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius);
+      font-size: 13px; color: var(--text-primary);
+      line-height: 1.6;
+    }
+    .insight-tip strong { color: var(--green-light); font-weight: 700; }
+    .weakness .insight-tip {
+      background: rgba(55,72,120,0.1);
+      border-color: var(--border-bright);
+    }
+    .weakness .insight-tip strong { color: var(--navy-light); }
+
+    /* Communication & decision sections */
+    .feature-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+    .feature-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 16px;
+      background: rgba(8,13,26,0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .feature-icon {
+      flex-shrink: 0; width: 32px; height: 32px;
+      background: rgba(106,158,72,0.15);
+      border: 1px solid var(--border-green);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--green-light); font-weight: 800;
+    }
+    .feature-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    .subheading {
+      font-size: 16px; font-weight: 800;
+      color: var(--text-primary); margin: 28px 0 14px;
+      letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .subheading::before {
+      content: ''; width: 18px; height: 2px;
+      background: var(--green); border-radius: 2px;
+    }
+
+    /* Environment two-column */
+    .env-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+    }
+    .env-card {
+      padding: 18px 20px;
+      background: rgba(8,13,26,0.5);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+    .env-card.positive { border-color: var(--border-green); }
+    .env-card.negative { border-color: rgba(220,53,69,0.25); }
+    .env-card-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .env-card.positive .env-card-label { color: var(--green-light); }
+    .env-card.negative .env-card-label { color: #FF6B7A; }
+    .env-card-list { list-style: none; }
+    .env-card-list li {
+      font-size: 13px; color: var(--text-secondary);
+      padding: 6px 0; padding-left: 16px;
+      position: relative; line-height: 1.5;
+    }
+    .env-card-list li::before {
+      content: '·'; position: absolute; left: 4px;
+      color: var(--text-muted); font-weight: 800;
+    }
+    .env-card.positive .env-card-list li::before { color: var(--green); }
+    .env-card.negative .env-card-list li::before { color: #FF6B7A; }
+
+    /* Interview section (the differential) */
+    .interview-highlight {
+      padding: 24px 28px;
+      background: linear-gradient(135deg, rgba(106,158,72,0.1), rgba(55,72,120,0.1));
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-lg);
+      margin-bottom: 28px;
+    }
+    .interview-highlight-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green-light); margin-bottom: 10px;
+    }
+    .interview-highlight-text {
+      font-size: 15px; color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .quote-box {
+      padding: 18px 22px;
+      background: rgba(15,24,41,0.7);
+      border-left: 3px solid var(--green-light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 14px 0;
+      font-style: italic;
+      font-size: 14px; color: var(--text-primary);
+      line-height: 1.6;
+    }
+    .quote-box-tip {
+      margin-top: 10px;
+      font-size: 12px; color: var(--text-muted);
+      font-style: normal;
+    }
+
+    .qa-block {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .qa-block:last-child { border-bottom: none; padding-bottom: 0; }
+    .qa-question {
+      font-size: 15px; font-weight: 700;
+      color: var(--green-light); margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .qa-answer {
+      font-size: 14px; color: var(--text-primary);
+      line-height: 1.7; font-style: italic;
+      padding: 14px 16px;
+      background: rgba(8,13,26,0.5);
+      border-radius: var(--radius);
+      border-left: 2px solid var(--green);
+    }
+    .qa-note {
+      font-size: 12px; color: var(--text-muted);
+      margin-top: 8px; padding-left: 16px;
+      font-style: italic;
+    }
+
+    .pitch-box {
+      padding: 28px 32px;
+      background: linear-gradient(135deg, rgba(55,72,120,0.2), rgba(106,158,72,0.1));
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-xl);
+      position: relative;
+      margin-top: 12px;
+    }
+    .pitch-box-label {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green-light); margin-bottom: 10px;
+    }
+    .pitch-box-text {
+      font-size: 15px; color: var(--text-primary);
+      line-height: 1.7; font-style: italic;
+    }
+
+    /* CLOSING */
+    .closing-card {
+      text-align: center;
+      padding: 40px 32px;
+    }
+    .closing-emoji { font-size: 64px; margin-bottom: 16px; }
+    .closing-title {
+      font-size: 32px; font-weight: 900;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary), var(--green-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .closing-text {
+      font-size: 16px; color: var(--text-secondary);
+      line-height: 1.7; max-width: 540px; margin: 0 auto 28px;
+    }
+    .cta-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      margin-top: 28px;
+    }
+    .cta-card {
+      padding: 18px;
+      background: rgba(8,13,26,0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-align: left;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .cta-card:hover {
+      border-color: var(--border-green);
+      background: rgba(106,158,72,0.04);
+    }
+    .cta-card-emoji { font-size: 24px; margin-bottom: 8px; }
+    .cta-card-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .cta-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    /* Print styling */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .doc-header { display: none; }
+      .page {
+        page-break-after: always;
+        box-shadow: none;
+        border-radius: 0;
+        max-width: none;
+        margin: 0;
+        min-height: 100vh;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 36px 28px; }
+      .cover-title { font-size: 36px; }
+      .cover-profile-name { font-size: 44px; }
+      .cover-emoji { font-size: 72px; }
+      .radar-layout { grid-template-columns: 1fr; }
+      .env-grid { grid-template-columns: 1fr; }
+      .dims-mini { grid-template-columns: 1fr; }
+      .cta-grid { grid-template-columns: 1fr; }
+      .cover-meta { padding: 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <div class="doc-header-brand">
+      <strong>FMA</strong> · Informe Perfil Laboral
+    </div>
+    <div class="doc-header-actions">
+      <button class="doc-header-btn" onclick="window.print()">
+        🖨️ Imprimir / Guardar PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- PAGE 1: COVER -->
+  <section class="page cover">
+    <div class="cover-meta">
+      <span>Generado el 26 de mayo de 2026</span>
+      <span>Informe N° MPL-2026-00428</span>
+    </div>
+    <div class="cover-content">
+      <div class="cover-brand">
+        <span class="cover-brand-fma">FMA</span>
+        <span style="opacity: 0.6;">·</span>
+        <span>Gestión Humana</span>
+      </div>
+      <div class="cover-label">Informe Perfil Laboral</div>
+      <h1 class="cover-title">Tu juego<br/>habla por vos.</h1>
+      <p class="cover-name">Marcos Arce</p>
+      <div class="cover-emoji">🧭</div>
+      <div class="cover-profile-name">El Mentor</div>
+      <p class="cover-lema">"Su éxito se mide por el de su equipo"</p>
+    </div>
+  </section>
+
+  <!-- PAGE 2: TU PERFIL EN UNA MIRADA -->
+  <section class="page">
+    <div class="page-section-num">01 · Tu perfil en una mirada</div>
+    <h2 class="page-section-title">Quién sos profesionalmente</h2>
+    <p class="page-section-sub">Una síntesis de tu perfil conductual basada en tus respuestas al test.</p>
+
+    <div class="glimpse-card">
+      <div class="glimpse-header">
+        <div class="glimpse-emoji">🧭</div>
+        <div>
+          <div class="glimpse-name">El Mentor</div>
+          <div class="glimpse-lema">"Su éxito se mide por el de su equipo"</div>
+        </div>
+      </div>
+
+      <div class="dims-mini">
+        <div class="dim-mini-row">
+          <div class="dim-mini-header"><span class="dim-mini-label">Personas vs Tareas</span><span class="dim-mini-value">70%</span></div>
+          <div class="dim-mini-bar"><div class="dim-mini-fill" style="width: 70%"></div></div>
+        </div>
+        <div class="dim-mini-row">
+          <div class="dim-mini-header"><span class="dim-mini-label">Reflexión vs Acción</span><span class="dim-mini-value">75%</span></div>
+          <div class="dim-mini-bar"><div class="dim-mini-fill" style="width: 75%"></div></div>
+        </div>
+        <div class="dim-mini-row">
+          <div class="dim-mini-header"><span class="dim-mini-label">Flexibilidad vs Estructura</span><span class="dim-mini-value">45%</span></div>
+          <div class="dim-mini-bar"><div class="dim-mini-fill" style="width: 45%"></div></div>
+        </div>
+        <div class="dim-mini-row">
+          <div class="dim-mini-header"><span class="dim-mini-label">Diplomacia vs Directez</span><span class="dim-mini-value">80%</span></div>
+          <div class="dim-mini-bar"><div class="dim-mini-fill" style="width: 80%"></div></div>
+        </div>
+      </div>
+
+      <div class="tags-row">
+        <span class="profile-tag">Formador</span>
+        <span class="profile-tag">Paciente</span>
+        <span class="profile-tag">Generoso</span>
+        <span class="profile-tag">Reflexivo</span>
+        <span class="profile-tag">Empático</span>
+      </div>
+
+      <div class="decision-pill">
+        <span class="decision-pill-icon">⏱️</span>
+        <span><strong>Estilo de decisión:</strong> Decisor reflexivo · promedio 19.2 segundos por escenario</span>
+      </div>
+    </div>
+
+    <p class="lead">
+      Marcos, sos un <strong>Mentor</strong>. Las personas en tu entorno se desarrollan más rápido cuando trabajan a tu lado, y eso no es casualidad: tu motor profundo es el desarrollo de otros.
+    </p>
+
+    <p class="body-text">
+      Combinás paciencia para enseñar, una capacidad fina para escuchar lo que no se dice, y una generosidad poco común con tu conocimiento. Tu enfoque está centrado en las personas (70%) y en la reflexión antes que en la acción (75%). Tu estructura es relativamente flexible (45%): aceptás procesos pero no te casás con ellos. Y tu comunicación es marcadamente diplomática (80%) — preferís construir puentes antes que ganar discusiones.
+    </p>
+
+    <p class="body-text">
+      A nivel sistémico, sos el tipo de persona que las organizaciones inteligentes protegen: los equipos a tu cargo se vuelven más fuertes, no más dependientes. Tu valor se mide menos en lo que producís solo y más en cómo activás el potencial de quienes te rodean.
+    </p>
+
+    <p class="body-text">
+      Tu estilo reflexivo (promediaste más de 19 segundos por decisión) te hace especialmente valioso en decisiones que implican impacto humano y que no admiten errores apresurados. La contracara: en decisiones operativas rápidas tendés a sobre-pensar lo que otros resolverían en segundos.
+    </p>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 2 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 3: RADAR CONDUCTUAL -->
+  <section class="page">
+    <div class="page-section-num">02 · Tu radar conductual</div>
+    <h2 class="page-section-title">Tus 4 dimensiones explicadas</h2>
+    <p class="page-section-sub">Cada eje del radar mide un aspecto distinto de cómo trabajás. Acá te explicamos qué significa tu posición.</p>
+
+    <div class="radar-layout">
+      <svg class="radar-svg" viewBox="-180 -150 360 300">
+        <!-- 4 grid levels -->
+        <polygon class="radar-grid-poly" points="0,-25 25,0 0,25 -25,0" />
+        <polygon class="radar-grid-poly" points="0,-50 50,0 0,50 -50,0" />
+        <polygon class="radar-grid-poly" points="0,-75 75,0 0,75 -75,0" />
+        <polygon class="radar-grid-poly" points="0,-100 100,0 0,100 -100,0" />
+        <!-- Axes -->
+        <line class="radar-axis" x1="0" y1="0" x2="0" y2="-100" />
+        <line class="radar-axis" x1="0" y1="0" x2="100" y2="0" />
+        <line class="radar-axis" x1="0" y1="0" x2="0" y2="100" />
+        <line class="radar-axis" x1="0" y1="0" x2="-100" y2="0" />
+        <!-- Shape: foco 70, ritmo 75, estructura 45, comunicacion 80 -->
+        <polygon class="radar-shape" points="0,-70 75,0 0,45 -80,0" />
+        <!-- Points -->
+        <circle class="radar-point" cx="0" cy="-70" r="5" />
+        <circle class="radar-point" cx="75" cy="0" r="5" />
+        <circle class="radar-point" cx="0" cy="45" r="5" />
+        <circle class="radar-point" cx="-80" cy="0" r="5" />
+        <!-- Labels -->
+        <text class="radar-label" x="0" y="-118" text-anchor="middle">Foco · Personas</text>
+        <text class="radar-label" x="116" y="4" text-anchor="start">Ritmo · Reflexión</text>
+        <text class="radar-label" x="0" y="130" text-anchor="middle">Estructura · Flex</text>
+        <text class="radar-label" x="-116" y="4" text-anchor="end">Comunicación · Diplo</text>
+      </svg>
+
+      <div>
+        <div class="dim-explainer">
+          <div class="dim-explainer-title">
+            🤝 Foco — Personas
+            <span class="dim-explainer-value">70%</span>
+          </div>
+          <div class="dim-explainer-text">
+            Priorizás el bienestar y desarrollo de las personas a tu alrededor. En decisiones, considerás primero el impacto humano y después el técnico.
+          </div>
+        </div>
+        <div class="dim-explainer">
+          <div class="dim-explainer-title">
+            🧠 Ritmo — Reflexión
+            <span class="dim-explainer-value">75%</span>
+          </div>
+          <div class="dim-explainer-text">
+            Necesitás tiempo para procesar antes de decidir. Tu fortaleza es la calidad del análisis; el costo es la velocidad.
+          </div>
+        </div>
+        <div class="dim-explainer">
+          <div class="dim-explainer-title">
+            ⚖️ Estructura — Mixta
+            <span class="dim-explainer-value">45%</span>
+          </div>
+          <div class="dim-explainer-text">
+            Equilibrás procesos con flexibilidad. Respetás los marcos pero los adaptás según el contexto. Funciona bien en entornos cambiantes.
+          </div>
+        </div>
+        <div class="dim-explainer">
+          <div class="dim-explainer-title">
+            🕊️ Comunicación — Diplomática
+            <span class="dim-explainer-value">80%</span>
+          </div>
+          <div class="dim-explainer-text">
+            Preferís construir consenso antes que imponer. Muy efectivo en gestión de equipos; puede leerse como falta de convicción si no marcás tu posición.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 3 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 4: ASPECTOS A DESTACAR -->
+  <section class="page">
+    <div class="page-section-num">03 · Aspectos a destacar</div>
+    <h2 class="page-section-title">Tus fortalezas en profundidad</h2>
+    <p class="page-section-sub">Las tres áreas donde tu perfil te diferencia del promedio, con contexto sobre cómo se manifiestan.</p>
+
+    <div class="insight-block">
+      <div class="insight-block-title">
+        <span class="insight-block-num">1</span>
+        Desarrollo de talento ajeno
+      </div>
+      <p class="insight-block-text">
+        Tenés un don para detectar potencial. Ves capacidades en otros antes de que ellos mismos las reconozcan, y sabés cómo acompañar el proceso para que se desplieguen. En equipos liderados por vos, las personas suelen describir su crecimiento profesional como "el mejor período de su carrera". Esto no es casualidad: combinás challenge con safety net — proponés desafíos pero estás disponible cuando hace falta.
+      </p>
+      <div class="insight-tip">
+        <strong>Dónde se nota:</strong> en cómo evolucionan las personas que estuvieron 6+ meses bajo tu liderazgo. Observá su trayectoria post-vos: ascensos, autonomía, calidad de las decisiones que toman solos.
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-block-title">
+        <span class="insight-block-num">2</span>
+        Generación de confianza profunda y duradera
+      </div>
+      <p class="insight-block-text">
+        A diferencia de quienes generan rapport rápido y superficial, vos construís relaciones que duran años. La gente te cuenta cosas que no le cuenta a casi nadie en su trabajo. Esto es un activo enorme — pero también una responsabilidad que cargás con peso. Tu palabra vale más porque la diste menos veces.
+      </p>
+      <div class="insight-tip">
+        <strong>Dónde se nota:</strong> en quiénes te buscan cuando tienen una decisión personal importante (cambiar de trabajo, renunciar, mudarse). Si pasaste por varias empresas, mirá quiénes te siguen escribiendo después de irte.
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-block-title">
+        <span class="insight-block-num">3</span>
+        Hacer crecer a otros sin opacarlos
+      </div>
+      <p class="insight-block-text">
+        Mucha gente con cualidades de mentor termina, sin querer, robándole el escenario a quien mentorea. Vos no. Sabés cuándo callarte para que el otro descubra solo, cuándo dar la respuesta directamente, y cuándo dejar que se equivoque. Este equilibrio fino es lo que diferencia a un mentor real de un coach manualizado.
+      </p>
+      <div class="insight-tip">
+        <strong>Dónde se nota:</strong> en reuniones donde tu equipo presenta. Si sos vos quien habla, no estás potenciando — estás brillando. Si tu equipo brilla y vos casi no hablás, ahí está tu valor.
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 4 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 5: ASPECTOS A DESARROLLAR -->
+  <section class="page">
+    <div class="page-section-num">04 · Aspectos a desarrollar</div>
+    <h2 class="page-section-title">Tres áreas con espacio para crecer</h2>
+    <p class="page-section-sub">No son debilidades — son la otra cara de tus fortalezas. Trabajarlas te potencia, no te cambia.</p>
+
+    <div class="insight-block weakness">
+      <div class="insight-block-title">
+        <span class="insight-block-num">1</span>
+        Avanzar en tu propia carrera, no solo en la de otros
+      </div>
+      <p class="insight-block-text">
+        Es probable que invertís más energía pensando en cómo crece tu equipo que en cómo crecés vos. La consecuencia: el equipo evoluciona pero tu propio techo termina convirtiéndose en su techo. Si vos no avanzás, eventualmente ellos se quedan sin a quién mirar.
+      </p>
+      <div class="insight-tip">
+        <strong>Acción concreta:</strong> bloqueá 1 hora cada semana exclusivamente para vos. No para tu equipo, no para tu jefe — para tu desarrollo. Identificá un objetivo personal a 12 meses y bajalo a acciones trimestrales. Vas a sentir que es "egoísta". No lo es.
+      </div>
+    </div>
+
+    <div class="insight-block weakness">
+      <div class="insight-block-title">
+        <span class="insight-block-num">2</span>
+        Pedir lo que necesitás para vos
+      </div>
+      <p class="insight-block-text">
+        Pedís cosas para tu equipo (recursos, presupuesto, tiempo) con más facilidad que para vos mismo. Cuando lo hacés, lo justificás con beneficios para terceros: "esto serviría al equipo", "esto ayudaría a la empresa". Pocas veces decís simplemente: "esto lo necesito yo".
+      </p>
+      <div class="insight-tip">
+        <strong>Acción concreta:</strong> esta semana, identificá una cosa concreta que necesitás (un aumento, un cambio de rol, más autonomía, un viaje de capacitación) y planteala explícitamente a quien corresponda. Sin justificarla con beneficios para terceros. Solo: "esto lo necesito yo, y te explico por qué."
+      </div>
+    </div>
+
+    <div class="insight-block weakness">
+      <div class="insight-block-title">
+        <span class="insight-block-num">3</span>
+        Soltar a quienes ya no necesitan tu guía
+      </div>
+      <p class="insight-block-text">
+        Hay personas en tu vida profesional que ya volaron solas pero seguís sosteniendo más por hábito que por necesidad real. Tu energía es finita; sostener relaciones que ya cumplieron su ciclo te resta capacidad para invertir en nuevas.
+      </p>
+      <div class="insight-tip">
+        <strong>Acción concreta:</strong> identificá 2 personas que están en esa categoría. Plantealo abiertamente: "Te veo más fuerte, creo que ya no me necesitás como antes — y eso es lo que buscábamos." Es un acto de generosidad mayor que seguir presente.
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 5 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 6: ESTILO DE COMUNICACIÓN -->
+  <section class="page">
+    <div class="page-section-num">05 · Tu estilo de comunicación</div>
+    <h2 class="page-section-title">Cómo te comunicás y cómo te perciben</h2>
+    <p class="page-section-sub">Tu estilo tiene marcas distintivas. Conocerlas te permite usarlo a tu favor y neutralizar sus costos.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">→</div>
+        <div class="feature-text">
+          Sos especialmente claro <strong>escuchando</strong>, no tanto hablando. Tu poder está en preguntar bien, no en exponer. La gente se siente entendida cuando habla con vos — y eso vale más que cualquier presentación.
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">→</div>
+        <div class="feature-text">
+          Preferís el "<strong>nosotros</strong>" al "yo". Esto genera confianza y reduce egos, pero a veces diluye tu autoría en logros propios que merecerían claridad sobre tu contribución específica.
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">→</div>
+        <div class="feature-text">
+          <strong>Bajo presión</strong>, tu estilo no cambia mucho — seguís siendo cuidadoso y considerado. Esto es una fortaleza en crisis donde otros se aceleran, pero puede leerse como lentitud cuando la situación pide rapidez.
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">→</div>
+        <div class="feature-text">
+          Tus mensajes <strong>escritos</strong> tienden a ser largos y matizados. En entornos rápidos (Slack, WhatsApp de trabajo), esto puede leerse como falta de definición. La regla útil: si la decisión es clara, ponéla primero; los matices después.
+        </div>
+      </div>
+    </div>
+
+    <div class="subheading">Malinterpretaciones más comunes de tu estilo</div>
+    <p class="body-text">
+      Algunas personas pueden percibir tu diplomacia como falta de convicción. Especialmente perfiles muy directos (Ejecutores, Líderes Naturales) pueden interpretar tu cuidado como rodeo. <strong>Es un costo del estilo, no un defecto que tengas que esconder.</strong>
+    </p>
+    <p class="body-text">
+      La forma de neutralizarlo: una vez detectada la mejor opción, planteala con claridad y firmeza, sin diluirla en consensos blandos. La diplomacia es una herramienta para llegar a la verdad, no para evitar decirla.
+    </p>
+
+    <div class="subheading">Recomendaciones prácticas</div>
+    <p class="body-text">
+      Cuando tengas una posición clara, ponéla primero y los matices después. Practicá la frase <em>"creo que la mejor decisión es X, y te cuento por qué"</em> en lugar de <em>"podríamos considerar varios caminos, depende de cómo lo veamos..."</em> La primera versión es asertiva sin perder tu calidez. La segunda parece indecisión.
+    </p>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 6 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 7: TOMA DE DECISIONES -->
+  <section class="page">
+    <div class="page-section-num">06 · Tu estilo de toma de decisiones</div>
+    <h2 class="page-section-title">Cómo decidís</h2>
+    <p class="page-section-sub">Identificá las decisiones donde tu estilo brilla y aquellas donde te trabás más de lo necesario.</p>
+
+    <p class="lead">
+      Tu manera de decidir está claramente orientada a la <strong>reflexión</strong> (75% del eje). Tomás tiempo. Considerás múltiples ángulos. Consultás antes de avanzar.
+    </p>
+
+    <p class="body-text">
+      Esto es una fortaleza enorme en decisiones complejas y de impacto humano. Pero es un cuello de botella en decisiones operativas que requieren velocidad por encima de precisión.
+    </p>
+
+    <div class="subheading">En qué decisiones rendís mejor</div>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div class="feature-text">Decisiones sobre <strong>personas</strong>: a quién contratar, a quién promover, a quién dejar ir. Tu reflexión protege a la organización de errores con costo emocional alto.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div class="feature-text">Decisiones de <strong>cultura organizacional</strong>: dinámicas de equipo, valores, formas de trabajar. Donde el "cómo" importa tanto como el "qué".</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div class="feature-text">Decisiones <strong>de alto costo de error</strong> con presión temporal manejable. Tu rigor compensa el tiempo extra.</div>
+      </div>
+    </div>
+
+    <div class="subheading">En qué decisiones te trabás</div>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">Decisiones <strong>operativas pequeñas</strong> que tomadas mil veces se acumulan. Tu costo de oportunidad es alto cuando reflexionás sobre cada email.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">Decisiones bajo <strong>extrema presión temporal</strong>: si tenés 5 minutos para decidir entre A y B, tu fortaleza analítica deja de ser ventaja.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">Decisiones donde <strong>"elegir mal" es preferible a "no elegir"</strong>: contextos de prueba y error donde la inacción es el peor resultado.</div>
+      </div>
+    </div>
+
+    <div class="insight-tip" style="margin-top: 24px;">
+      <strong>Regla útil:</strong> para decisiones cotidianas, fijate un límite de "2 minutos máximo". Si te trabás más de eso, elegí lo primero que se te ocurra y seguí. Tu reflexión la reservás para lo que realmente la merece.
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 7 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 8: AMBIENTES LABORALES -->
+  <section class="page">
+    <div class="page-section-num">07 · Ambientes laborales donde brillás</div>
+    <h2 class="page-section-title">El contexto que te potencia</h2>
+    <p class="page-section-sub">Tu rendimiento depende fuertemente del ambiente. Acá te decimos cuál es el ideal y cuál evitar.</p>
+
+    <div class="env-grid">
+      <div class="env-card positive">
+        <div class="env-card-label">✓ Te potencia</div>
+        <ul class="env-card-list">
+          <li>Organizaciones con foco genuino en talento</li>
+          <li>Empresas medianas (en grandes te diluís, en chicas la operativa te ahoga)</li>
+          <li>Culturas que valoran desarrollo de personas tanto como resultados financieros</li>
+          <li>Sectores con alto componente humano: educación, salud, consultoría, servicios profesionales, RRHH</li>
+          <li>Equipos donde podés tener impacto visible en quienes te rodean</li>
+        </ul>
+      </div>
+      <div class="env-card negative">
+        <div class="env-card-label">✗ Te desgasta</div>
+        <ul class="env-card-list">
+          <li>Ambientes hiper-competitivos donde la cooperación es la excepción</li>
+          <li>Empresas con cultura "shoot first, ask questions later"</li>
+          <li>Jefes que toman decisiones sobre tu equipo sin consultarte</li>
+          <li>Roles donde se te pide ejecutar sin entender el porqué</li>
+          <li>Trabajo aislado, sin contacto humano regular</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subheading">Tipo de jefe ideal</div>
+    <p class="body-text">
+      Un líder que te dé <strong>autonomía amplia</strong> y confíe en tu juicio. Que entienda el valor de lo que hacés aunque no sea siempre cuantificable. Que te haga preguntas y no te dé respuestas. Que te empuje a crecer sin presionarte con métricas semanales.
+    </p>
+
+    <div class="subheading">Cultura organizacional que te energiza</div>
+    <p class="body-text">
+      Empresas con <strong>horizontes de tiempo largos</strong>. Donde los procesos se construyen, no se imponen. Donde el error se trata como aprendizaje. Donde las reuniones son espacios de pensamiento, no de reportes. Donde "cuidar a la gente" es práctica diaria, no slogan de cartel.
+    </p>
+
+    <div class="subheading">Señales tempranas en una entrevista</div>
+    <p class="body-text">
+      Antes de aceptar un puesto, hacé estas tres preguntas al entrevistador: <em>"¿Cómo se toman las decisiones sobre el equipo acá?"</em>, <em>"¿Cuál fue el último error grande que cometieron y cómo lo manejaron?"</em>, <em>"¿Qué pasa cuando alguien de tu equipo necesita parar por temas personales?"</em>. Las respuestas te van a decir más sobre la cultura real que cualquier descripción de valores corporativos.
+    </p>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 8 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 9: ESTILO DE LIDERAZGO -->
+  <section class="page">
+    <div class="page-section-num">08 · Tu estilo de liderazgo</div>
+    <h2 class="page-section-title">Cómo liderás equipos</h2>
+    <p class="page-section-sub">Tu liderazgo es por influencia, no por autoridad. Acá te detallamos cómo se manifiesta y dónde está su límite.</p>
+
+    <p class="lead">
+      Liderás desde la <strong>influencia</strong>, no desde la autoridad formal. Tu equipo te sigue porque querés su crecimiento, no porque seas su jefe. Esto crea un sentido de lealtad y compromiso que es difícil de replicar.
+    </p>
+
+    <div class="subheading">Cómo dirigís</div>
+    <p class="body-text">
+      Marcás dirección con claridad pero dejás amplio espacio para que cada uno encuentre su camino. Hacés muchas preguntas. Compartís contexto antes que instrucciones. Acompañás más que controlás. Tu reunión semanal con cada colaborador es probablemente lo que más valoran de trabajar con vos.
+    </p>
+
+    <div class="subheading">Cómo formás gente</div>
+    <p class="body-text">
+      Te tomás el tiempo para entender qué necesita cada persona y adaptás tu estilo. A unos los desafiás, a otros les das contención, a otros los empujás fuera de su zona de confort. La gente sale de tu equipo más madura profesionalmente de lo que entró. Esa es tu marca.
+    </p>
+
+    <div class="subheading">Lo que te cuesta</div>
+    <p class="body-text">
+      Tomar <strong>decisiones difíciles sobre personas que no rinden</strong>. Tendés a darles "una oportunidad más" cuando lo correcto sería movilizar el cambio. Dar feedback negativo de forma clara y oportuna. Reconocer cuándo alguien ya no encaja con el rumbo del equipo.
+    </p>
+
+    <div class="insight-tip">
+      <strong>Recordatorio importante:</strong> cuando una persona del equipo no rinde después de feedback claro y oportunidades, ser permisivo no es ser generoso — los otros miembros del equipo pagan el costo. La generosidad real es la honestidad temprana. No estás siendo duro: estás siendo justo con el resto.
+    </div>
+
+    <div class="subheading">Tu impacto típico en 12 meses</div>
+    <p class="body-text">
+      Un equipo que pasa un año bajo tu liderazgo suele tener: mayor retención (la gente no se quiere ir), niveles de autonomía visiblemente superiores al promedio de la empresa, conversaciones más profundas en las reuniones, y al menos 2-3 personas listas para asumir tu rol. Si después de 12 meses tu equipo no muestra estos patrones, algo del ambiente está jugando en contra de tu estilo.
+    </p>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 9 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 10-11: CÓMO PRESENTARTE EN ENTREVISTA (the differential) -->
+  <section class="page">
+    <div class="page-section-num">09 · Cómo presentarte en entrevista</div>
+    <h2 class="page-section-title">Tu guía de entrevista según tu perfil</h2>
+    <p class="page-section-sub">La sección que más te va a servir si estás buscando trabajo o pensando en cambiar de rol.</p>
+
+    <div class="interview-highlight">
+      <div class="interview-highlight-label">✨ El diferencial de tu perfil en una entrevista</div>
+      <div class="interview-highlight-text">
+        Mientras la mayoría se enfoca en sus logros individuales, vos podés mostrar <strong>impacto en otros</strong>: cuánta gente creció bajo tu liderazgo, cuántos de tus ex-colaboradores siguen en contacto, qué pasó con tu equipo después de que te fuiste. Eso es difícil de fingir y muy valioso de demostrar.
+      </div>
+    </div>
+
+    <div class="subheading">Frases que te conviene usar al describir tu manera de trabajar</div>
+    <div class="quote-box">
+      "Mi enfoque es construir equipos que no me necesiten."
+    </div>
+    <div class="quote-box">
+      "Tomo decisiones consultando, pero no por inseguridad — por convicción de que el mejor resultado emerge cuando varias miradas se cruzan."
+    </div>
+    <div class="quote-box">
+      "Mido mi éxito por el crecimiento de las personas que me rodean."
+    </div>
+    <div class="quote-box">
+      "Mi diferencial está en hacer crecer a otros. Eso es lo que la empresa va a recibir si me contrata."
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 10 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="page-section-num">09 · Cómo presentarte en entrevista (cont.)</div>
+    <h2 class="page-section-title">Respuestas modelo a las preguntas más comunes</h2>
+    <p class="page-section-sub">Adaptadas específicamente a tu perfil. Personalizalas con tus ejemplos reales.</p>
+
+    <div class="qa-block">
+      <div class="qa-question">¿Cuál es tu mayor debilidad?</div>
+      <div class="qa-answer">
+        "A veces priorizo el desarrollo de mi equipo por encima del mío. Lo identifiqué hace tiempo y empecé a trabajar en separar momentos: bloqueé tiempo semanal para mi propia carrera. Sigo siendo igual de generoso con mi equipo, pero ahora también me cuido a mí."
+      </div>
+      <div class="qa-note">
+        Por qué funciona: es genuina (alineada con tu perfil real), muestra autoconocimiento y demuestra acción. Evita la respuesta cliché de "soy demasiado perfeccionista".
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-question">¿Cómo manejás conflictos?</div>
+      <div class="qa-answer">
+        "Primero busco entender qué hay debajo del conflicto, porque casi siempre lo aparente no es lo de fondo. Suelo tener conversaciones uno-a-uno antes que reuniones grupales — la gente dice cosas distintas cuando no está siendo observada. Después busco construir una salida donde nadie sienta que perdió."
+      </div>
+      <div class="qa-note">
+        Por qué funciona: demuestra método sin sonar manualesco. La frase "la gente dice cosas distintas cuando no está siendo observada" es un insight memorable.
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-question">Describí un error que cometiste.</div>
+      <div class="qa-answer">
+        "En un equipo anterior, sostuve demasiado tiempo a una persona que no estaba rindiendo. Yo le veía potencial y le seguía dando oportunidades. El error no fue mi confianza en ella — fue no ser claro a tiempo sobre las consecuencias si no cambiaba. Cuando finalmente actué, el equipo había absorbido el costo durante meses. Aprendí que la generosidad sin claridad termina siendo injusta con los que sí rinden."
+      </div>
+      <div class="qa-note">
+        Por qué funciona: cuenta un error real (no uno disfrazado de virtud), muestra aprendizaje específico y refleja madurez profesional. Es una respuesta que se queda.
+      </div>
+    </div>
+
+    <div class="qa-block">
+      <div class="qa-question">¿Por qué dejaste tu último trabajo?</div>
+      <div class="qa-answer">
+        "Sentía que había completado un ciclo: el equipo estaba sólido, ya no me necesitaban como antes. Para mí eso es señal de que mi trabajo en ese rol estaba hecho — y quería un nuevo desafío donde pudiera empezar de cero."
+      </div>
+      <div class="qa-note">
+        Por qué funciona: convierte una transición potencialmente delicada en una virtud alineada con tu perfil. Adaptalo según tu caso real.
+      </div>
+    </div>
+
+    <div class="subheading">Errores comunes que cometen perfiles como el tuyo</div>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">
+          <strong>Hablar más del equipo que de uno mismo.</strong> El entrevistador quiere saber qué <em>vos</em> hacés, no qué hace tu equipo. Aclará siempre tu contribución específica.
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">
+          <strong>Diluir las preguntas con respuestas matizadas.</strong> Cuando te pregunten algo concreto, respondé concreto. Después matizá si querés. Pero la respuesta directa va primero.
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">
+          <strong>Subestimar lo que valés.</strong> Los Mentor tienden a no negociar bien el salario. Investigá tu rango de mercado antes y pedí el techo, no el medio.
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">!</div>
+        <div class="feature-text">
+          <strong>Aceptar el primer ofrecimiento por ganas de "no incomodar".</strong> Tomate 48 horas. Siempre. Es una práctica profesional, no es maleducado.
+        </div>
+      </div>
+    </div>
+
+    <div class="pitch-box">
+      <div class="pitch-box-label">🎤 Tu pitch de presentación en 60 segundos</div>
+      <div class="pitch-box-text">
+        "Soy [tu rol]. Mi diferencial es construir equipos que se vuelven autónomos: la gente que pasa por mi liderazgo crece, gana confianza y termina haciendo cosas que no se animaba a hacer antes. Combino paciencia para escuchar con claridad para marcar el rumbo. Si entro a su empresa, esperen un equipo más fuerte en 12 meses — no porque traiga gente nueva, sino porque la que ya está va a estar funcionando mejor."
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 11 · Marcos Arce</span>
+    </div>
+  </section>
+
+  <!-- PAGE 12: CLOSING -->
+  <section class="page">
+    <div class="closing-card">
+      <div class="closing-emoji">🧭</div>
+      <h2 class="closing-title">El día es hoy.</h2>
+      <p class="closing-text">
+        Marcos, conocer tu perfil es el primer paso. Lo que viene depende de vos: usarlo para tomar mejores decisiones de carrera, para entender por qué algunos contextos te potencian y otros te desgastan, y para presentarte de una forma que refleje quién sos profesionalmente.
+      </p>
+      <p class="closing-text">
+        Acordate: <strong>no hay perfiles correctos o incorrectos</strong>. Hay perfiles que encajan mejor con ciertos roles, equipos y momentos de carrera. Tu trabajo es encontrar el contexto donde lo tuyo brilla.
+      </p>
+
+      <div class="cta-grid">
+        <a class="cta-card" href="index.html">
+          <div class="cta-card-emoji">📄</div>
+          <div class="cta-card-title">Analizar mi CV con IA</div>
+          <div class="cta-card-desc">Que tu CV refleje el perfil que sos. Análisis gratuito en 60 segundos.</div>
+        </a>
+        <a class="cta-card" href="#">
+          <div class="cta-card-emoji">💬</div>
+          <div class="cta-card-title">Asesoría 1-1</div>
+          <div class="cta-card-desc">Hablá con un consultor de FMA sobre tu próximo paso de carrera.</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span class="page-footer-brand">FMA Gestión Humana</span>
+      <span>Página 12 · Fin del informe</span>
+    </div>
+  </section>
+
+</body>
+</html>

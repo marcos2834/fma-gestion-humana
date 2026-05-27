@@ -1,0 +1,23 @@
+{
+  "name": "fma-mi-perfil-laboral",
+  "version": "1.0.0",
+  "description": "Test gamificado de perfil laboral con informe premium generado con IA. FMA Gestión Humana.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@vercel/blob": "^0.27.0",
+    "mercadopago": "^2.0.15",
+    "resend": "^4.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^39.0.0"
+  }
+}

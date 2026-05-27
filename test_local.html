@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Analizá tu CV con inteligencia artificial. Obtené un informe detallado de mejoras orientado al mercado laboral argentino.">
+  <title>Analizador de CV con IA | FMA Gestión Humana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep: #080D1A;
+      --bg-card: #0F1829;
+      --bg-card-2: #162033;
+      --bg-card-3: #1D2A42;
+      --navy: #374878;
+      --navy-dark: #2A3760;
+      --navy-light: #4A5E96;
+      --green: #6A9E48;
+      --green-dark: #558035;
+      --green-light: #7DB84F;
+      --text-primary: #EFF3FF;
+      --text-secondary: #8B9ABF;
+      --text-muted: #4A5882;
+      --border: rgba(55,72,120,0.25);
+      --border-bright: rgba(55,72,120,0.5);
+      --border-green: rgba(106,158,72,0.35);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .hidden { display: none !important; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,13,26,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .navbar-logo { height: 32px; width: auto; }
+    .navbar-tagline {
+      font-size: 14px; font-weight: 600;
+      background: linear-gradient(90deg, var(--text-primary) 60%, var(--text-secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .navbar-badge {
+      background: rgba(106,158,72,0.1); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 5px 14px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 24px; position: relative; overflow: hidden;
+    }
+
+    /* Animated dot grid */
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    }
+    .hero-bg-dots {
+      position: absolute; inset: -40px;
+      background-image: radial-gradient(circle, rgba(55,72,120,0.18) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    .hero-orb-1 {
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 600px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(55,72,120,0.22) 0%, transparent 65%);
+      animation: orb-breathe 10s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      position: absolute; bottom: -120px; right: -80px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(106,158,72,0.1) 0%, transparent 65%);
+      animation: orb-breathe 14s ease-in-out infinite reverse;
+    }
+    .hero-orb-3 {
+      position: absolute; top: 40%; left: -100px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(55,72,120,0.1) 0%, transparent 70%);
+      animation: orb-breathe 9s ease-in-out infinite 2s;
+    }
+    @keyframes orb-breathe {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+    .hero-orb-1 { animation-name: orb-breathe-center; }
+    @keyframes orb-breathe-center {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+      50% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+    }
+
+    .hero-inner { max-width: 680px; width: 100%; text-align: center; position: relative; z-index: 1; }
+
+    /* Entrance animations */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .anim { animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.25s; }
+    .d4 { animation-delay: 0.38s; }
+    .d5 { animation-delay: 0.52s; }
+    .d6 { animation-delay: 0.65s; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(90deg, rgba(106,158,72,0.08) 0%, rgba(106,158,72,0.18) 50%, rgba(106,158,72,0.08) 100%);
+      background-size: 200% 100%;
+      border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 7px 18px; border-radius: var(--radius-full);
+      font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.02em;
+      animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both 0.05s, badge-shimmer 4s linear infinite 1s;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green-light);
+      box-shadow: 0 0 6px var(--green); animation: dot-pulse 2s ease-in-out infinite;
+    }
+    @keyframes badge-shimmer {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+    @keyframes dot-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 5vw, 52px); font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em;
+      color: var(--text-primary); margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--green-light), #A8D97A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+    .hero-title em::after {
+      content: ''; position: absolute; bottom: 2px; left: 0; right: 0;
+      height: 2px; background: linear-gradient(90deg, var(--green), transparent);
+      border-radius: 2px;
+    }
+    .hero-sub { font-size: 17px; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.65; }
+
+    .trust-badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .trust-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(15,24,41,0.7); border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 6px 14px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 500;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex; justify-content: center;
+      background: rgba(15,24,41,0.6); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      margin-bottom: 32px; backdrop-filter: blur(8px);
+    }
+    .stat-item {
+      flex: 1; padding: 14px 16px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-value { font-size: 20px; font-weight: 800; color: var(--text-primary); line-height: 1.2; }
+    .stat-value .stat-accent { color: var(--green-light); }
+    .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+
+    /* Upload Zone */
+    .upload-zone-wrapper {
+      position: relative; border-radius: calc(var(--radius-xl) + 2px);
+    }
+    .upload-zone-wrapper::before {
+      content: ''; position: absolute; inset: -1px;
+      border-radius: inherit;
+      background: conic-gradient(from 180deg at 50% 50%, var(--navy) 0deg, var(--green) 180deg, var(--navy) 360deg);
+      opacity: 0; transition: opacity 0.4s;
+      z-index: 0;
+    }
+    .upload-zone-wrapper:hover::before { opacity: 0.4; }
+    .upload-zone {
+      border: 2px dashed var(--border-bright); border-radius: var(--radius-xl);
+      padding: 48px 32px; text-align: center; cursor: pointer;
+      transition: all 0.3s ease; background: rgba(15,24,41,0.7);
+      backdrop-filter: blur(8px); position: relative; z-index: 1;
+    }
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--green);
+      background: rgba(106,158,72,0.04);
+      box-shadow: 0 0 0 4px rgba(106,158,72,0.08), 0 0 40px rgba(106,158,72,0.06);
+    }
+    .upload-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, rgba(55,72,120,0.4), rgba(55,72,120,0.2));
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; color: var(--navy-light);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .upload-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+    .upload-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+    .btn-upload {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none;
+      border-radius: var(--radius-full); padding: 13px 32px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 16px rgba(106,158,72,0.3);
+    }
+    .btn-upload:hover {
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(106,158,72,0.45);
+    }
+    .upload-meta { font-size: 12px; color: var(--text-muted); margin-top: 14px; }
+    .file-selected-info {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(55,72,120,0.2); border: 1px solid var(--border-bright);
+      border-radius: var(--radius); padding: 12px 16px; margin-top: 16px; text-align: left;
+    }
+    .file-icon { color: var(--green); font-size: 18px; }
+    .file-name { font-size: 14px; font-weight: 500; flex: 1; color: var(--text-primary); }
+    .upload-error-box {
+      background: rgba(220,53,69,0.1); border: 1px solid rgba(220,53,69,0.3);
+      border-radius: var(--radius); padding: 12px 16px;
+      color: #ff6b7a; font-size: 14px; margin-top: 12px; text-align: left;
+    }
+    .btn-analyze {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none;
+      border-radius: var(--radius-full); padding: 16px 36px;
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      transition: all 0.25s; display: flex; align-items: center;
+      justify-content: center; gap: 8px; width: 100%; margin-top: 16px;
+      box-shadow: 0 4px 20px rgba(106,158,72,0.35);
+    }
+    .btn-analyze:hover {
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(106,158,72,0.5);
+    }
+
+    /* ── FEATURES SECTION ── */
+    .section-features {
+      padding: 80px 24px;
+      background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-card) 60%, var(--bg-deep) 100%);
+      border-top: 1px solid var(--border);
+    }
+    .features-inner { max-width: 820px; margin: 0 auto; }
+    .features-label {
+      text-align: center; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green-light); margin-bottom: 10px;
+    }
+    .features-title {
+      text-align: center;
+      font-size: clamp(22px, 3vw, 30px); font-weight: 800;
+      color: var(--text-primary); margin-bottom: 56px;
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .steps-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px; position: relative;
+    }
+    .steps-connector {
+      position: absolute; top: 36px;
+      left: calc(33.33% - 8px); right: calc(33.33% - 8px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-bright), var(--border-bright), transparent);
+    }
+    .step-card {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 16px;
+      background: rgba(15,24,41,0.5); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 28px 20px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .step-card:hover {
+      border-color: var(--border-bright);
+      transform: translateY(-4px);
+    }
+    .step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; position: relative;
+      background: var(--bg-card-2); border: 1px solid var(--border-bright);
+    }
+    .step-card:nth-child(1) .step-num { box-shadow: 0 0 0 4px rgba(55,72,120,0.12); }
+    .step-card:nth-child(2) .step-num { box-shadow: 0 0 0 4px rgba(106,158,72,0.12); }
+    .step-card:nth-child(3) .step-num { box-shadow: 0 0 0 4px rgba(55,72,120,0.12); }
+    .step-badge {
+      position: absolute; top: -6px; right: -6px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--bg-deep);
+    }
+    .step-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ── SECTION PAGE ── */
+    .section-page {
+      min-height: calc(100vh - 64px);
+      display: flex; flex-direction: column; align-items: center; padding: 48px 24px;
+    }
+    .section-inner { max-width: 760px; width: 100%; }
+
+    /* ── LOADING ── */
+    .loading-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; min-height: calc(100vh - 200px);
+      text-align: center; gap: 20px;
+    }
+    .loading-spinner-wrap {
+      width: 88px; height: 88px;
+      background: rgba(55,72,120,0.15); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 30px rgba(55,72,120,0.15);
+    }
+    .loading-spinner {
+      width: 52px; height: 52px;
+      border: 3px solid var(--border); border-top-color: var(--green);
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-title { font-size: 22px; font-weight: 700; }
+    .loading-sub { color: var(--text-secondary); font-size: 15px; }
+    .loading-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    .loading-step { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 14px; }
+    .loading-step-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--border);
+      animation: pulse-dot 2s ease-in-out infinite; flex-shrink: 0;
+    }
+    .loading-step:nth-child(2) .loading-step-dot { animation-delay: 0.5s; }
+    .loading-step:nth-child(3) .loading-step-dot { animation-delay: 1s; }
+    @keyframes pulse-dot {
+      0%,100% { background: var(--border); transform: scale(1); }
+      50% { background: var(--green); transform: scale(1.4); }
+    }
+
+    /* ── EMAIL GATE MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(8,13,26,0.88);
+      backdrop-filter: blur(12px); z-index: 200;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-card {
+      background: var(--bg-card-2); border: 1px solid var(--border-bright);
+      border-radius: var(--radius-xl); padding: 40px 36px;
+      max-width: 420px; width: 100%; text-align: center;
+      box-shadow: var(--shadow-lg), 0 0 60px rgba(55,72,120,0.15);
+      position: relative; overflow: hidden;
+    }
+    .modal-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), var(--navy), transparent);
+    }
+    .modal-icon {
+      width: 64px; height: 64px;
+      background: rgba(106,158,72,0.12); border-radius: var(--radius-full);
+      border: 1px solid var(--border-green);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; color: var(--green-light);
+    }
+    .modal-title { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+    .modal-score-preview {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: rgba(55,72,120,0.25); border: 1px solid var(--border-bright);
+      border-radius: var(--radius); padding: 10px 20px; margin-bottom: 16px;
+    }
+    .modal-score-num { color: var(--green-light); font-size: 32px; font-weight: 800; }
+    .modal-sub { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; }
+    .modal-input {
+      width: 100%; background: rgba(15,24,41,0.8); border: 1px solid var(--border-bright);
+      border-radius: var(--radius); padding: 12px 16px; color: var(--text-primary);
+      font-size: 15px; outline: none; margin-bottom: 12px; transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .modal-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(106,158,72,0.1); }
+    .modal-input::placeholder { color: var(--text-muted); }
+    .btn-modal-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none;
+      border-radius: var(--radius-full); padding: 14px; font-size: 16px;
+      font-weight: 700; cursor: pointer; transition: all 0.25s; margin-bottom: 12px;
+      font-family: inherit; box-shadow: 0 4px 16px rgba(106,158,72,0.3);
+    }
+    .btn-modal-submit:hover {
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+      box-shadow: 0 8px 28px rgba(106,158,72,0.45); transform: translateY(-1px);
+    }
+    .modal-privacy { font-size: 12px; color: var(--text-muted); }
+
+    /* ── RESULTS ── */
+    .results-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+    .results-header > div:first-child { flex: 1; min-width: 200px; }
+    .results-title { font-size: 24px; font-weight: 700; }
+    .results-sub { color: var(--text-secondary); font-size: 14px; }
+
+    .score-hero-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(55,72,120,0.15) 100%);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-xl); padding: 32px;
+      display: flex; align-items: center; gap: 32px;
+      margin-bottom: 24px; box-shadow: var(--shadow-md);
+      position: relative; overflow: hidden;
+    }
+    .score-hero-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--navy), var(--green), var(--navy));
+    }
+    .score-ring-wrap { position: relative; flex-shrink: 0; }
+    .score-ring-svg { transform: rotate(-90deg); display: block; }
+    .score-ring-bg { fill: none; stroke: var(--bg-card-3); stroke-width: 8; }
+    .score-ring-fill {
+      fill: none; stroke: var(--green); stroke-width: 8;
+      stroke-linecap: round; stroke-dasharray: 283; stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1);
+      filter: drop-shadow(0 0 8px rgba(106,158,72,0.5));
+    }
+    .score-number {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px; font-weight: 800; color: var(--text-primary);
+    }
+    .score-details { flex: 1; }
+    .score-level-badge {
+      display: inline-block; padding: 3px 12px; border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 600;
+      background: rgba(106,158,72,0.15); color: var(--green-light);
+      border: 1px solid var(--border-green); margin-bottom: 8px;
+    }
+    .score-name { font-size: 20px; font-weight: 700; }
+    .score-title { font-size: 14px; color: var(--text-secondary); margin-top: 2px; margin-bottom: 10px; }
+    .score-summary { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    .results-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+      gap: 12px; margin-bottom: 24px;
+    }
+    .metric-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 16px; text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: var(--border-bright); }
+    .metric-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+    .metric-value { font-size: 26px; font-weight: 800; color: var(--text-primary); }
+    .metric-value.good { color: var(--green-light); }
+    .metric-value.warn { color: #F0A500; }
+    .metric-value.bad { color: #FF6B7A; }
+    .metric-bar { height: 4px; border-radius: 2px; background: var(--bg-card-3); margin-top: 8px; overflow: hidden; }
+    .metric-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--green), var(--green-light)); transition: width 1.2s ease; }
+
+    .sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .section-eval-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+    .section-eval-card:hover { border-color: var(--border-bright); }
+    .section-eval-header {
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; gap: 8px;
+    }
+    .section-eval-name { font-size: 14px; font-weight: 600; }
+    .section-eval-score { font-size: 13px; font-weight: 700; color: var(--green-light); flex-shrink: 0; }
+    .section-eval-body {
+      font-size: 13px; color: var(--text-secondary); margin-top: 10px;
+      border-top: 1px solid var(--border); padding-top: 10px; line-height: 1.5;
+    }
+
+    .analysis-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .analysis-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px;
+    }
+    .analysis-card-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .analysis-card-title::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+    .card-fortalezas .analysis-card-title::before { background: var(--green); box-shadow: 0 0 6px rgba(106,158,72,0.5); }
+    .card-criticos .analysis-card-title::before { background: #FF6B7A; box-shadow: 0 0 6px rgba(255,107,122,0.5); }
+    .card-oportunidades .analysis-card-title::before { background: #F0A500; box-shadow: 0 0 6px rgba(240,165,0,0.5); }
+    .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .analysis-card li {
+      font-size: 13px; color: var(--text-secondary);
+      padding-left: 16px; position: relative; line-height: 1.5;
+    }
+    .analysis-card li::before { content: '•'; position: absolute; left: 0; color: var(--text-muted); }
+    .card-fortalezas li::before { color: var(--green); }
+    .card-criticos li::before { color: #FF6B7A; }
+    .card-oportunidades li::before { color: #F0A500; }
+
+    .consejo-card {
+      background: linear-gradient(135deg, rgba(55,72,120,0.2), rgba(106,158,72,0.08));
+      border: 1px solid rgba(55,72,120,0.4); border-radius: var(--radius-lg);
+      padding: 20px 24px; margin-bottom: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .consejo-icon {
+      width: 40px; height: 40px; background: rgba(106,158,72,0.15);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; font-size: 18px;
+    }
+    .consejo-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--green-light); margin-bottom: 6px; }
+    #consejoText { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    .keywords-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px; margin-bottom: 32px;
+    }
+    .keywords-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--text-muted);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    #keywordsList { display: flex; flex-wrap: wrap; gap: 8px; }
+    .keyword-tag {
+      background: rgba(55,72,120,0.2); border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 5px 12px;
+      border-radius: var(--radius-full); font-size: 13px; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .keyword-tag:hover { border-color: var(--border-green); color: var(--green-light); }
+
+    /* Premium Upsell */
+    .premium-upsell {
+      background: linear-gradient(135deg, var(--bg-card-2) 0%, rgba(55,72,120,0.25) 100%);
+      border: 1px solid var(--border-bright); border-radius: var(--radius-xl);
+      padding: 40px; text-align: center; margin-bottom: 40px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 40px rgba(55,72,120,0.1);
+    }
+    .premium-upsell::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--navy), var(--green), var(--navy));
+    }
+    .premium-badge {
+      display: inline-block;
+      background: rgba(106,158,72,0.1); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 4px 14px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 600; margin-bottom: 16px;
+    }
+    .premium-title { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+    .premium-sub { color: var(--text-secondary); font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
+    .premium-features { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+    .premium-feature { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-secondary); }
+    .premium-feature-icon { color: var(--green); font-weight: 700; }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none;
+      border-radius: var(--radius-full); padding: 14px 32px;
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+      font-family: inherit; box-shadow: 0 4px 16px rgba(106,158,72,0.3);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(106,158,72,0.5);
+    }
+    .btn-download {
+      background: rgba(55,72,120,0.2); color: var(--text-secondary);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 8px 16px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 6px; font-family: inherit;
+    }
+    .btn-download:hover { background: rgba(55,72,120,0.35); color: var(--text-primary); border-color: var(--border-bright); }
+    .btn-cta {
+      background: var(--green); color: #fff; border: none;
+      border-radius: var(--radius); padding: 9px 18px;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; gap: 6px; font-family: inherit;
+      box-shadow: 0 2px 10px rgba(106,158,72,0.3);
+    }
+    .btn-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* Premium Form */
+    .premium-form-card {
+      background: var(--bg-card); border: 1px solid var(--border-bright);
+      border-radius: var(--radius-xl); padding: 40px; max-width: 520px; margin: 0 auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-header { text-align: center; margin-bottom: 28px; }
+    .cta-badge {
+      display: inline-block; background: rgba(106,158,72,0.1); border: 1px solid var(--border-green);
+      color: var(--green-light); padding: 4px 14px;
+      border-radius: var(--radius-full); font-size: 12px; font-weight: 600; margin-bottom: 12px;
+    }
+    .form-title { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .form-sub { color: var(--text-secondary); font-size: 15px; line-height: 1.6; }
+    .form-field { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .form-input {
+      width: 100%; background: rgba(8,13,26,0.6); border: 1px solid var(--border-bright);
+      border-radius: var(--radius); padding: 12px 16px; color: var(--text-primary);
+      font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit;
+    }
+    .form-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(106,158,72,0.1); }
+    .form-input::placeholder { color: var(--text-muted); }
+    .price-display {
+      background: rgba(55,72,120,0.15); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .price-label { font-size: 14px; color: var(--text-secondary); }
+    .price-value { font-size: 24px; font-weight: 800; color: var(--text-primary); }
+    .pay-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff; border: none;
+      border-radius: var(--radius-full); padding: 16px; font-size: 17px;
+      font-weight: 700; cursor: pointer; transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; margin-bottom: 12px; font-family: inherit;
+      box-shadow: 0 4px 20px rgba(106,158,72,0.35);
+    }
+    .pay-btn:hover {
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+      box-shadow: 0 8px 32px rgba(106,158,72,0.5);
+      transform: translateY(-2px);
+    }
+    .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .pay-security { text-align: center; font-size: 13px; color: var(--text-muted); }
+
+    /* Premium Results */
+    .premium-results-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    .premium-results-title { font-size: 22px; font-weight: 700; flex: 1; }
+    #cv-preview {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px;
+      font-size: 14px; line-height: 1.7; color: var(--text-secondary);
+      white-space: pre-wrap; max-height: 600px; overflow-y: auto;
+    }
+
+    footer {
+      text-align: center; padding: 36px 24px;
+      color: var(--text-muted); font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    footer strong { color: var(--text-secondary); }
+    .footer-dot { color: var(--border-bright); margin: 0 6px; }
+
+    @media (max-width: 640px) {
+      .score-hero-card { flex-direction: column; text-align: center; }
+      .analysis-grid { grid-template-columns: 1fr; }
+      .sections-grid { grid-template-columns: 1fr; }
+      .premium-form-card { padding: 28px 20px; }
+      .results-header { flex-direction: column; align-items: flex-start; }
+      .hero { padding: 40px 20px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .steps-connector { display: none; }
+      .stats-row { flex-wrap: wrap; }
+      .stat-item { min-width: 50%; }
+      .section-features { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">
+      <img src="/logo-fma.png" alt="FMA Gestión Humana" class="navbar-logo">
+      <span class="navbar-tagline">Analizador de CV con IA</span>
+    </a>
+    <div class="navbar-badge">✦ IA Aplicada</div>
+  </nav>
+
+  <!-- UPLOAD -->
+  <section id="section-upload" class="hero">
+    <!-- Animated background -->
+    <div class="hero-bg">
+      <div class="hero-bg-dots"></div>
+      <div class="hero-orb-1"></div>
+      <div class="hero-orb-2"></div>
+      <div class="hero-orb-3"></div>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-badge anim d1">
+        <span class="hero-badge-dot"></span>
+        IA para el mercado argentino
+      </div>
+      <h1 class="hero-title anim d2">Analizá tu CV y<br><em>potenciá</em> tu búsqueda laboral</h1>
+      <p class="hero-sub anim d3">Recibí un diagnóstico profesional en segundos, orientado al mercado laboral argentino actual.</p>
+
+      <div class="trust-badges anim d4">
+        <div class="trust-badge">🔒 Tu CV es privado</div>
+        <div class="trust-badge">⚡ Análisis gratis</div>
+        <div class="trust-badge">🇦🇷 Mercado argentino</div>
+        <div class="trust-badge">⏱️ En segundos</div>
+      </div>
+
+      <div class="stats-row anim d4">
+        <div class="stat-item">
+          <div class="stat-value">2.5<span class="stat-accent">K+</span></div>
+          <div class="stat-label">CVs analizados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">4.8<span class="stat-accent">★</span></div>
+          <div class="stat-label">Calificación promedio</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">98<span class="stat-accent">%</span></div>
+          <div class="stat-label">Recomiendan</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">&lt;30<span class="stat-accent">s</span></div>
+          <div class="stat-label">Tiempo de análisis</div>
+        </div>
+      </div>
+
+      <div class="upload-zone-wrapper anim d5">
+        <div id="uploadZone" class="upload-zone">
+          <input type="file" id="fileInput" accept=".pdf" style="display:none">
+          <div class="upload-icon">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+            </svg>
+          </div>
+          <div class="upload-title">Arrastrá o seleccioná tu CV</div>
+          <div class="upload-sub">Arrastrá o seleccioná tu archivo PDF</div>
+          <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+            </svg>
+            Seleccionar CV (PDF)
+          </button>
+          <p class="upload-meta">Solo PDF · Máx. 5MB · Tu archivo no se almacena</p>
+          <div id="fileSelectedInfo" class="file-selected-info hidden">
+            <span class="file-icon">📄</span>
+            <span id="fileName" class="file-name"></span>
+          </div>
+          <div id="uploadError" class="upload-error-box hidden">
+            <span id="uploadErrorMsg"></span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-analyze hidden" id="mainAnalyzeBtn" onclick="startAnalysis()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+        </svg>
+        Analizar mi CV con IA
+      </button>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="section-features" class="section-features">
+    <div class="features-inner">
+      <p class="features-label">Proceso</p>
+      <h2 class="features-title">Tres pasos para un CV de impacto</h2>
+      <div class="steps-grid">
+        <div class="steps-connector"></div>
+        <div class="step-card">
+          <div class="step-num">
+            📄
+            <span class="step-badge">1</span>
+          </div>
+          <div class="step-title">Subí tu CV</div>
+          <p class="step-desc">Seleccioná tu archivo PDF. Procesado de forma segura — nunca lo almacenamos.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">
+            🤖
+            <span class="step-badge">2</span>
+          </div>
+          <div class="step-title">La IA lo analiza</div>
+          <p class="step-desc">Nuestro motor evalúa estructura, keywords, ATS-compliance y contenido en segundos.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">
+            🚀
+            <span class="step-badge">3</span>
+          </div>
+          <div class="step-title">Recibís tu informe</div>
+          <p class="step-desc">Puntaje, errores críticos, fortalezas y recomendaciones personalizadas listas al instante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOADING -->
+  <section id="section-loading" class="section-page hidden">
+    <div class="loading-wrap">
+      <div class="loading-spinner-wrap"><div class="loading-spinner"></div></div>
+      <h2 class="loading-title">Analizando tu CV…</h2>
+      <p class="loading-sub">Nuestra IA está revisando cada detalle de tu perfil</p>
+      <div class="loading-steps">
+        <div class="loading-step"><div class="loading-step-dot"></div> Extrayendo información del PDF</div>
+        <div class="loading-step"><div class="loading-step-dot"></div> Evaluando estructura y contenido</div>
+        <div class="loading-step"><div class="loading-step-dot"></div> Generando recomendaciones personalizadas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL GATE MODAL (solo se usa internamente para premium si es necesario) -->
+
+  <!-- RESULTS -->
+  <section id="section-results" class="section-page hidden">
+    <div class="section-inner">
+      <div class="results-header">
+        <div>
+          <h2 class="results-title">Tu informe de CV</h2>
+          <p class="results-sub">Análisis generado por IA especializada en el mercado laboral argentino</p>
+        </div>
+        <button class="btn-download" onclick="downloadAnalysisPDF()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+          Descargar PDF
+        </button>
+        <button class="btn-cta" onclick="showPremiumForm()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          Mejorar mi CV con IA Premium
+        </button>
+      </div>
+
+      <div id="scoreHeroCard" class="score-hero-card">
+        <div class="score-ring-wrap">
+          <svg class="score-ring-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="score-ring-bg" cx="60" cy="60" r="45"></circle>
+            <circle class="score-ring-fill" id="scoreRingFill" cx="60" cy="60" r="45"></circle>
+          </svg>
+          <div id="scoreNumber" class="score-number">0</div>
+        </div>
+        <div class="score-details">
+          <span id="scoreLevelBadge" class="score-level-badge">—</span>
+          <div id="scoreName" class="score-name">—</div>
+          <div id="scoreTitle" class="score-title">—</div>
+          <p id="scoreSummary" class="score-summary">—</p>
+        </div>
+      </div>
+
+      <div id="metricsGrid" class="results-grid"></div>
+      <div id="sectionsGrid" class="sections-grid"></div>
+
+      <div class="analysis-grid">
+        <div class="analysis-card card-fortalezas">
+          <div class="analysis-card-title">Puntos Fuertes</div>
+          <ul id="puntosFuertesList"></ul>
+        </div>
+        <div class="analysis-card card-criticos">
+          <div class="analysis-card-title">Errores Críticos</div>
+          <ul id="erroresCriticosList"></ul>
+        </div>
+        <div class="analysis-card card-oportunidades">
+          <div class="analysis-card-title">Oportunidades de Mejora</div>
+          <ul id="oportunidadesList"></ul>
+        </div>
+      </div>
+
+      <div class="consejo-card">
+        <div class="consejo-icon">💡</div>
+        <div>
+          <div class="consejo-label">Consejo del experto</div>
+          <p id="consejoText">—</p>
+        </div>
+      </div>
+
+      <div class="keywords-card">
+        <div class="keywords-title">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg>
+          Palabras clave sugeridas para ATS
+        </div>
+        <div id="keywordsList"></div>
+      </div>
+
+      <div class="premium-upsell">
+        <div class="premium-badge">✦ Servicio Premium</div>
+        <h3 class="premium-title">¿Querés que la IA reescriba tu CV completo?</h3>
+        <p class="premium-sub">Transformamos tu CV en un documento profesional de alto impacto, optimizado para ATS y adaptado al puesto que buscás.</p>
+        <div class="premium-features">
+          <div class="premium-feature"><span class="premium-feature-icon">✓</span> CV completo reescrito</div>
+          <div class="premium-feature"><span class="premium-feature-icon">✓</span> Optimizado para ATS</div>
+          <div class="premium-feature"><span class="premium-feature-icon">✓</span> Descarga en PDF</div>
+          <div class="premium-feature"><span class="premium-feature-icon">✓</span> Adaptado al puesto</div>
+        </div>
+        <button class="btn-primary" onclick="showPremiumForm()">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          Mejorar mi CV · $4.990
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIUM FORM -->
+  <section id="section-premium-form" class="section-page hidden">
+    <div class="section-inner">
+      <div class="premium-form-card">
+        <div class="form-header">
+          <div class="cta-badge">✦ CV Premium con IA</div>
+          <h2 class="form-title">Completá tus datos</h2>
+          <p class="form-sub">En minutos recibís tu CV completamente reescrito por inteligencia artificial.</p>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Tu email</label>
+          <input type="email" id="premiumEmail" class="form-input" placeholder="tu@email.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Puesto al que aplicás (opcional)</label>
+          <input type="text" id="jobPosition" class="form-input" placeholder="Ej: Analista de RRHH">
+        </div>
+        <div class="price-display">
+          <div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:2px;">Total</div>
+            <div style="font-size:13px;color:var(--text-secondary);">Pago único · Descarga inmediata</div>
+          </div>
+          <div class="price-value">$4.990</div>
+        </div>
+        <button id="payBtn" class="pay-btn" onclick="startPayment()">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+          Pagar $4.990 con Mercado Pago
+        </button>
+        <p class="pay-security">🔒 Pago seguro a través de Mercado Pago</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REWRITING -->
+  <section id="section-rewriting" class="section-page hidden">
+    <div class="loading-wrap">
+      <div class="loading-spinner-wrap"><div class="loading-spinner"></div></div>
+      <h2 class="loading-title">Reescribiendo tu CV…</h2>
+      <p class="loading-sub">Nuestra IA está creando tu CV profesional personalizado</p>
+      <div class="loading-steps">
+        <div class="loading-step"><div class="loading-step-dot"></div> Verificando pago</div>
+        <div class="loading-step"><div class="loading-step-dot"></div> Analizando experiencia y logros</div>
+        <div class="loading-step"><div class="loading-step-dot"></div> Redactando con impacto profesional</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIUM RESULTS -->
+  <section id="section-premium-results" class="section-page hidden">
+    <div class="section-inner">
+      <div class="premium-results-header">
+        <div>
+          <h2 class="premium-results-title">Tu CV Premium</h2>
+          <p style="color:var(--text-secondary);font-size:14px;">Completamente reescrito y optimizado por inteligencia artificial</p>
+        </div>
+        <button class="btn-download" onclick="downloadPDF()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+          Descargar PDF
+        </button>
+        <button class="btn-download" onclick="downloadWord()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          Descargar Word
+        </button>
+      </div>
+      <div id="cv-preview"></div>
+    </div>
+  </section>
+
+  <footer>
+    <strong>FMA Gestión Humana</strong>
+    <span class="footer-dot">·</span>
+    Consultora de RRHH
+    <span class="footer-dot">·</span>
+    General Cabrera, Córdoba · Paraná, Entre Ríos · Argentina<br>
+    <span style="margin-top:6px;display:inline-block;color:var(--text-muted)">Analizador de CV con Inteligencia Artificial · Orientado al mercado laboral argentino</span>
+  </footer>
+
+  <script>
+
+    // ══════════════════════════════════
+    //  MOCK DE APIs PARA TESTING LOCAL
+    // ══════════════════════════════════
+    const MOCK_ANALYSIS = {
+      success: true,
+      analysis: {
+        puntaje: 74, nivel: "Bueno", estado: "Bueno",
+        nombre: "Juan Pérez", titulo: "Analista de RRHH",
+        resumen: "CV con buena estructura. Hay oportunidades de mejora en la sección de logros y cuantificación de resultados.",
+        metricas: { "Estructura": 80, "Contenido": 72, "ATS": 65, "Impacto": 70 },
+        secciones: [
+          { nombre: "Contacto", puntaje: 90, comentario: "Completo y bien organizado." },
+          { nombre: "Experiencia", puntaje: 75, comentario: "Buen detalle, faltan logros cuantificados." },
+          { nombre: "Educación", puntaje: 85, comentario: "Bien detallada con fechas claras." },
+          { nombre: "Habilidades", puntaje: 60, comentario: "Lista básica, podría ser más específica." }
+        ],
+        puntos_fuertes: ["Experiencia laboral continua y relevante", "Buena estructura general del CV", "Formación académica completa con fechas"],
+        errores_criticos: ["Sin logros cuantificados con métricas de impacto", "Perfil profesional ausente al inicio"],
+        oportunidades: ["Agregar un resumen ejecutivo al inicio", "Incorporar keywords del sector RRHH para ATS", "Incluir certificaciones o cursos recientes"],
+        consejo: "Cuantificá tus logros: en vez de 'gestioné selección de personal', escribí 'gestioné la selección de 50+ candidatos mensuales reduciendo el tiempo de hiring un 30%'.",
+        palabras_clave: ["Selección de personal","RRHH","Recursos Humanos","Onboarding","ATS","Evaluación de competencias","Entrevistas","People Analytics"]
+      }
+    };
+
+    const _realFetch = window.fetch.bind(window);
+    window.fetch = async function(url, opts) {
+      if (url.includes('analyze-cv'))  return { ok: true, json: async () => MOCK_ANALYSIS };
+      if (url.includes('save-pdf'))    return { ok: true, json: async () => ({ success: true, metadataUrl: 'https://mock.url/meta/abc' }) };
+      if (url.includes('create-payment')) return { ok: true, json: async () => ({ init_point: 'https://www.mercadopago.com.ar/checkout/mock' }) };
+      if (url.includes('rewrite-cv'))  return { ok: true, json: async () => ({
+        success: true,
+        rewrittenCV: "JUAN PÉREZ\nAnalista Senior de RRHH\njuan.perez@email.com | LinkedIn: /in/juanperez | Buenos Aires\n\nRESUMEN PROFESIONAL\nProfesional de RRHH con 5 años de experiencia en selección y desarrollo organizacional. Especializado en implementación de procesos ATS y gestión del talento.\n\nEXPERIENCIA\nAnalista Senior de RRHH | TechCorp SA | Mar 2021 – Presente\n• Gestioné selección de 80+ candidatos/mes, reduciendo hiring en 35%\n• Implementé ATS mejorando eficiencia en 40%\n\nFORMACIÓN\nLic. en Relaciones del Trabajo | UBA | 2014–2018"
+      }) };
+      return _realFetch(url, opts);
+    };
+
+    // ══════════════════════════════════
+    //  ESTADO GLOBAL
+    // ══════════════════════════════════
+    let appState = {
+      pdfBase64: null,
+      analysis: null,
+      email: null,
+      paymentId: null,
+      jobPosition: null,
+      rewrittenCV: null
+    };
+
+    // ══════════════════════════════════
+    //  INIT
+    // ══════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+      checkPaymentReturn();
+      setupFileUpload();
+    });
+
+    // ══════════════════════════════════
+    //  PAYMENT RETURN
+    // ══════════════════════════════════
+    function checkPaymentReturn() {
+      const params = new URLSearchParams(window.location.search);
+      const paymentId = params.get('collection_id') || params.get('payment_id');
+      const status = params.get('collection_status') || params.get('status');
+
+      if (paymentId) {
+        // Limpiamos la URL para que no se reprocese al recargar
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        appState.paymentId = paymentId;
+
+        // Intentar recuperar estado de sessionStorage (mismo dominio)
+        // También intentamos localStorage por si sessionStorage fue guardado allí
+        const saved = sessionStorage.getItem('fma_state') || localStorage.getItem('fma_state');
+        if (saved) {
+          try {
+            const s = JSON.parse(saved);
+            appState.pdfBase64 = s.pdfBase64;
+            appState.email = s.email;
+            appState.jobPosition = s.jobPosition;
+          } catch(e) {}
+        }
+
+        // Si el pago fue rechazado o cancelado, avisar al usuario
+        if (status === 'rejected' || status === 'cancelled') {
+          showSection('section-upload');
+          showUploadError('El pago no fue procesado (' + status + '). Podés intentarlo de nuevo.');
+          return;
+        }
+
+        showSection('section-rewriting');
+        processPaymentSuccess(paymentId);
+      }
+    }
+
+    // ══════════════════════════════════
+    //  SECTION VISIBILITY
+    // ══════════════════════════════════
+    function showSection(id) {
+      ['section-upload','section-loading','section-results',
+       'section-premium-form','section-rewriting','section-premium-results']
+        .forEach(s => {
+          const el = document.getElementById(s);
+          if (el) el.classList.toggle('hidden', s !== id);
+        });
+      // Show features section only alongside upload
+      const features = document.getElementById('section-features');
+      if (features) features.classList.toggle('hidden', id !== 'section-upload');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ══════════════════════════════════
+    //  FILE UPLOAD
+    // ══════════════════════════════════
+    function setupFileUpload() {
+      const zone = document.getElementById('uploadZone');
+      const input = document.getElementById('fileInput');
+
+      input.addEventListener('change', e => {
+        if (e.target.files[0]) handleFile(e.target.files[0]);
+      });
+      zone.addEventListener('click', e => {
+        if (e.target === zone || e.target.closest('.upload-icon') || e.target.closest('.upload-title') || e.target.closest('.upload-sub')) {
+          input.click();
+        }
+      });
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+    }
+
+    function handleFile(file) {
+      hideError();
+      if (file.type !== 'application/pdf') { showUploadError('Solo se aceptan archivos PDF.'); return; }
+      if (file.size > 5 * 1024 * 1024) { showUploadError('El archivo no puede superar los 5MB.'); return; }
+      const reader = new FileReader();
+      reader.onload = e => {
+        appState.pdfBase64 = e.target.result.split(',')[1];
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('fileSelectedInfo').classList.remove('hidden');
+        const btn = document.getElementById('mainAnalyzeBtn');
+        btn.classList.remove('hidden');
+        btn.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ══════════════════════════════════
+    //  ANALYSIS
+    // ══════════════════════════════════
+    async function startAnalysis() {
+      if (!appState.pdfBase64) { showUploadError('Por favor seleccioná un archivo PDF primero.'); return; }
+      showSection('section-loading');
+      try {
+        const response = await fetch('/api/analyze-cv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pdfBase64: appState.pdfBase64 })
+        });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || 'Error al analizar el CV');
+        appState.analysis = data.analysis;
+        showSection('section-results');
+        renderResults(data.analysis);
+      } catch(err) {
+        showSection('section-upload');
+        showUploadError('Hubo un error al analizar tu CV. Por favor intentá de nuevo.');
+        console.error(err);
+      }
+    }
+
+    // ══════════════════════════════════
+    //  RENDER RESULTS
+    // ══════════════════════════════════
+    function renderResults(a) {
+      if (!a) return;
+      const score = a.puntaje || 0;
+      const nivel = a.nivel || a.estado || '—';
+      const nombre = a.nombre || '—';
+      const titulo = a.titulo || a.profesion || a.cargo || '—';
+      const resumen = a.resumen || a.descripcion || '';
+
+      document.getElementById('scoreNumber').textContent = score;
+      document.getElementById('scoreLevelBadge').textContent = nivel;
+      document.getElementById('scoreName').textContent = nombre;
+      document.getElementById('scoreTitle').textContent = titulo;
+      document.getElementById('scoreSummary').textContent = resumen;
+
+      const circumference = 2 * Math.PI * 45;
+      const ring = document.getElementById('scoreRingFill');
+      const offset = circumference - (score / 100) * circumference;
+      setTimeout(() => { ring.style.strokeDashoffset = offset; }, 150);
+
+      const badge = document.getElementById('scoreLevelBadge');
+      if (score >= 80) {
+        badge.style.cssText = 'background:rgba(106,158,72,0.15);color:#7DB84F;border-color:rgba(106,158,72,0.35)';
+        ring.style.stroke = '#7DB84F';
+      } else if (score >= 60) {
+        badge.style.cssText = 'background:rgba(240,165,0,0.12);color:#F0A500;border-color:rgba(240,165,0,0.3)';
+        ring.style.stroke = '#F0A500';
+      } else {
+        badge.style.cssText = 'background:rgba(255,107,122,0.1);color:#FF6B7A;border-color:rgba(255,107,122,0.25)';
+        ring.style.stroke = '#FF6B7A';
+      }
+
+      // Metrics
+      const metricsGrid = document.getElementById('metricsGrid');
+      metricsGrid.innerHTML = '';
+      const metricas = a.metricas || a.metrics || {};
+      Object.entries(metricas).forEach(([key, val]) => {
+        if (typeof val === 'number') {
+          const cls = val >= 80 ? 'good' : val >= 60 ? 'warn' : 'bad';
+          metricsGrid.innerHTML += `
+            <div class="metric-card">
+              <div class="metric-label">${key}</div>
+              <div class="metric-value ${cls}">${val}</div>
+              <div class="metric-bar"><div class="metric-bar-fill" style="width:${val}%"></div></div>
+            </div>`;
+        }
+      });
+
+      // Sections eval
+      const sectionsGrid = document.getElementById('sectionsGrid');
+      sectionsGrid.innerHTML = '';
+      const secciones = a.secciones || a.sections || [];
+      secciones.forEach(s => {
+        sectionsGrid.innerHTML += `
+          <div class="section-eval-card">
+            <div class="section-eval-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+              <span class="section-eval-name">${s.nombre || s.name || ''}</span>
+              <span class="section-eval-score">${s.puntaje || s.score || ''}%</span>
+            </div>
+            <div class="section-eval-body hidden">${s.comentario || s.comment || ''}</div>
+          </div>`;
+      });
+
+      renderList(document.getElementById('puntosFuertesList'), a.puntos_fuertes || a.fortalezas || []);
+      renderList(document.getElementById('erroresCriticosList'), a.errores_criticos || a.criticos || []);
+      renderList(document.getElementById('oportunidadesList'), a.oportunidades || []);
+
+      document.getElementById('consejoText').textContent = a.consejo || a.recomendacion || '';
+
+      const kw = document.getElementById('keywordsList');
+      kw.innerHTML = '';
+      (a.palabras_clave || a.keywords || []).forEach(k => {
+        kw.innerHTML += `<span class="keyword-tag">${k}</span>`;
+      });
+
+      if (appState.email) document.getElementById('premiumEmail').value = appState.email;
+    }
+
+    function renderList(ul, items) {
+      ul.innerHTML = '';
+      (items || []).forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = typeof item === 'string' ? item : (item.texto || item.text || JSON.stringify(item));
+        ul.appendChild(li);
+      });
+    }
+
+    function toggleSection(el) {
+      el.nextElementSibling.classList.toggle('hidden');
+    }
+
+    // ══════════════════════════════════
+    //  PREMIUM FLOW
+    // ══════════════════════════════════
+    function showPremiumForm() {
+      if (appState.email) document.getElementById('premiumEmail').value = appState.email;
+      showSection('section-premium-form');
+    }
+
+    async function startPayment() {
+      const email = document.getElementById('premiumEmail').value.trim();
+      const jobPosition = document.getElementById('jobPosition').value.trim();
+
+      if (!email || !email.includes('@')) {
+        document.getElementById('premiumEmail').style.borderColor = '#FF6B7A';
+        return;
+      }
+      appState.email = email;
+      appState.jobPosition = jobPosition;
+
+      const btn = document.getElementById('payBtn');
+      btn.disabled = true;
+      btn.textContent = 'Procesando...';
+
+      try {
+        const pdfBase64 = appState.pdfBase64;
+        const nombre = appState.analysis ? (appState.analysis.nombre || '') : '';
+
+        const saveRes = await fetch('/api/save-pdf', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pdfBase64, email, nombre, jobPosition })
+        });
+        const saveData = await saveRes.json();
+
+        const stateToSave = JSON.stringify({ pdfBase64, email, jobPosition });
+        sessionStorage.setItem('fma_state', stateToSave);
+        try { localStorage.setItem('fma_state', stateToSave); } catch(e) {}
+
+        const response = await fetch('/api/create-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, jobPosition, metadataUrl: saveData.metadataUrl })
+        });
+        const data = await response.json();
+
+        if (data.init_point) {
+          window.location.href = data.init_point;
+        } else {
+          throw new Error('No se pudo crear el pago');
+        }
+      } catch(err) {
+        btn.disabled = false;
+        btn.textContent = 'Pagar $4.990 con Mercado Pago';
+        alert('Error al procesar el pago. Por favor intentá de nuevo.');
+        console.error(err);
+      }
+    }
+
+    async function processPaymentSuccess(paymentId) {
+      try {
+        const response = await fetch('/api/rewrite-cv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pdfBase64: appState.pdfBase64,
+            paymentId,
+            jobPosition: appState.jobPosition,
+            email: appState.email
+          })
+        });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
+        if (data.rewrittenCV) {
+          appState.rewrittenCV = data.rewrittenCV;
+          // Limpiar estado guardado una vez que terminó el flujo
+          try { sessionStorage.removeItem('fma_state'); localStorage.removeItem('fma_state'); } catch(e) {}
+          renderPremiumCV(data.rewrittenCV);
+          showSection('section-premium-results');
+        } else {
+          throw new Error(data.error || 'No se recibió el CV reescrito');
+        }
+      } catch(err) {
+        showSection('section-upload');
+        showUploadError(
+          '¡Tu pago fue acreditado! Pero hubo un error al generar tu CV. ' +
+          'Contactanos a info@fmagestionhumana.com.ar indicando tu número de pago: ' + paymentId
+        );
+        console.error(err);
+      }
+    }
+
+    function renderPremiumCV(cvText) {
+      document.getElementById('cv-preview').textContent = cvText;
+    }
+
+    function buildCVHTML(cvText) { return cvText; }
+
+    // ══════════════════════════════════
+    //  DOWNLOADS
+    // ══════════════════════════════════
+    function downloadAnalysisPDF() { window.print(); }
+
+    function downloadPDF() {
+      const text = appState.rewrittenCV || '';
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'cv-profesional-fma.txt';
+      a.click(); URL.revokeObjectURL(url);
+    }
+
+    function downloadWord() { downloadPDF(); }
+
+    // ══════════════════════════════════
+    //  ERRORS
+    // ══════════════════════════════════
+    function showUploadError(msg) {
+      document.getElementById('uploadErrorMsg').textContent = msg;
+      document.getElementById('uploadError').classList.remove('hidden');
+    }
+    function hideError() { document.getElementById('uploadError').classList.add('hidden'); }
+    function showError(msg) { showUploadError(msg); }
+
+    function resetApp() {
+      appState = { pdfBase64: null, analysis: null, email: null, paymentId: null, jobPosition: null, rewrittenCV: null };
+      document.getElementById('fileInput').value = '';
+      document.getElementById('fileSelectedInfo').classList.add('hidden');
+      document.getElementById('mainAnalyzeBtn').classList.add('hidden');
+      try { sessionStorage.removeItem('fma_state'); localStorage.removeItem('fma_state'); } catch(e) {}
+      hideError();
+      showSection('section-upload');
+    }
+  </script>
+  <div style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a3a1a;border-top:2px solid #6A9E48;padding:8px 16px;font-size:12px;font-family:monospace;color:#7DB84F;text-align:center;">
+    🧪 MODO TEST — APIs mockeadas — Email gate eliminado — Solo premium pide email
+  </div>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

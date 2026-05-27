@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe Perfil Laboral · {{USER_NAME}} | FMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg-deep:#080D1A;--bg-card:#0F1829;--bg-card-2:#162033;--navy:#374878;--navy-dark:#2A3760;--navy-light:#4A5E96;--green:#6A9E48;--green-dark:#558035;--green-light:#7DB84F;--text-primary:#EFF3FF;--text-secondary:#8B9ABF;--text-muted:#4A5882;--border:rgba(55,72,120,0.25);--border-bright:rgba(55,72,120,0.5);--border-green:rgba(106,158,72,0.35);--radius:12px;--radius-lg:20px;--radius-xl:28px;--radius-full:9999px}
+    body{font-family:'Inter',system-ui,sans-serif;background:#04070F;color:var(--text-primary);line-height:1.65;min-height:100vh;padding:40px 20px}
+    .doc-header{position:sticky;top:20px;z-index:50;max-width:794px;margin:0 auto 20px;background:rgba(15,24,41,0.85);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius-full);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+    .doc-header-brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--text-secondary)}
+    .doc-header-brand strong{background:linear-gradient(135deg,var(--green-light),#A8D97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .doc-header-btn{background:rgba(106,158,72,0.15);color:var(--green-light);border:1px solid var(--border-green);border-radius:var(--radius-full);padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+    .page{max-width:794px;margin:0 auto 28px;background:linear-gradient(180deg,var(--bg-card) 0%,var(--bg-card-2) 100%);border:1px solid var(--border-bright);border-radius:var(--radius-xl);padding:56px 48px;box-shadow:0 20px 60px rgba(0,0,0,0.5);position:relative;overflow:hidden}
+    .page-section-num{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--green-light);margin-bottom:12px}
+    .page-section-title{font-size:30px;font-weight:800;color:var(--text-primary);letter-spacing:-0.02em;line-height:1.15;margin-bottom:8px}
+    .page-section-sub{font-size:15px;color:var(--text-muted);margin-bottom:32px}
+    .page-footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-muted)}
+    .page-footer-brand{background:linear-gradient(135deg,var(--green-light),#A8D97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800}
+    .cover{min-height:1000px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#080D1A 0%,#162033 60%,#0F1829 100%);position:relative}
+    .cover::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(106,158,72,0.18),transparent 50%),radial-gradient(circle at 70% 80%,rgba(55,72,120,0.25),transparent 50%);pointer-events:none}
+    .cover-content{position:relative;z-index:1}
+    .cover-brand{display:inline-flex;align-items:center;gap:8px;font-size:18px;font-weight:800;color:var(--text-secondary);margin-bottom:60px}
+    .cover-brand-fma{background:linear-gradient(135deg,var(--green-light),#A8D97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}
+    .cover-label{font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-light);padding:8px 18px;background:rgba(106,158,72,0.08);border:1px solid var(--border-green);border-radius:var(--radius-full);display:inline-block;margin-bottom:32px}
+    .cover-title{font-size:56px;font-weight:900;line-height:1;letter-spacing:-0.04em;margin-bottom:24px}
+    .cover-name{font-size:22px;font-weight:600;color:var(--text-secondary);margin-bottom:80px}
+    .cover-emoji{font-size:100px;margin-bottom:20px;filter:drop-shadow(0 4px 24px rgba(106,158,72,0.3))}
+    .cover-profile-name{font-size:60px;font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(135deg,var(--text-primary),var(--green-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px}
+    .cover-lema{font-size:20px;font-style:italic;color:var(--text-secondary);max-width:480px;margin:0 auto}
+    .cover-meta{position:absolute;bottom:50px;left:0;right:0;display:flex;justify-content:space-between;padding:0 56px;font-size:12px;color:var(--text-muted);z-index:1}
+    .lead{font-size:17px;color:var(--text-primary);line-height:1.75;margin-bottom:20px;font-weight:500}
+    .body-text{font-size:15px;color:var(--text-secondary);line-height:1.75;margin-bottom:16px}
+    .body-text strong{color:var(--text-primary);font-weight:700}
+    .glimpse-card{background:rgba(8,13,26,0.6);border:1px solid var(--border-green);border-radius:var(--radius-lg);padding:28px 32px;margin-bottom:24px}
+    .glimpse-header{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+    .glimpse-emoji{font-size:56px;line-height:1;flex-shrink:0}
+    .glimpse-name{font-size:28px;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--text-primary),var(--green-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:4px}
+    .glimpse-lema{font-size:14px;color:var(--text-secondary);font-style:italic}
+    .dims-mini{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:4px}
+    .dim-mini-row{display:flex;flex-direction:column;gap:4px}
+    .dim-mini-header{display:flex;justify-content:space-between;font-size:12px;font-weight:600}
+    .dim-mini-label{color:var(--text-secondary)}
+    .dim-mini-value{color:var(--green-light);font-weight:800}
+    .dim-mini-bar{height:5px;background:rgba(8,13,26,0.8);border-radius:var(--radius-full);overflow:hidden;border:1px solid var(--border)}
+    .dim-mini-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-light));border-radius:var(--radius-full)}
+    .decision-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(55,72,120,0.15);border:1px solid var(--border-bright);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-primary);margin-top:16px}
+    .insight-block{margin-bottom:28px;padding-left:24px;border-left:3px solid var(--green)}
+    .insight-block.weakness{border-left-color:var(--navy-light)}
+    .insight-block-title{font-size:19px;font-weight:800;color:var(--text-primary);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+    .insight-block-num{width:26px;height:26px;border-radius:50%;background:rgba(106,158,72,0.15);color:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+    .weakness .insight-block-num{background:rgba(55,72,120,0.25);color:var(--navy-light)}
+    .insight-block-text{font-size:14px;color:var(--text-secondary);line-height:1.7}
+    .insight-tip{margin-top:10px;padding:12px 14px;background:rgba(106,158,72,0.06);border:1px solid var(--border-green);border-radius:var(--radius);font-size:13px;color:var(--text-primary);line-height:1.6}
+    .insight-tip strong{color:var(--green-light);font-weight:700}
+    .weakness .insight-tip{background:rgba(55,72,120,0.1);border-color:var(--border-bright)}
+    .weakness .insight-tip strong{color:var(--navy-light)}
+    .feature-list{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+    .feature-item{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:rgba(8,13,26,0.5);border:1px solid var(--border);border-radius:var(--radius)}
+    .feature-icon{flex-shrink:0;width:32px;height:32px;background:rgba(106,158,72,0.15);border:1px solid var(--border-green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green-light);font-weight:800}
+    .feature-text{font-size:14px;color:var(--text-secondary);line-height:1.6}
+    .subheading{font-size:16px;font-weight:800;color:var(--text-primary);margin:28px 0 14px;display:flex;align-items:center;gap:10px}
+    .subheading::before{content:'';width:18px;height:2px;background:var(--green);border-radius:2px}
+    .env-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+    .env-card{padding:18px 20px;background:rgba(8,13,26,0.5);border-radius:var(--radius-lg);border:1px solid var(--border)}
+    .env-card.positive{border-color:var(--border-green)}
+    .env-card.negative{border-color:rgba(220,53,69,0.25)}
+    .env-card-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+    .env-card.positive .env-card-label{color:var(--green-light)}
+    .env-card.negative .env-card-label{color:#FF6B7A}
+    .env-card-list{list-style:none}
+    .env-card-list li{font-size:13px;color:var(--text-secondary);padding:6px 0;padding-left:16px;position:relative;line-height:1.5}
+    .env-card-list li::before{content:'·';position:absolute;left:4px;color:var(--text-muted);font-weight:800}
+    .env-card.positive .env-card-list li::before{color:var(--green)}
+    .env-card.negative .env-card-list li::before{color:#FF6B7A}
+    .interview-highlight{padding:24px 28px;background:linear-gradient(135deg,rgba(106,158,72,0.1),rgba(55,72,120,0.1));border:1px solid var(--border-green);border-radius:var(--radius-lg);margin-bottom:28px}
+    .interview-highlight-label{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--green-light);margin-bottom:10px}
+    .interview-highlight-text{font-size:15px;color:var(--text-primary);line-height:1.6}
+    .quote-box{padding:18px 22px;background:rgba(15,24,41,0.7);border-left:3px solid var(--green-light);border-radius:0 var(--radius) var(--radius) 0;margin:14px 0;font-style:italic;font-size:14px;color:var(--text-primary);line-height:1.6}
+    .qa-block{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+    .qa-block:last-child{border-bottom:none;padding-bottom:0}
+    .qa-question{font-size:15px;font-weight:700;color:var(--green-light);margin-bottom:12px}
+    .qa-answer{font-size:14px;color:var(--text-primary);line-height:1.7;font-style:italic;padding:14px 16px;background:rgba(8,13,26,0.5);border-radius:var(--radius);border-left:2px solid var(--green)}
+    .qa-note{font-size:12px;color:var(--text-muted);margin-top:8px;padding-left:16px;font-style:italic}
+    .pitch-box{padding:28px 32px;background:linear-gradient(135deg,rgba(55,72,120,0.2),rgba(106,158,72,0.1));border:1px solid var(--border-green);border-radius:var(--radius-xl);margin-top:12px}
+    .pitch-box-label{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--green-light);margin-bottom:10px}
+    .pitch-box-text{font-size:15px;color:var(--text-primary);line-height:1.7;font-style:italic}
+    .closing-card{text-align:center;padding:40px 32px}
+    .closing-emoji{font-size:64px;margin-bottom:16px}
+    .closing-title{font-size:32px;font-weight:900;letter-spacing:-0.02em;margin-bottom:16px;background:linear-gradient(135deg,var(--text-primary),var(--green-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .closing-text{font-size:16px;color:var(--text-secondary);line-height:1.7;max-width:540px;margin:0 auto 28px}
+    @media print{body{background:#fff;padding:0}.doc-header{display:none}.page{page-break-after:always;box-shadow:none;border-radius:0;max-width:none;margin:0}}
+    @media (max-width:760px){.page{padding:36px 24px}.cover-title{font-size:36px}.cover-profile-name{font-size:42px}.env-grid,.dims-mini{grid-template-columns:1fr}.cover-meta{padding:0 28px}}
+  </style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <div class="doc-header-brand"><strong>FMA</strong> · Informe Perfil Laboral</div>
+    <button class="doc-header-btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  </div>
+
+  <!-- 1. PORTADA -->
+  <section class="page cover">
+    <div class="cover-meta"><span>Generado el {{DATE}}</span><span>N° {{REPORT_ID}}</span></div>
+    <div class="cover-content">
+      <div class="cover-brand"><span class="cover-brand-fma">FMA</span><span style="opacity:0.6">·</span><span>Gestión Humana</span></div>
+      <div class="cover-label">Informe Perfil Laboral</div>
+      <h1 class="cover-title">Tu juego<br>habla por vos.</h1>
+      <p class="cover-name">{{USER_NAME}}</p>
+      <div class="cover-emoji">{{PROFILE_EMOJI}}</div>
+      <div class="cover-profile-name">{{PROFILE_NAME}}</div>
+      <p class="cover-lema">"{{PROFILE_LEMA}}"</p>
+    </div>
+  </section>
+
+  <!-- 2. PERFIL EN UNA MIRADA -->
+  <section class="page">
+    <div class="page-section-num">01 · Tu perfil en una mirada</div>
+    <h2 class="page-section-title">Quién sos profesionalmente</h2>
+    <p class="page-section-sub">Una síntesis personalizada de tu perfil conductual.</p>
+
+    <div class="glimpse-card">
+      <div class="glimpse-header">
+        <div class="glimpse-emoji">{{PROFILE_EMOJI}}</div>
+        <div>
+          <div class="glimpse-name">{{PROFILE_NAME}}</div>
+          <div class="glimpse-lema">"{{PROFILE_LEMA}}"</div>
+        </div>
+      </div>
+      <div class="dims-mini">
+        <div class="dim-mini-row"><div class="dim-mini-header"><span class="dim-mini-label">Personas vs Tareas</span><span class="dim-mini-value">{{SCORE_FOCO}}%</span></div><div class="dim-mini-bar"><div class="dim-mini-fill" style="width:{{SCORE_FOCO}}%"></div></div></div>
+        <div class="dim-mini-row"><div class="dim-mini-header"><span class="dim-mini-label">Reflexión vs Acción</span><span class="dim-mini-value">{{SCORE_RITMO}}%</span></div><div class="dim-mini-bar"><div class="dim-mini-fill" style="width:{{SCORE_RITMO}}%"></div></div></div>
+        <div class="dim-mini-row"><div class="dim-mini-header"><span class="dim-mini-label">Flexibilidad vs Estructura</span><span class="dim-mini-value">{{SCORE_ESTRUCTURA}}%</span></div><div class="dim-mini-bar"><div class="dim-mini-fill" style="width:{{SCORE_ESTRUCTURA}}%"></div></div></div>
+        <div class="dim-mini-row"><div class="dim-mini-header"><span class="dim-mini-label">Diplomacia vs Directez</span><span class="dim-mini-value">{{SCORE_COMUNICACION}}%</span></div><div class="dim-mini-bar"><div class="dim-mini-fill" style="width:{{SCORE_COMUNICACION}}%"></div></div></div>
+      </div>
+      <div class="decision-pill">⏱️ <strong>Estilo de decisión:</strong> {{REACTION_VALUE}} · promedio {{REACTION_AVG}}s por escenario</div>
+    </div>
+
+    <p class="lead">{{INTRO_PARAGRAFO_1}}</p>
+    <p class="body-text">{{INTRO_PARAGRAFO_2}}</p>
+    <p class="body-text">{{INTRO_PARAGRAFO_3}}</p>
+    <p class="body-text">{{INTRO_PARAGRAFO_4}}</p>
+
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 3. FORTALEZAS -->
+  <section class="page">
+    <div class="page-section-num">02 · Aspectos a destacar</div>
+    <h2 class="page-section-title">Tus fortalezas en profundidad</h2>
+    <p class="page-section-sub">Las áreas donde tu perfil te diferencia, con contexto sobre cómo se manifiestan.</p>
+    {{FORTALEZAS_HTML}}
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 4. DESARROLLO -->
+  <section class="page">
+    <div class="page-section-num">03 · Aspectos a desarrollar</div>
+    <h2 class="page-section-title">Áreas con espacio para crecer</h2>
+    <p class="page-section-sub">No son debilidades — son la otra cara de tus fortalezas. Trabajarlas te potencia.</p>
+    {{DESARROLLO_HTML}}
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 5. COMUNICACIÓN -->
+  <section class="page">
+    <div class="page-section-num">04 · Tu estilo de comunicación</div>
+    <h2 class="page-section-title">Cómo te comunicás y cómo te perciben</h2>
+    <div class="feature-list">{{COMUNICACION_BULLETS}}</div>
+    <div class="subheading">Malinterpretaciones más comunes</div>
+    <p class="body-text">{{COMUNICACION_MALINTERPRETACIONES}}</p>
+    <div class="subheading">Recomendaciones prácticas</div>
+    <p class="body-text">{{COMUNICACION_RECOMENDACIONES}}</p>
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 6. DECISIONES -->
+  <section class="page">
+    <div class="page-section-num">05 · Tu estilo de toma de decisiones</div>
+    <h2 class="page-section-title">Cómo decidís</h2>
+    <p class="lead">{{DECISIONES_INTRO}}</p>
+    <div class="subheading">En qué decisiones rendís mejor</div>
+    <div class="feature-list">{{DECISIONES_RINDE_MEJOR}}</div>
+    <div class="subheading">En qué decisiones te trabás</div>
+    <div class="feature-list">{{DECISIONES_SE_TRABA}}</div>
+    <div class="insight-tip" style="margin-top:24px"><strong>Regla útil:</strong> {{DECISIONES_REGLA}}</div>
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 7. AMBIENTES -->
+  <section class="page">
+    <div class="page-section-num">06 · Ambientes laborales donde brillás</div>
+    <h2 class="page-section-title">El contexto que te potencia</h2>
+    <div class="env-grid">
+      <div class="env-card positive"><div class="env-card-label">✓ Te potencia</div><ul class="env-card-list">{{AMBIENTES_POTENCIA}}</ul></div>
+      <div class="env-card negative"><div class="env-card-label">✗ Te desgasta</div><ul class="env-card-list">{{AMBIENTES_DESGASTA}}</ul></div>
+    </div>
+    <div class="subheading">Jefe ideal</div>
+    <p class="body-text">{{AMBIENTES_JEFE_IDEAL}}</p>
+    <div class="subheading">Cultura organizacional que te energiza</div>
+    <p class="body-text">{{AMBIENTES_CULTURA}}</p>
+    <div class="subheading">Señales tempranas en una entrevista</div>
+    <p class="body-text">{{AMBIENTES_ENTREVISTA_TIPS}}</p>
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 8. LIDERAZGO -->
+  <section class="page">
+    <div class="page-section-num">07 · Tu estilo de liderazgo</div>
+    <h2 class="page-section-title">Cómo liderás equipos</h2>
+    <p class="lead">{{LIDERAZGO_INTRO}}</p>
+    <div class="subheading">Cómo dirigís</div><p class="body-text">{{LIDERAZGO_COMO_DIRIGE}}</p>
+    <div class="subheading">Cómo formás gente</div><p class="body-text">{{LIDERAZGO_COMO_FORMA}}</p>
+    <div class="subheading">Lo que te cuesta</div><p class="body-text">{{LIDERAZGO_LO_CUESTA}}</p>
+    <div class="insight-tip"><strong>Recordatorio importante:</strong> {{LIDERAZGO_RECORDATORIO}}</div>
+    <div class="subheading">Tu impacto típico en 12 meses</div><p class="body-text">{{LIDERAZGO_IMPACTO_12_MESES}}</p>
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 9. ENTREVISTA -->
+  <section class="page">
+    <div class="page-section-num">08 · Cómo presentarte en entrevista</div>
+    <h2 class="page-section-title">Tu guía de entrevista</h2>
+    <div class="interview-highlight">
+      <div class="interview-highlight-label">✨ El diferencial de tu perfil</div>
+      <div class="interview-highlight-text">{{ENTREVISTA_DIFERENCIAL}}</div>
+    </div>
+    <div class="subheading">Frases que te conviene usar</div>
+    {{ENTREVISTA_FRASES}}
+    <div class="subheading">Respuestas modelo a las preguntas más comunes</div>
+    {{ENTREVISTA_QA}}
+    <div class="subheading">Errores comunes que cometen perfiles como el tuyo</div>
+    <div class="feature-list">{{ENTREVISTA_ERRORES}}</div>
+    <div class="pitch-box">
+      <div class="pitch-box-label">🎤 Tu pitch de 60 segundos</div>
+      <div class="pitch-box-text">{{ENTREVISTA_PITCH_60_SEGUNDOS}}</div>
+    </div>
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>{{USER_NAME}}</span></div>
+  </section>
+
+  <!-- 10. CIERRE -->
+  <section class="page">
+    <div class="closing-card">
+      <div class="closing-emoji">{{PROFILE_EMOJI}}</div>
+      <h2 class="closing-title">El día es hoy.</h2>
+      <p class="closing-text">{{CIERRE_PARAGRAFO_1}}</p>
+      <p class="closing-text">{{CIERRE_PARAGRAFO_2}}</p>
+    </div>
+    <div class="page-footer"><span class="page-footer-brand">FMA Gestión Humana</span><span>Fin del informe</span></div>
+  </section>
+
+</body>
+</html>
