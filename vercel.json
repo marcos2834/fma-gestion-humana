@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/mi-perfil-laboral", "destination": "/perfil.html" },
-    { "source": "/mi-perfil-laboral/", "destination": "/perfil.html" },
+    { "source": "/mi-perfil-laboral", "destination": "/perfil" },
+    { "source": "/mi-perfil-laboral/", "destination": "/perfil" },
     { "source": "/informe/:id", "destination": "/api/informe/:id" }
   ],
   "headers": [
