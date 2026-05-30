@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
+    "@sparticuz/chromium-min": "^131.0.0",
     "@vercel/blob": "^0.27.0",
     "mercadopago": "^2.0.15",
+    "puppeteer-core": "^23.10.0",
     "resend": "^4.0.0"
   },
   "devDependencies": {

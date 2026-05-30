@@ -7,6 +7,7 @@ import { PROFILES } from '../lib/profiles.js';
 import { generateReportContent } from '../lib/ai-report.js';
 import { renderReportHTML } from '../lib/render-report.js';
 import { sendReportEmail } from '../lib/email-sender.js';
+import { generatePDF } from '../lib/pdf-generator.js';
 
 const mp = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
 
@@ -70,21 +71,32 @@ export default async function handler(req, res) {
     // 2) Renderizar HTML final del informe
     const html = renderReportHTML({ meta, profile, scores, content });
 
-    // 3) Subir a Vercel Blob (público pero con URL imposible de adivinar)
+    // 3) Subir HTML a Vercel Blob (público pero con URL imposible de adivinar)
     await put(blobKey, html, {
       access: 'public',
       contentType: 'text/html; charset=utf-8',
       addRandomSuffix: false
     });
 
-    // 4) Enviar email con link al informe
+    // 4) Generar PDF del informe (resilient: si falla, mandamos email sin adjunto)
+    let pdfBuffer = null;
+    try {
+      console.log(`Generando PDF para ${meta.report_id}...`);
+      pdfBuffer = await generatePDF(html);
+      console.log(`PDF generado OK (${pdfBuffer.length} bytes)`);
+    } catch (pdfErr) {
+      console.error('Error generando PDF, sigo sin adjunto:', pdfErr.message);
+    }
+
+    // 5) Enviar email con link al informe + PDF adjunto (si se generó)
     const baseUrl = process.env.APP_BASE_URL || 'https://fmagestionhumana.com.ar';
     await sendReportEmail({
       to: meta.email,
       name: meta.name,
       profileName: meta.profile_name,
       profileEmoji: profile.emoji,
-      reportUrl: `${baseUrl}/informe/${meta.report_id}`
+      reportUrl: `${baseUrl}/informe/${meta.report_id}`,
+      pdfBuffer
     });
 
     console.log(`Informe ${meta.report_id} entregado a ${meta.email}.`);

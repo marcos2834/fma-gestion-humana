@@ -1,0 +1,17 @@
+{
+        "name": "fma-cv-analyzer",
+        "version": "1.0.0",
+        "description": "Analizador de CV con IA - FMA Gestion Humana",
+        "private": true,
+        "engines": {
+                "node": ">=18.x"
+        },
+        "dependencies": {
+                "@anthropic-ai/sdk": "^0.39.0",
+                "@vercel/blob": "latest",
+                "docx": "^8.5.0",
+                "pdf-parse": "^1.1.1",
+                "pdfkit": "^0.15.0",
+                "resend": "^4.0.0"
+        }
+}
