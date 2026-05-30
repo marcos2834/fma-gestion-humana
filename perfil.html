@@ -1739,14 +1739,45 @@ function calculateScores() {
 }
 
 function matchProfile(scores) {
-  let bestKey = null, bestDist = Infinity;
+  // Dot product de las desviaciones del centro (50,50,50,50).
+  // Premia perfiles alineados EN DIRECCIÓN con la tendencia del usuario.
+  // Esto evita el sesgo a perfiles centrales (que pasaba con distancia euclidiana).
+  const userDev = {
+    foco: scores.foco - 50,
+    ritmo: scores.ritmo - 50,
+    estructura: scores.estructura - 50,
+    comunicacion: scores.comunicacion - 50
+  };
+
+  const userMag = Math.sqrt(
+    userDev.foco*userDev.foco + userDev.ritmo*userDev.ritmo +
+    userDev.estructura*userDev.estructura + userDev.comunicacion*userDev.comunicacion
+  );
+
+  // Edge case: usuario perfectamente balanceado (sin tendencias claras).
+  // Caemos en euclidiana para evitar empate en 0.
+  if (userMag < 5) {
+    let bestKey = null, bestDist = Infinity;
+    Object.keys(PROFILES).forEach(key => {
+      const v = PROFILES[key].vector;
+      const dist = Math.sqrt(
+        Math.pow(scores.foco - v.foco, 2) + Math.pow(scores.ritmo - v.ritmo, 2) +
+        Math.pow(scores.estructura - v.estructura, 2) + Math.pow(scores.comunicacion - v.comunicacion, 2)
+      );
+      if (dist < bestDist) { bestDist = dist; bestKey = key; }
+    });
+    return bestKey;
+  }
+
+  // Caso normal: dot product
+  let bestKey = null, bestScore = -Infinity;
   Object.keys(PROFILES).forEach(key => {
     const v = PROFILES[key].vector;
-    const dist = Math.sqrt(
-      Math.pow(scores.foco - v.foco, 2) + Math.pow(scores.ritmo - v.ritmo, 2) +
-      Math.pow(scores.estructura - v.estructura, 2) + Math.pow(scores.comunicacion - v.comunicacion, 2)
-    );
-    if (dist < bestDist) { bestDist = dist; bestKey = key; }
+    const dot = userDev.foco * (v.foco - 50) +
+                userDev.ritmo * (v.ritmo - 50) +
+                userDev.estructura * (v.estructura - 50) +
+                userDev.comunicacion * (v.comunicacion - 50);
+    if (dot > bestScore) { bestScore = dot; bestKey = key; }
   });
   return bestKey;
 }
