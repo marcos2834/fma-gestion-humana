@@ -1,21 +1,17 @@
-import { list } from '@vercel/blob';
+import { list, put } from '@vercel/blob';
 
 export default async function handler(req, res) {
+  // ?test=put -> intenta escribir un blob de prueba
+  if (req.query?.test === 'put') {
+    try {
+      const result = await put('debug/manual-test-' + Date.now() + '.json', JSON.stringify({test:true, ts: new Date().toISOString()}), { access: 'public', contentType: 'application/json', addRandomSuffix: false });
+      return res.status(200).json({ put_success: true, url: result.url, downloadUrl: result.downloadUrl });
+    } catch(e) { return res.status(500).json({ put_error: e.message, name: e.name, stack: e.stack?.split('\n').slice(0,5) }); }
+  }
   const prefix = req.query?.prefix || '';
   try {
     const { blobs } = await list({ prefix, limit: 100 });
     blobs.sort((a,b) => b.uploadedAt.localeCompare(a.uploadedAt));
-    const list_only = req.query?.list === '1';
-    if (list_only) {
-      return res.status(200).json({ count: blobs.length, blobs: blobs.slice(0,20).map(b => ({pathname: b.pathname, size: b.size, uploaded: b.uploadedAt})) });
-    }
-    const results = [];
-    for (const blob of blobs.slice(0, 15)) {
-      if (!blob.pathname.endsWith('.json')) { results.push({key: blob.pathname, size: blob.size, uploaded: blob.uploadedAt, type: 'non-json'}); continue; }
-      const r = await fetch(blob.url);
-      const data = await r.json();
-      results.push({ key: blob.pathname, size: blob.size, uploaded: blob.uploadedAt, ...data });
-    }
-    res.status(200).json({ count: blobs.length, items: results });
-  } catch (e) { res.status(500).json({ error: e.message, stack: e.stack?.split('\n').slice(0,3) }); }
+    res.status(200).json({ env: { hasBlobToken: !!process.env.BLOB_READ_WRITE_TOKEN, tokenPrefix: process.env.BLOB_READ_WRITE_TOKEN?.slice(0,18) }, count: blobs.length, blobs: blobs.slice(0,15).map(b => ({pathname: b.pathname, size: b.size, uploaded: b.uploadedAt})) });
+  } catch (e) { res.status(500).json({ list_error: e.message }); }
 }
