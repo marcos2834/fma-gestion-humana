@@ -5,6 +5,10 @@
     { "source": "/mi-perfil-laboral/", "destination": "/perfil" },
     { "source": "/informe/:id", "destination": "/api/informe/:id" }
   ],
+  "redirects": [
+    { "source": "/cv-analizador", "destination": "https://fma-analizador-cv.vercel.app", "permanent": false },
+    { "source": "/cv-analizador/:path*", "destination": "https://fma-analizador-cv.vercel.app/:path*", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",
