@@ -3,11 +3,18 @@
   "rewrites": [
     { "source": "/mi-perfil-laboral", "destination": "/perfil" },
     { "source": "/mi-perfil-laboral/", "destination": "/perfil" },
-    { "source": "/informe/:id", "destination": "/api/informe/:id" }
+    { "source": "/informe/:id", "destination": "/api/informe/:id" },
+
+    { "source": "/api/analyze-cv", "destination": "https://fma-analizador-cv.vercel.app/api/analyze-cv" },
+    { "source": "/api/rewrite-cv", "destination": "https://fma-analizador-cv.vercel.app/api/rewrite-cv" },
+    { "source": "/api/save-pdf", "destination": "https://fma-analizador-cv.vercel.app/api/save-pdf" },
+    { "source": "/api/create-payment", "destination": "https://fma-analizador-cv.vercel.app/api/create-payment" },
+    { "source": "/logo-fma.png", "destination": "https://fma-analizador-cv.vercel.app/logo-fma.png" },
+    { "source": "/analizador-cv/:path*", "destination": "https://fma-analizador-cv.vercel.app/:path*" }
   ],
   "redirects": [
-    { "source": "/cv-analizador", "destination": "https://fma-analizador-cv.vercel.app", "permanent": false },
-    { "source": "/cv-analizador/:path*", "destination": "https://fma-analizador-cv.vercel.app/:path*", "permanent": false }
+    { "source": "/cv-analizador", "destination": "/analizador-cv", "permanent": false },
+    { "source": "/cv-analizador/:path*", "destination": "/analizador-cv/:path*", "permanent": false }
   ],
   "headers": [
     {
