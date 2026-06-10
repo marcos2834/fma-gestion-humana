@@ -1,41 +1,101 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/mi-perfil-laboral", "destination": "/perfil" },
-    { "source": "/mi-perfil-laboral/", "destination": "/perfil" },
-    { "source": "/informe/:id", "destination": "/api/informe/:id" },
-
-    { "source": "/api/analyze-cv", "destination": "https://fma-analizador-cv.vercel.app/api/analyze-cv" },
-    { "source": "/api/rewrite-cv", "destination": "https://fma-analizador-cv.vercel.app/api/rewrite-cv" },
-    { "source": "/api/save-pdf", "destination": "https://fma-analizador-cv.vercel.app/api/save-pdf" },
-    { "source": "/api/create-payment", "destination": "https://fma-analizador-cv.vercel.app/api/create-payment" },
-    { "source": "/logo-fma.png", "destination": "https://fma-analizador-cv.vercel.app/logo-fma.png" },
-    { "source": "/analizador-cv/:path*", "destination": "https://fma-analizador-cv.vercel.app/:path*" }
+    {
+      "source": "/mi-perfil-laboral",
+      "destination": "/perfil"
+    },
+    {
+      "source": "/mi-perfil-laboral/",
+      "destination": "/perfil"
+    },
+    {
+      "source": "/informe/:id",
+      "destination": "/api/informe/:id"
+    },
+    {
+      "source": "/api/analyze-cv",
+      "destination": "https://fma-analizador-cv.vercel.app/api/analyze-cv"
+    },
+    {
+      "source": "/api/rewrite-cv",
+      "destination": "https://fma-analizador-cv.vercel.app/api/rewrite-cv"
+    },
+    {
+      "source": "/api/save-pdf",
+      "destination": "https://fma-analizador-cv.vercel.app/api/save-pdf"
+    },
+    {
+      "source": "/api/create-payment",
+      "destination": "https://fma-analizador-cv.vercel.app/api/create-payment"
+    },
+    {
+      "source": "/api/upload-blob",
+      "destination": "https://fma-analizador-cv.vercel.app/api/upload-blob"
+    },
+    {
+      "source": "/api/verify-and-process",
+      "destination": "https://fma-analizador-cv.vercel.app/api/verify-and-process"
+    },
+    {
+      "source": "/logo-fma.png",
+      "destination": "https://fma-analizador-cv.vercel.app/logo-fma.png"
+    },
+    {
+      "source": "/analizador-cv/:path*",
+      "destination": "https://fma-analizador-cv.vercel.app/:path*"
+    }
   ],
   "redirects": [
-    { "source": "/cv-analizador", "destination": "/analizador-cv", "permanent": false },
-    { "source": "/cv-analizador/:path*", "destination": "/analizador-cv/:path*", "permanent": false }
+    {
+      "source": "/cv-analizador",
+      "destination": "/analizador-cv",
+      "permanent": false
+    },
+    {
+      "source": "/cv-analizador/:path*",
+      "destination": "/analizador-cv/:path*",
+      "permanent": false
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     },
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store, max-age=0" }
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
       ]
     }
   ],
   "functions": {
-    "api/mercadopago-webhook-perfil.js": { "maxDuration": 60 },
-    "api/create-perfil-payment.js": { "maxDuration": 10 },
-    "api/informe/[id].js": { "maxDuration": 10 }
+    "api/mercadopago-webhook-perfil.js": {
+      "maxDuration": 60
+    },
+    "api/create-perfil-payment.js": {
+      "maxDuration": 10
+    },
+    "api/informe/[id].js": {
+      "maxDuration": 10
+    }
   },
   "cleanUrls": true,
   "trailingSlash": false
